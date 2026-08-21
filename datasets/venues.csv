@@ -1,0 +1,7 @@
+id,name,capacity,is_virtual
+1,Seminar Hall A,60,False
+2,Seminar Hall B,40,False
+3,Placement Cell Room 1,15,False
+4,Placement Cell Room 2,15,False
+5,Virtual Room — Zoom A,100,True
+6,Virtual Room — Zoom B,100,True

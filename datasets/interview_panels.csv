@@ -1,0 +1,18 @@
+id,name,drive_id,members,status
+1,Panel 1 — Drive 1,1,"Nathaniel Chatterjee, Jhalak Kale",Active
+2,Panel 1 — Drive 2,2,"Pallavi Pradhan, Ati Sahni",Active
+3,Panel 2 — Drive 2,2,"Chameli Banerjee, Chasmum Dhar, Tanmayi Jayaraman",Active
+4,Panel 1 — Drive 3,3,"Azaan Soni, Akshay Chowdhury, Wahab Shah",Active
+5,Panel 2 — Drive 3,3,"Anamika Bajaj, Dev Dua, Dhruv Rao",Active
+6,Panel 1 — Drive 4,4,"Ayushman Barad, Rachana Shroff",Active
+7,Panel 1 — Drive 5,5,"Parth Arya, Dev Mand, Varenya Jain",Active
+8,Panel 1 — Drive 6,6,"Arjun Magar, Wahab Sem",Active
+9,Panel 2 — Drive 6,6,"Chaitanya Saran, Vincent Batta, Januja Chakrabarti",Active
+10,Panel 1 — Drive 7,7,"Tanmayi Sodhi, Kashvi Prabhu",Active
+11,Panel 2 — Drive 7,7,"Ekani Palan, Owen Ratti",Active
+12,Panel 1 — Drive 8,8,"Unni Palan, Manbir Talwar",Active
+13,Panel 2 — Drive 8,8,"Jagvi Sankaran, Zehaan Devan, Jagrati Shukla",Active
+14,Panel 1 — Drive 9,9,"Nitesh Basak, Yashawini Dhillon",Active
+15,Panel 2 — Drive 9,9,"Nathaniel Dewan, Meghana Bumb",Active
+16,Panel 1 — Drive 10,10,"Isaac Thaker, Zinal Chawla",Active
+17,Panel 2 — Drive 10,10,"Aachal Gala, Gaurika Suresh",Active

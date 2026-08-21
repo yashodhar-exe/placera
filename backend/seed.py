@@ -1,7 +1,7 @@
 import datetime
 from sqlalchemy.orm import Session
 from backend.database import SessionLocal, engine, Base
-from backend.models import Student, Drive, EligibilityResult, MatchScore, Interview, ExceptionItem, Notification
+from backend.models import Student, Drive, EligibilityResult, MatchScore, Interview, ExceptionItem, Notification, User, UserProvider
 
 def calculate_derived_scores(student: Student):
     # 1. API Score (Academic Performance Index) - out of 100
@@ -247,6 +247,25 @@ def seed_db():
 
         db.commit()
         print(f"Seeded {len(students)} students successfully.")
+
+        # 1b. Seed Users for Auth
+        users = [
+            User(name="Aditya Sharma", email="aditya.sharma@example.com", role="student"),
+            User(name="Rohan Verma", email="rohan.verma@example.com", role="student"),
+            User(name="Sneha Patil", email="sneha.patil@example.com", role="student"),
+            User(name="Pooja Rao", email="pooja.rao@example.com", role="student"),
+            User(name="Acme Systems Recruiter Partner", email="recruiter@acme.com", role="recruiter"),
+            User(name="Maya Chen", email="maya.chen@placement.edu", role="tpo"),
+            User(name="Rajesh Kumar", email="rajesh.kumar@placement.edu", role="tpo"),
+            User(name="Sunita Rao", email="sunita.rao@placement.edu", role="tpo"),
+        ]
+        
+        for u in users:
+            u.set_password("password123")
+            db.add(u)
+            
+        db.commit()
+        print(f"Seeded {len(users)} users successfully.")
 
         # 2. Seed Jobs / Drives
         drives = [

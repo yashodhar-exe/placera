@@ -63,12 +63,64 @@ export default function Page() {
   const [view, setView] = useState<'landing' | 'login' | 'app'>('landing');
   const [user, setUser] = useState<any>(null);
 
+  // Check if session exists in localStorage
+  useEffect(() => {
+    const savedUser = localStorage.getItem('placement_ops_user');
+    const token = localStorage.getItem('placement_ops_token');
+    if (savedUser && token) {
+      try {
+        const parsed = JSON.parse(savedUser);
+        setUser(parsed);
+        setView('app');
+      } catch (e) {
+        console.error("Failed to restore session:", e);
+      }
+    }
+  }, []);
+
+  // Intercept window.fetch to attach token automatically
+  useEffect(() => {
+    const originalFetch = window.fetch;
+    window.fetch = async (input, init) => {
+      const token = localStorage.getItem('placement_ops_token');
+      if (token) {
+        init = init || {};
+        init.headers = init.headers || {};
+        if (init.headers instanceof Headers) {
+          init.headers.set('Authorization', `Bearer ${token}`);
+        } else if (Array.isArray(init.headers)) {
+          const hasAuth = init.headers.some(([k]) => k.toLowerCase() === 'authorization');
+          if (!hasAuth) {
+            init.headers.push(['Authorization', `Bearer ${token}`]);
+          }
+        } else {
+          if (!init.headers['Authorization'] && !init.headers['authorization']) {
+            init.headers['Authorization'] = `Bearer ${token}`;
+          }
+        }
+      }
+      return originalFetch(input, init);
+    };
+    return () => {
+      window.fetch = originalFetch;
+    };
+  }, []);
+
   const handleLoginSuccess = (loginUser: any) => {
+    if (loginUser.token) {
+      localStorage.setItem('placement_ops_token', loginUser.token);
+    }
+    localStorage.setItem('placement_ops_user', JSON.stringify({
+      role: loginUser.role,
+      user: loginUser.user
+    }));
     setUser(loginUser);
     setView('app');
   };
 
   const handleLogout = () => {
+    localStorage.removeItem('placement_ops_token');
+    localStorage.removeItem('placement_ops_user');
     setUser(null);
     setView('landing');
   };
@@ -213,7 +265,7 @@ function Landing({ onOpen }: { onOpen: () => void }) {
         <span>Human-led. AI-assisted.</span>
       </footer>
     </main>
-  );
+);
 }
 
 // ----------------------------------------------------
@@ -223,12 +275,16 @@ function LoginGate({ onLoginSuccess, onBack }: { onLoginSuccess: (user: any) => 
   const [role, setRole] = useState<'student' | 'recruiter' | 'tpo'>('tpo');
   const [tpoMethod, setTpoMethod] = useState<'google' | 'number' | 'mail'>('google');
   const [isSignUp, setIsSignUp] = useState(false);
+  const [useMockQuickLogin, setUseMockQuickLogin] = useState(false);
   
   // Input fields
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
   const [otp, setOtp] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   // Designated Head of Placements (TPO) for ease of testing
   const tpoHeads = [
@@ -237,111 +293,81 @@ function LoginGate({ onLoginSuccess, onBack }: { onLoginSuccess: (user: any) => 
     { name: 'Sunita Rao', email: 'sunita.rao@placement.edu', phone: '+919999933333' }
   ];
 
-  // Listen to Supabase Auth state changes (triggers on callback redirect)
+  // Sync default emails when role shifts
   useEffect(() => {
-    if (!supabase) return;
-
-    // Check current session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        handleSupabaseSession(session);
-      }
-    });
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session) {
-        handleSupabaseSession(session);
-      }
-    });
-
-    return () => subscription.unsubscribe();
+    if (role === 'tpo') {
+      setEmail(tpoHeads[0].email);
+    } else if (role === 'student') {
+      setEmail('aditya.sharma@example.com');
+    } else {
+      setEmail('');
+    }
+    setError('');
   }, [role]);
 
-  const handleSupabaseSession = async (session: any) => {
+  const handleSocialAction = async (provider: 'google' | 'linkedin' | 'github') => {
     setLoading(true);
+    setError('');
+    const redirectUri = `${window.location.origin}/auth/callback`;
+    const state = Math.random().toString(36).substring(2, 15);
+    
+    // Save oauth temporary state
+    localStorage.setItem('placement_ops_oauth_provider', provider);
+    localStorage.setItem('placement_ops_oauth_role', role);
+    localStorage.setItem('placement_ops_oauth_state', state);
+
     try {
-      const res = await fetch(`${BACKEND_URL}/auth/supabase-login`, {
+      const res = await fetch(`${BACKEND_URL}/auth/oauth-url?provider=${provider}&role=${role}&redirect_uri=${encodeURIComponent(redirectUri)}`);
+      if (res.ok) {
+        const data = await res.json();
+        localStorage.setItem('placement_ops_oauth_state', data.state);
+        window.location.href = data.url;
+      } else {
+        throw new Error("Failed to get OAuth url from backend.");
+      }
+    } catch (err) {
+      console.warn("Backend offline or error fetching OAuth url. Falling back to local callback redirect.");
+      setTimeout(() => {
+        window.location.href = `/auth/callback?code=mock-code-${provider}-${Date.now()}&state=${state}`;
+      }, 800);
+    }
+  };
+
+  const handleEmailAuth = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    const endpoint = isSignUp ? '/auth/register' : '/auth/login-email';
+    const body = isSignUp 
+      ? { name, email, password, role }
+      : { email, password };
+
+    try {
+      const res = await fetch(`${BACKEND_URL}${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          access_token: session.access_token,
-          role,
-          provider: session.user?.app_metadata?.provider || 'google'
-        })
+        body: JSON.stringify(body)
       });
+
       if (res.ok) {
         const data = await res.json();
         onLoginSuccess(data);
+      } else {
+        const errData = await res.json();
+        setError(errData.detail || 'Authentication failed.');
       }
     } catch (err) {
-      console.error("Supabase authentication session sync error:", err);
+      setError('Unable to reach backend database. Please run the backend or use Demo Mock login.');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSocialAction = async (provider: 'google' | 'linkedin' | 'github') => {
-    setLoading(true);
-    if (supabase) {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider,
-        options: {
-          redirectTo: `${window.location.origin}/`
-        }
-      });
-      if (error) {
-        alert(error.message);
-        setLoading(false);
-      }
-    } else {
-      // Mock simulation:
-      setTimeout(async () => {
-        try {
-          const res = await fetch(`${BACKEND_URL}/auth/supabase-login`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              access_token: `mock-supabase-oauth-token-for-${provider}-${Date.now()}`,
-              role,
-              provider
-            })
-          });
-          if (res.ok) {
-            const data = await res.json();
-            onLoginSuccess(data);
-          } else {
-            alert("OAuth simulation authentication failed.");
-          }
-        } catch (err) {
-          // Fallback offline mock if backend is down
-          const mailValue = email || `oauth-${provider}-user@placement.edu`;
-          const nameValue = `OAuth ${provider.charAt(0).toUpperCase() + provider.slice(1)} Member`;
-          if (role === 'student') {
-            onLoginSuccess({
-              role: 'student',
-              user: { id: 99, name: nameValue, email: mailValue, branch: 'CSE', cgpa: 8.5, api_score: 85.0, ssi_score: 75.0, prs_score: 80.0 }
-            });
-          } else if (role === 'recruiter') {
-            onLoginSuccess({
-              role: 'recruiter',
-              user: { name: nameValue, email: mailValue, company: 'Acme Systems' }
-            });
-          } else {
-            onLoginSuccess({
-              role: 'tpo',
-              user: { id: 99, name: nameValue, email: mailValue, phone: '+919999999999' }
-            });
-          }
-        } finally {
-          setLoading(false);
-        }
-      }, 1200);
-    }
-  };
-
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleMockLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
 
     const payload: any = {
       role,
@@ -362,22 +388,25 @@ function LoginGate({ onLoginSuccess, onBack }: { onLoginSuccess: (user: any) => 
         const data = await res.json();
         onLoginSuccess(data);
       } else {
-        alert("Authentication failed.");
+        setError("Mock login verification rejected.");
       }
     } catch (err) {
       console.log("Mocking login response since backend is offline.");
+      const mailValue = email || (role === 'student' ? 'aditya.sharma@example.com' : 'recruiter@acme.com');
+      const nameValue = role === 'student' ? 'Aditya Sharma' : role === 'recruiter' ? 'Acme Systems Recruiter Partner' : 'Maya Chen';
+      
       if (role === 'student') {
         onLoginSuccess({
           role: 'student',
-          user: { id: 1, name: 'Aditya Sharma', email: email || 'aditya.sharma@example.com', branch: 'CSE', cgpa: 9.2, api_score: 91.2, ssi_score: 80.0, prs_score: 75.0 }
+          user: { id: 1, name: nameValue, email: mailValue, branch: 'CSE', cgpa: 9.2, api_score: 91.2, ssi_score: 80.0, prs_score: 75.0 }
         });
       } else if (role === 'recruiter') {
         onLoginSuccess({
           role: 'recruiter',
-          user: { name: 'Acme Systems Recruiter Partner', email: email || 'recruiter@acme.com', company: 'Acme Systems' }
+          user: { name: nameValue, email: mailValue, company: 'Acme Systems' }
         });
       } else {
-        const chosen = tpoHeads.find(x => x.email === email || x.phone === phone) || tpoHeads[0];
+        const chosen = tpoHeads.find(x => x.email === mailValue || x.phone === phone) || tpoHeads[0];
         onLoginSuccess({
           role: 'tpo',
           user: chosen
@@ -403,43 +432,43 @@ function LoginGate({ onLoginSuccess, onBack }: { onLoginSuccess: (user: any) => 
 
         {/* Toggle sign in / sign up */}
         <div className="bg-muted/40 p-1 rounded-lg flex gap-1 mb-4 text-xs font-semibold">
-          <button type="button" className={`flex-1 py-1.5 rounded-md text-center transition-all ${!isSignUp ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`} onClick={() => setIsSignUp(false)}>
+          <button type="button" className={`flex-1 py-1.5 rounded-md text-center transition-all ${!isSignUp ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`} onClick={() => { setIsSignUp(false); setError(''); setUseMockQuickLogin(false); }}>
             Sign In
           </button>
-          <button type="button" className={`flex-1 py-1.5 rounded-md text-center transition-all ${isSignUp ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`} onClick={() => setIsSignUp(true)}>
+          <button type="button" className={`flex-1 py-1.5 rounded-md text-center transition-all ${isSignUp ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`} onClick={() => { setIsSignUp(true); setError(''); setUseMockQuickLogin(false); }}>
             Sign Up
           </button>
         </div>
 
         {/* Roles Cards */}
         <div className="grid grid-cols-3 gap-2 mb-6">
-          <button type="button" className={`p-3 rounded-xl border text-center flex flex-col items-center gap-1.5 transition-all ${role === 'student' ? 'border-primary bg-primary/5 text-primary' : 'border-border bg-background text-muted-foreground hover:text-foreground'}`} onClick={() => { setRole('student'); setEmail(''); }}>
+          <button type="button" className={`p-3 rounded-xl border text-center flex flex-col items-center gap-1.5 transition-all ${role === 'student' ? 'border-primary bg-primary/5 text-primary' : 'border-border bg-background text-muted-foreground hover:text-foreground'}`} onClick={() => { setRole('student'); }}>
             <Users size={16} />
             <span className="text-[10px] font-mono font-bold uppercase">Student</span>
           </button>
-          <button type="button" className={`p-3 rounded-xl border text-center flex flex-col items-center gap-1.5 transition-all ${role === 'recruiter' ? 'border-primary bg-primary/5 text-primary' : 'border-border bg-background text-muted-foreground hover:text-foreground'}`} onClick={() => { setRole('recruiter'); setEmail(''); }}>
+          <button type="button" className={`p-3 rounded-xl border text-center flex flex-col items-center gap-1.5 transition-all ${role === 'recruiter' ? 'border-primary bg-primary/5 text-primary' : 'border-border bg-background text-muted-foreground hover:text-foreground'}`} onClick={() => { setRole('recruiter'); }}>
             <Building2 size={16} />
             <span className="text-[10px] font-mono font-bold uppercase">Recruiter</span>
           </button>
-          <button type="button" className={`p-3 rounded-xl border text-center flex flex-col items-center gap-1.5 transition-all ${role === 'tpo' ? 'border-primary bg-primary/5 text-primary' : 'border-border bg-background text-muted-foreground hover:text-foreground'}`} onClick={() => { setRole('tpo'); setEmail(tpoHeads[0].email); }}>
+          <button type="button" className={`p-3 rounded-xl border text-center flex flex-col items-center gap-1.5 transition-all ${role === 'tpo' ? 'border-primary bg-primary/5 text-primary' : 'border-border bg-background text-muted-foreground hover:text-foreground'}`} onClick={() => { setRole('tpo'); }}>
             <Landmark size={16} />
             <span className="text-[10px] font-mono font-bold uppercase">TPO (Head)</span>
           </button>
         </div>
 
-        {/* Supabase Social Providers */}
+        {/* Brand Social Providers */}
         <div className="space-y-2 mb-6">
           <div className="text-[10px] font-mono text-muted-foreground uppercase text-center mb-2">
-            {isSignUp ? 'Sign up using Supabase OAuth' : 'Sign in using Supabase OAuth'}
+            Continue with secure identity provider
           </div>
           <div className="flex flex-col gap-2">
             <button
               type="button"
               disabled={loading}
               onClick={() => handleSocialAction('google')}
-              className="w-full flex items-center justify-center gap-2 bg-[#f8f9fa] border border-[#dadce0] hover:bg-[#f1f3f4] text-[#3c4043] rounded-lg py-2.5 text-xs font-semibold transition-all shadow-sm active:scale-[0.98] cursor-pointer"
+              className="w-full flex items-center justify-center gap-3 bg-[#f8f9fa] border border-[#dadce0] hover:bg-[#f1f3f4] text-[#3c4043] rounded-lg py-2.5 text-xs font-semibold transition-all shadow-sm active:scale-[0.98] cursor-pointer"
             >
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                 <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
                 <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
@@ -447,32 +476,30 @@ function LoginGate({ onLoginSuccess, onBack }: { onLoginSuccess: (user: any) => 
               </svg>
               Continue with Google
             </button>
-            
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                disabled={loading}
-                onClick={() => handleSocialAction('linkedin')}
-                className="flex items-center justify-center gap-2 bg-[#0077b5] hover:bg-[#006297] text-white rounded-lg py-2.5 text-xs font-semibold transition-all shadow-sm active:scale-[0.98] cursor-pointer"
-              >
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                </svg>
-                LinkedIn
-              </button>
 
-              <button
-                type="button"
-                disabled={loading}
-                onClick={() => handleSocialAction('github')}
-                className="flex items-center justify-center gap-2 bg-[#24292e] hover:bg-[#1a1e22] text-white rounded-lg py-2.5 text-xs font-semibold transition-all shadow-sm active:scale-[0.98] cursor-pointer"
-              >
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.577.688.479C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
-                </svg>
-                GitHub
-              </button>
-            </div>
+            <button
+              type="button"
+              disabled={loading}
+              onClick={() => handleSocialAction('linkedin')}
+              className="w-full flex items-center justify-center gap-3 bg-[#0077b5] hover:bg-[#006297] text-white rounded-lg py-2.5 text-xs font-semibold transition-all shadow-sm active:scale-[0.98] cursor-pointer"
+            >
+              <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+              </svg>
+              Continue with LinkedIn
+            </button>
+
+            <button
+              type="button"
+              disabled={loading}
+              onClick={() => handleSocialAction('github')}
+              className="w-full flex items-center justify-center gap-3 bg-[#24292e] hover:bg-[#1a1e22] text-white rounded-lg py-2.5 text-xs font-semibold transition-all shadow-sm active:scale-[0.98] cursor-pointer"
+            >
+              <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.577.688.479C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+              </svg>
+              Continue with GitHub
+            </button>
           </div>
         </div>
 
@@ -481,102 +508,168 @@ function LoginGate({ onLoginSuccess, onBack }: { onLoginSuccess: (user: any) => 
           <div className="relative flex justify-center text-[10px] font-mono uppercase"><span className="bg-card px-2 text-muted-foreground">Or direct credentials</span></div>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-4">
-          {/* TPO tabbed methods */}
-          {role === 'tpo' && (
-            <div className="bg-muted/40 p-1 rounded-lg flex gap-1 mb-4 text-xs">
-              <button type="button" className={`flex-1 py-1 rounded-md text-center ${tpoMethod === 'google' ? 'bg-card font-semibold text-foreground' : 'text-muted-foreground'}`} onClick={() => { setTpoMethod('google'); setEmail(tpoHeads[0].email); }}>
-                Google
-              </button>
-              <button type="button" className={`flex-1 py-1 rounded-md text-center ${tpoMethod === 'number' ? 'bg-card font-semibold text-foreground' : 'text-muted-foreground'}`} onClick={() => { setTpoMethod('number'); setPhone(tpoHeads[0].phone); }}>
-                Number
-              </button>
-              <button type="button" className={`flex-1 py-1 rounded-md text-center ${tpoMethod === 'mail' ? 'bg-card font-semibold text-foreground' : 'text-muted-foreground'}`} onClick={() => { setTpoMethod('mail'); setEmail(tpoHeads[0].email); }}>
-                Mail
-              </button>
-            </div>
-          )}
+        {error && (
+          <div className="mb-4 p-3 bg-red-950/40 border border-red-900/60 text-red-200 text-xs rounded-xl flex items-start gap-2.5 motion-safe:animate-shake">
+            <ShieldAlert size={16} className="shrink-0 mt-0.5 text-red-400" />
+            <span className="leading-relaxed">{error}</span>
+          </div>
+        )}
 
-          {/* Form fields based on selected credentials */}
-          {role === 'student' && (
-            <div>
-              <label className="block text-[10px] font-mono uppercase text-muted-foreground mb-1">Student Account Email</label>
-              <select className="w-full bg-input border border-border rounded-lg p-2.5 text-foreground text-xs" value={email} onChange={e => setEmail(e.target.value)}>
-                <option value="aditya.sharma@example.com">Aditya Sharma (aditya.sharma@example.com)</option>
-                <option value="rohan.verma@example.com">Rohan Verma (rohan.verma@example.com)</option>
-                <option value="sneha.patil@example.com">Sneha Patil (sneha.patil@example.com)</option>
-                <option value="pooja.rao@example.com">Pooja Rao (pooja.rao@example.com)</option>
-              </select>
-            </div>
-          )}
-
-          {role === 'recruiter' && (
-            <div>
-              <label className="block text-[10px] font-mono uppercase text-muted-foreground mb-1">Recruiter Registered Email</label>
-              <input required type="email" className="w-full bg-input border border-border rounded-lg p-2.5 text-foreground text-xs font-semibold" placeholder="e.g. partner@acme.com" value={email} onChange={e => setEmail(e.target.value)} />
-            </div>
-          )}
-
-          {role === 'tpo' && tpoMethod === 'google' && (
-            <div>
-              <label className="block text-[10px] font-mono uppercase text-muted-foreground mb-1">Select Head of Placements Account</label>
-              <select className="w-full bg-input border border-border rounded-lg p-2.5 text-foreground text-xs mb-3 font-semibold" value={email} onChange={e => setEmail(e.target.value)}>
-                {tpoHeads.map(head => (
-                  <option key={head.email} value={head.email}>{head.name} ({head.email})</option>
-                ))}
-              </select>
-              <div className="bg-muted/20 border border-border p-3 rounded-lg flex items-center gap-3 text-xs text-muted-foreground">
-                <Sparkles size={16} className="text-primary shrink-0" />
-                <span>Simulates Google OAuth single sign-on redirect flow.</span>
-              </div>
-            </div>
-          )}
-
-          {role === 'tpo' && tpoMethod === 'number' && (
-            <div className="space-y-3">
+        {!useMockQuickLogin ? (
+          <form onSubmit={handleEmailAuth} className="space-y-4">
+            {isSignUp && (
               <div>
-                <label className="block text-[10px] font-mono uppercase text-muted-foreground mb-1">Head of Placements Phone Number</label>
-                <select className="w-full bg-input border border-border rounded-lg p-2.5 text-foreground text-xs font-semibold" value={phone} onChange={e => setPhone(e.target.value)}>
-                  {tpoHeads.map(head => (
-                    <option key={head.phone} value={head.phone}>{head.name} ({head.phone})</option>
-                  ))}
+                <label className="block text-[10px] font-mono uppercase text-muted-foreground mb-1">Full Name</label>
+                <input
+                  required
+                  type="text"
+                  placeholder="e.g. Aditya Sharma"
+                  className="w-full bg-input border border-border rounded-lg p-2.5 text-foreground text-xs font-semibold focus:border-primary focus:outline-none"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                />
+              </div>
+            )}
+            
+            <div>
+              <label className="block text-[10px] font-mono uppercase text-muted-foreground mb-1">Email Address</label>
+              <input
+                required
+                type="email"
+                placeholder={role === 'student' ? 'aditya.sharma@example.com' : role === 'recruiter' ? 'partner@acme.com' : 'maya.chen@placement.edu'}
+                className="w-full bg-input border border-border rounded-lg p-2.5 text-foreground text-xs font-semibold focus:border-primary focus:outline-none"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <label className="block text-[10px] font-mono uppercase text-muted-foreground mb-1">Password</label>
+              <input
+                required
+                type="password"
+                placeholder="••••••••"
+                className="w-full bg-input border border-border rounded-lg p-2.5 text-foreground text-xs font-semibold focus:border-primary focus:outline-none"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+              />
+            </div>
+
+            <Button variant="primary" className="w-full py-2.5 mt-2 text-xs flex justify-center items-center gap-2 font-semibold" type="submit" disabled={loading}>
+              {loading ? 'Authenticating...' : isSignUp ? `Create Account as ${role.toUpperCase()}` : `Sign In as ${role.toUpperCase()}`} <ArrowRight size={14}/>
+            </Button>
+
+            {!isSignUp && (
+              <button
+                type="button"
+                className="w-full text-center text-[10px] text-muted-foreground hover:text-foreground mt-2 border border-dashed border-border py-1.5 rounded-lg transition-all"
+                onClick={() => setUseMockQuickLogin(true)}
+              >
+                Switch to Quick Demo Login
+              </button>
+            )}
+          </form>
+        ) : (
+          <form onSubmit={handleMockLoginSubmit} className="space-y-4">
+            {role === 'tpo' && (
+              <div className="bg-muted/40 p-1 rounded-lg flex gap-1 mb-4 text-xs">
+                <button type="button" className={`flex-1 py-1 rounded-md text-center ${tpoMethod === 'google' ? 'bg-card font-semibold text-foreground' : 'text-muted-foreground'}`} onClick={() => { setTpoMethod('google'); setEmail(tpoHeads[0].email); }}>
+                  Google
+                </button>
+                <button type="button" className={`flex-1 py-1 rounded-md text-center ${tpoMethod === 'number' ? 'bg-card font-semibold text-foreground' : 'text-muted-foreground'}`} onClick={() => { setTpoMethod('number'); setPhone(tpoHeads[0].phone); }}>
+                  Number
+                </button>
+                <button type="button" className={`flex-1 py-1 rounded-md text-center ${tpoMethod === 'mail' ? 'bg-card font-semibold text-foreground' : 'text-muted-foreground'}`} onClick={() => { setTpoMethod('mail'); setEmail(tpoHeads[0].email); }}>
+                  Mail
+                </button>
+              </div>
+            )}
+
+            {role === 'student' && (
+              <div>
+                <label className="block text-[10px] font-mono uppercase text-muted-foreground mb-1">Select Student Demo Profile</label>
+                <select className="w-full bg-input border border-border rounded-lg p-2.5 text-foreground text-xs" value={email} onChange={e => setEmail(e.target.value)}>
+                  <option value="aditya.sharma@example.com">Aditya Sharma (aditya.sharma@example.com)</option>
+                  <option value="rohan.verma@example.com">Rohan Verma (rohan.verma@example.com)</option>
+                  <option value="sneha.patil@example.com">Sneha Patil (sneha.patil@example.com)</option>
+                  <option value="pooja.rao@example.com">Pooja Rao (pooja.rao@example.com)</option>
                 </select>
               </div>
-              <div>
-                <label className="block text-[10px] font-mono uppercase text-muted-foreground mb-1">Enter OTP code</label>
-                <input required type="text" maxLength={6} className="w-full bg-input border border-border rounded-lg p-2.5 text-foreground text-xs font-mono text-center tracking-widest" placeholder="123456" value={otp} onChange={e => setOtp(e.target.value)} />
-              </div>
-            </div>
-          )}
+            )}
 
-          {role === 'tpo' && tpoMethod === 'mail' && (
-            <div className="space-y-3">
+            {role === 'recruiter' && (
               <div>
-                <label className="block text-[10px] font-mono uppercase text-muted-foreground mb-1">Head of Placements Email Address</label>
-                <select className="w-full bg-input border border-border rounded-lg p-2.5 text-foreground text-xs font-semibold" value={email} onChange={e => setEmail(e.target.value)}>
+                <label className="block text-[10px] font-mono uppercase text-muted-foreground mb-1">Recruiter Registered Email</label>
+                <input required type="email" className="w-full bg-input border border-border rounded-lg p-2.5 text-foreground text-xs font-semibold" placeholder="e.g. partner@acme.com" value={email} onChange={e => setEmail(e.target.value)} />
+              </div>
+            )}
+
+            {role === 'tpo' && tpoMethod === 'google' && (
+              <div>
+                <label className="block text-[10px] font-mono uppercase text-muted-foreground mb-1">Select TPO Head Account</label>
+                <select className="w-full bg-input border border-border rounded-lg p-2.5 text-foreground text-xs mb-3 font-semibold" value={email} onChange={e => setEmail(e.target.value)}>
                   {tpoHeads.map(head => (
                     <option key={head.email} value={head.email}>{head.name} ({head.email})</option>
                   ))}
                 </select>
+                <div className="bg-muted/20 border border-border p-3 rounded-lg flex items-center gap-3 text-xs text-muted-foreground">
+                  <Sparkles size={16} className="text-primary shrink-0" />
+                  <span>Simulates Google OAuth single sign-on redirect flow.</span>
+                </div>
               </div>
-              <div>
-                <label className="block text-[10px] font-mono uppercase text-muted-foreground mb-1">Magic Password Key</label>
-                <input required type="password" value="********" readOnly className="w-full bg-input border border-border rounded-lg p-2.5 text-foreground text-xs font-mono" />
-              </div>
-            </div>
-          )}
+            )}
 
-          <Button variant="primary" className="w-full py-2.5 mt-2 text-xs flex justify-center items-center gap-2 font-semibold" type="submit" disabled={loading}>
-            {loading ? 'Authenticating...' : `Authorize Session as ${role.toUpperCase()}`} <ArrowRight size={14}/>
-          </Button>
-        </form>
+            {role === 'tpo' && tpoMethod === 'number' && (
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-[10px] font-mono uppercase text-muted-foreground mb-1">TPO Phone Number</label>
+                  <select className="w-full bg-input border border-border rounded-lg p-2.5 text-foreground text-xs font-semibold" value={phone} onChange={e => setPhone(e.target.value)}>
+                    {tpoHeads.map(head => (
+                      <option key={head.phone} value={head.phone}>{head.name} ({head.phone})</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-[10px] font-mono uppercase text-muted-foreground mb-1">Enter OTP code</label>
+                  <input required type="text" maxLength={6} className="w-full bg-input border border-border rounded-lg p-2.5 text-foreground text-xs font-mono text-center tracking-widest" placeholder="123456" value={otp} onChange={e => setOtp(e.target.value)} />
+                </div>
+              </div>
+            )}
+
+            {role === 'tpo' && tpoMethod === 'mail' && (
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-[10px] font-mono uppercase text-muted-foreground mb-1">TPO Email Address</label>
+                  <select className="w-full bg-input border border-border rounded-lg p-2.5 text-foreground text-xs font-semibold" value={email} onChange={e => setEmail(e.target.value)}>
+                    {tpoHeads.map(head => (
+                      <option key={head.email} value={head.email}>{head.name} ({head.email})</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-[10px] font-mono uppercase text-muted-foreground mb-1">Magic Password Key</label>
+                  <input required type="password" value="********" readOnly className="w-full bg-input border border-border rounded-lg p-2.5 text-foreground text-xs font-mono" />
+                </div>
+              </div>
+            )}
+
+            <Button variant="primary" className="w-full py-2.5 mt-2 text-xs flex justify-center items-center gap-2 font-semibold" type="submit" disabled={loading}>
+              {loading ? 'Authenticating...' : `Authorize Mock Session`} <ArrowRight size={14}/>
+            </Button>
+
+            <button
+              type="button"
+              className="w-full text-center text-[10px] text-muted-foreground hover:text-foreground mt-2 border border-dashed border-border py-1.5 rounded-lg transition-all"
+              onClick={() => setUseMockQuickLogin(false)}
+            >
+              Switch to Email & Password Login
+            </button>
+          </form>
+        )}
       </div>
     </div>
   );
 }
-
-// ----------------------------------------------------
-// WORKSPACE APP SHELL (ROLE SCANDINAVIAN TABS)
 // ----------------------------------------------------
 function Dashboard({ user, onLogout }: { user: any; onLogout: () => void }) {
   const userRole = user?.role || 'tpo';

@@ -1,0 +1,59 @@
+id,drive_id,skill_name,is_mandatory
+1,1,HTML/CSS,True
+2,1,PostgreSQL,True
+3,1,JavaScript,True
+4,1,Data Structures,False
+5,1,Git,False
+6,1,REST APIs,False
+7,2,Django,True
+8,2,Machine Learning,True
+9,2,Node.js,True
+10,2,Spring Boot,False
+11,2,HTML/CSS,False
+12,2,Docker,False
+13,2,SQL,False
+14,3,Django,True
+15,3,Spring Boot,True
+16,3,REST APIs,True
+17,3,Kubernetes,False
+18,3,Git,False
+19,4,Algorithms,True
+20,4,System Design,True
+21,4,SQL,False
+22,4,HTML/CSS,False
+23,4,Docker,False
+24,4,Kubernetes,False
+25,5,AWS,True
+26,5,JavaScript,True
+27,5,C++,True
+28,5,Git,False
+29,5,Node.js,False
+30,5,Java,False
+31,6,Data Structures,True
+32,6,System Design,True
+33,6,JavaScript,False
+34,6,MongoDB,False
+35,6,AWS,False
+36,6,Docker,False
+37,6,Python,False
+38,7,Algorithms,True
+39,7,Kubernetes,True
+40,7,Node.js,False
+41,7,AWS,False
+42,7,Flask,False
+43,8,TypeScript,True
+44,8,AWS,True
+45,8,React,False
+46,8,Algorithms,False
+47,8,SQL,False
+48,9,HTML/CSS,True
+49,9,Python,True
+50,9,Algorithms,True
+51,9,Django,False
+52,9,Git,False
+53,9,TensorFlow,False
+54,10,PostgreSQL,True
+55,10,C++,True
+56,10,Docker,False
+57,10,Data Structures,False
+58,10,System Design,False

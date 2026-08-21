@@ -1,4 +1,6 @@
 import datetime
+import hashlib
+import secrets
 from sqlalchemy import Column, Integer, String, Float, Boolean, Text, DateTime, ForeignKey, JSON
 from sqlalchemy.orm import relationship
 from .database import Base
@@ -146,3 +148,46 @@ class AuditLog(Base):
     performed_by = Column(String, default="TPO")
     timestamp = Column(DateTime, default=datetime.datetime.utcnow)
     details = Column(Text, nullable=True)
+
+
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=True)
+    email = Column(String, unique=True, index=True, nullable=False)
+    password_hash = Column(String, nullable=True)
+    profile_image = Column(String, nullable=True)
+    role = Column(String, nullable=False, default="student")  # student, recruiter, tpo
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
+
+    providers = relationship("UserProvider", back_populates="user", cascade="all, delete-orphan")
+
+    def set_password(self, password: str):
+        salt = secrets.token_hex(16)
+        key = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), salt.encode('utf-8'), 100000)
+        self.password_hash = f"{salt}${key.hex()}"
+
+    def check_password(self, password: str) -> bool:
+        if not self.password_hash:
+            return False
+        try:
+            salt, key_hex = self.password_hash.split('$')
+            key = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), salt.encode('utf-8'), 100000)
+            return key.hex() == key_hex
+        except Exception:
+            return False
+
+
+class UserProvider(Base):
+    __tablename__ = "user_providers"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    provider = Column(String, nullable=False)  # google, linkedin, github
+    provider_user_id = Column(String, nullable=False)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
+
+    user = relationship("User", back_populates="providers")

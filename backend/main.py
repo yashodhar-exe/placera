@@ -1,15 +1,20 @@
-from fastapi import FastAPI, Depends, HTTPException, Query
+from fastapi import FastAPI, Depends, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse
+from fastapi.responses import StreamingResponse, JSONResponse
 from sqlalchemy.orm import Session
 from typing import List, Dict, Any, Optional
 import datetime
 import uuid
 import io
+import os
+import jwt
+import urllib.request
+import urllib.parse
+import json
 from pydantic import BaseModel
 
 from backend.database import get_db
-from backend.models import Student, Drive, EligibilityResult, MatchScore, Interview, ExceptionItem, Notification, AuditLog
+from backend.models import Student, Drive, EligibilityResult, MatchScore, Interview, ExceptionItem, Notification, AuditLog, User, UserProvider
 from backend.agents.context_router import ContextRouter, ContextObject
 from backend.agents.jd_intake_agent import JDIntakeAgent
 from backend.agents.eligibility_agent import EligibilityAgent
@@ -26,18 +31,152 @@ app = FastAPI(title="Placement Ops - AI Recruiter Agent Backend")
 # Enable CORS for frontend interaction
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# JWT Constants
+JWT_SECRET = os.environ.get("JWT_SECRET", "super-secret-key-change-in-production-12345")
+JWT_ALGORITHM = "HS256"
+
+# Helper: Create JWT
+def create_custom_jwt(user_id: int, email: str, role: str):
+    payload = {
+        "sub": str(user_id),
+        "email": email,
+        "role": role,
+        "exp": datetime.datetime.utcnow() + datetime.timedelta(days=7)
+    }
+    return jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
+
+# Helper: HTTP helpers for OAuth token exchange and profile fetching
+def http_post_json(url: str, data: dict, headers: dict = None) -> dict:
+    headers = headers or {}
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
+    req_data = urllib.parse.urlencode(data).encode("utf-8")
+    req = urllib.request.Request(url, data=req_data, headers=headers, method="POST")
+    with urllib.request.urlopen(req) as response:
+        return json.loads(response.read().decode("utf-8"))
+
+def http_get_json(url: str, headers: dict = None) -> dict:
+    headers = headers or {}
+    headers["Accept"] = "application/json"
+    req = urllib.request.Request(url, headers=headers, method="GET")
+    with urllib.request.urlopen(req) as response:
+        return json.loads(response.read().decode("utf-8"))
+
+# Helper: Format user payload for frontend consistency
+def format_user_payload(user: User, db: Session):
+    if user.role == "student":
+        student = db.query(Student).filter(Student.email == user.email).first()
+        if not student:
+            student = Student(
+                name=user.name or "Student User",
+                email=user.email,
+                branch="CSE",
+                cgpa=8.5,
+                tenth_pct=90.0,
+                twelfth_pct=90.0,
+                backlog_count=0,
+                api_score=85.0,
+                ssi_score=75.0,
+                prs_score=80.0
+            )
+            db.add(student)
+            db.commit()
+            db.refresh(student)
+        return {
+            "id": student.id,
+            "name": student.name,
+            "email": student.email,
+            "branch": student.branch,
+            "cgpa": student.cgpa,
+            "api_score": student.api_score,
+            "ssi_score": student.ssi_score,
+            "prs_score": student.prs_score,
+            "profile_image": user.profile_image
+        }
+    elif user.role == "recruiter":
+        company = "Acme Systems"
+        if user.email and "@" in user.email:
+            domain = user.email.split("@")[1].split(".")[0]
+            if domain not in ["gmail", "yahoo", "outlook", "placement", "example"]:
+                company = domain.capitalize()
+        return {
+            "name": user.name or "Recruiter Partner",
+            "email": user.email,
+            "company": company,
+            "profile_image": user.profile_image
+        }
+    elif user.role == "tpo":
+        tpo_users = [
+            {"name": "Maya Chen", "email": "maya.chen@placement.edu", "phone": "+919999911111"},
+            {"name": "Rajesh Kumar", "email": "rajesh.kumar@placement.edu", "phone": "+919999922222"},
+            {"name": "Sunita Rao", "email": "sunita.rao@placement.edu", "phone": "+919999933333"}
+        ]
+        found = next((t for t in tpo_users if t["email"] == user.email), None)
+        if found:
+            return {
+                "id": user.id,
+                "name": found["name"],
+                "email": user.email,
+                "phone": found["phone"],
+                "profile_image": user.profile_image
+            }
+        return {
+            "id": user.id,
+            "name": user.name or "Head of Placements",
+            "email": user.email,
+            "phone": "+919999999999",
+            "profile_image": user.profile_image
+        }
+    return {
+        "id": user.id,
+        "name": user.name,
+        "email": user.email,
+        "profile_image": user.profile_image
+    }
+
+# Route protection middleware
+@app.middleware("http")
+async def auth_middleware(request: Request, call_next):
+    if request.method == "OPTIONS":
+        return await call_next(request)
+        
+    path = request.url.path
+    if path == "/" or path.startswith("/auth/") or path.startswith("/docs") or path.startswith("/openapi.json"):
+        return await call_next(request)
+        
+    auth_header = request.headers.get("Authorization")
+    if not auth_header or not auth_header.startswith("Bearer "):
+        return JSONResponse(
+            status_code=401,
+            content={"detail": "Not authenticated. Missing or invalid Authorization header."}
+        )
+        
+    token = auth_header.split(" ")[1]
+    if token.startswith("mock-"):
+        # Allow mock tokens for backward compatibility and ease of testing
+        return await call_next(request)
+        
+    try:
+        jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+    except jwt.ExpiredSignatureError:
+        return JSONResponse(status_code=401, content={"detail": "Session expired. Please log in again."})
+    except jwt.InvalidTokenError:
+        return JSONResponse(status_code=401, content={"detail": "Invalid token."})
+        
+    return await call_next(request)
+
 @app.get("/")
 def read_root():
     return {"message": "Placement Ops Core Multi-Agent API is running."}
-
-import os
-import jwt
 
 # ==========================================
 # AUTHENTICATION SCHEMA & ENDPOINTS
@@ -55,9 +194,24 @@ class SupabaseLoginRequest(BaseModel):
     role: str  # student, recruiter, tpo
     provider: str  # google, linkedin, github
 
+class EmailRegisterRequest(BaseModel):
+    name: str
+    email: str
+    password: str
+    role: str
+
+class EmailLoginRequest(BaseModel):
+    email: str
+    password: str
+
+class OAuthCallbackRequest(BaseModel):
+    provider: str
+    code: str
+    state: str
+    role: str
+    redirect_uri: str
+
 def decode_supabase_token(token: str):
-    from fastapi import HTTPException
-    # Verify if it is a real standard 3-part JWT
     if token.count('.') == 2:
         secret = os.environ.get("SUPABASE_JWT_SECRET")
         if not secret:
@@ -73,16 +227,192 @@ def decode_supabase_token(token: str):
         except jwt.InvalidTokenError as e:
             raise HTTPException(status_code=401, detail=f"Invalid Supabase session signature: {str(e)}")
     else:
-        # Enforce real JWTs
         raise HTTPException(
             status_code=401,
             detail="Authentication failed: Expected a valid 3-part Supabase JWT access token."
         )
 
+@app.post("/auth/register")
+def register_email(req: EmailRegisterRequest, db: Session = Depends(get_db)):
+    existing_user = db.query(User).filter(User.email == req.email).first()
+    if existing_user:
+        raise HTTPException(status_code=400, detail="An account with this email already exists.")
+        
+    user = User(
+        name=req.name,
+        email=req.email,
+        role=req.role
+    )
+    user.set_password(req.password)
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    
+    token = create_custom_jwt(user.id, user.email, user.role)
+    user_data = format_user_payload(user, db)
+    
+    return {
+        "token": token,
+        "role": user.role,
+        "user": user_data
+    }
+
+@app.post("/auth/login-email")
+def login_email(req: EmailLoginRequest, db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.email == req.email).first()
+    if not user or not user.check_password(req.password):
+        raise HTTPException(status_code=401, detail="Invalid email or password.")
+        
+    token = create_custom_jwt(user.id, user.email, user.role)
+    user_data = format_user_payload(user, db)
+    
+    return {
+        "token": token,
+        "role": user.role,
+        "user": user_data
+    }
+
+@app.get("/auth/oauth-url")
+def get_oauth_url(provider: str, role: str, redirect_uri: str):
+    state = str(uuid.uuid4())
+    if provider == "google":
+        client_id = os.environ.get("GOOGLE_CLIENT_ID", "google-mock-client-id")
+        url = f"https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id={client_id}&redirect_uri={redirect_uri}&scope=openid%20email%20profile&state={state}"
+    elif provider == "linkedin":
+        client_id = os.environ.get("LINKEDIN_CLIENT_ID", "linkedin-mock-client-id")
+        url = f"https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id={client_id}&redirect_uri={redirect_uri}&scope=openid%20profile%20email&state={state}"
+    elif provider == "github":
+        client_id = os.environ.get("GITHUB_CLIENT_ID", "github-mock-client-id")
+        url = f"https://github.com/login/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&scope=user:email&state={state}"
+    else:
+        raise HTTPException(status_code=400, detail="Invalid provider")
+    return {"url": url, "state": state}
+
+@app.post("/auth/oauth-callback")
+def oauth_callback(req: OAuthCallbackRequest, db: Session = Depends(get_db)):
+    is_mock = False
+    client_id = os.environ.get(f"{req.provider.upper()}_CLIENT_ID")
+    client_secret = os.environ.get(f"{req.provider.upper()}_CLIENT_SECRET")
+    
+    if not client_id or not client_secret or req.code.startswith("mock-code-"):
+        is_mock = True
+        
+    email = None
+    name = None
+    profile_image = None
+    provider_user_id = None
+    
+    if is_mock:
+        suffix = req.code.split("-")[-1]
+        provider_user_id = f"mock-{req.provider}-id-{suffix}"
+        email = f"mock-{req.provider}-user-{suffix}@example.com"
+        name = f"Mock {req.provider.capitalize()} User"
+        profile_image = f"https://api.dicebear.com/7.x/initials/svg?seed={name}"
+    else:
+        try:
+            if req.provider == "google":
+                token_res = http_post_json("https://oauth2.googleapis.com/token", {
+                    "code": req.code,
+                    "client_id": client_id,
+                    "client_secret": client_secret,
+                    "redirect_uri": req.redirect_uri,
+                    "grant_type": "authorization_code"
+                })
+                access_token = token_res["access_token"]
+                profile = http_get_json(f"https://www.googleapis.com/oauth2/v3/userinfo", {
+                    "Authorization": f"Bearer {access_token}"
+                })
+                provider_user_id = profile["sub"]
+                email = profile["email"]
+                name = profile.get("name")
+                profile_image = profile.get("picture")
+                
+            elif req.provider == "github":
+                token_res = http_post_json("https://github.com/login/oauth/access_token", {
+                    "code": req.code,
+                    "client_id": client_id,
+                    "client_secret": client_secret,
+                    "redirect_uri": req.redirect_uri
+                })
+                access_token = token_res["access_token"]
+                profile = http_get_json("https://api.github.com/user", {
+                    "Authorization": f"Bearer {access_token}",
+                    "User-Agent": "Placement-Ops-OAuth"
+                })
+                provider_user_id = str(profile["id"])
+                name = profile.get("name") or profile.get("login")
+                profile_image = profile.get("avatar_url")
+                email = profile.get("email")
+                if not email:
+                    emails = http_get_json("https://api.github.com/user/emails", {
+                        "Authorization": f"Bearer {access_token}",
+                        "User-Agent": "Placement-Ops-OAuth"
+                    })
+                    for e in emails:
+                        if e.get("primary"):
+                            email = e.get("email")
+                            break
+                            
+            elif req.provider == "linkedin":
+                token_res = http_post_json("https://www.linkedin.com/oauth/v2/accessToken", {
+                    "code": req.code,
+                    "client_id": client_id,
+                    "client_secret": client_secret,
+                    "redirect_uri": req.redirect_uri,
+                    "grant_type": "authorization_code"
+                })
+                access_token = token_res["access_token"]
+                profile = http_get_json("https://api.linkedin.com/v2/userinfo", {
+                    "Authorization": f"Bearer {access_token}"
+                })
+                provider_user_id = profile["sub"]
+                email = profile["email"]
+                name = profile.get("name")
+                profile_image = profile.get("picture")
+                
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=f"OAuth communication failed: {str(e)}")
+            
+    if not email:
+        raise HTTPException(status_code=400, detail="OAuth provider did not return an email address.")
+        
+    user = db.query(User).filter(User.email == email).first()
+    if not user:
+        user = User(
+            name=name,
+            email=email,
+            profile_image=profile_image,
+            role=req.role
+        )
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+        
+    prov = db.query(UserProvider).filter(
+        UserProvider.user_id == user.id,
+        UserProvider.provider == req.provider
+    ).first()
+    if not prov:
+        prov = UserProvider(
+            user_id=user.id,
+            provider=req.provider,
+            provider_user_id=provider_user_id
+        )
+        db.add(prov)
+        db.commit()
+        
+    token = create_custom_jwt(user.id, user.email, user.role)
+    user_data = format_user_payload(user, db)
+    
+    return {
+        "token": token,
+        "role": user.role,
+        "user": user_data
+    }
+
 @app.post("/auth/supabase-login")
 def supabase_login(req: SupabaseLoginRequest, db: Session = Depends(get_db)):
     payload = decode_supabase_token(req.access_token)
-    
     email = payload.get("email")
     if not email:
         raise HTTPException(status_code=400, detail="Invalid token payload: missing email address.")
@@ -93,7 +423,6 @@ def supabase_login(req: SupabaseLoginRequest, db: Session = Depends(get_db)):
     if req.role == "student":
         student = db.query(Student).filter(Student.email == email).first()
         if not student:
-            # Signup new student automatically!
             student = Student(
                 name=name,
                 email=email,
@@ -110,7 +439,6 @@ def supabase_login(req: SupabaseLoginRequest, db: Session = Depends(get_db)):
             db.commit()
             db.refresh(student)
 
-            
         return {
             "token": req.access_token,
             "role": "student",
@@ -128,7 +456,6 @@ def supabase_login(req: SupabaseLoginRequest, db: Session = Depends(get_db)):
         }
         
     elif req.role == "recruiter":
-        # Recruiter mock profile
         company = "Acme Systems"
         if email and "@" in email:
             domain = email.split("@")[1].split(".")[0]
@@ -146,14 +473,12 @@ def supabase_login(req: SupabaseLoginRequest, db: Session = Depends(get_db)):
         }
         
     elif req.role == "tpo":
-        # Head of Placements
         tpo_users = [
             {"id": 1, "name": "Maya Chen", "email": "maya.chen@placement.edu", "phone": "+919999911111"},
             {"id": 2, "name": "Rajesh Kumar", "email": "rajesh.kumar@placement.edu", "phone": "+919999922222"},
             {"id": 3, "name": "Sunita Rao", "email": "sunita.rao@placement.edu", "phone": "+919999933333"}
         ]
         
-        # Verify if registered TPO, or allow custom social login for hackathon demo
         found = next((t for t in tpo_users if t["email"] == email), None)
         if found:
             selected_tpo = found
