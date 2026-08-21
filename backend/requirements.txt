@@ -9,3 +9,5 @@ xgboost
 scikit-learn
 shap
 python-multipart
+pyjwt
+

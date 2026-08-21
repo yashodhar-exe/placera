@@ -36,6 +36,221 @@ app.add_middleware(
 def read_root():
     return {"message": "Placement Ops Core Multi-Agent API is running."}
 
+import os
+import jwt
+
+# ==========================================
+# AUTHENTICATION SCHEMA & ENDPOINTS
+# ==========================================
+class LoginRequest(BaseModel):
+    role: str  # student, recruiter, tpo
+    auth_method: str  # google, number, mail
+    email: Optional[str] = None
+    phone: Optional[str] = None
+    otp: Optional[str] = None
+    google_token: Optional[str] = None
+
+class SupabaseLoginRequest(BaseModel):
+    access_token: str
+    role: str  # student, recruiter, tpo
+    provider: str  # google, linkedin, github
+
+def decode_supabase_token(token: str):
+    from fastapi import HTTPException
+    # Verify if it is a real standard 3-part JWT
+    if token.count('.') == 2:
+        secret = os.environ.get("SUPABASE_JWT_SECRET")
+        if not secret:
+            raise HTTPException(
+                status_code=500,
+                detail="SUPABASE_JWT_SECRET is missing. Please define it in your backend environment variables to verify real JWTs."
+            )
+        try:
+            payload = jwt.decode(token, secret, algorithms=["HS256"], audience="authenticated")
+            return payload
+        except jwt.ExpiredSignatureError:
+            raise HTTPException(status_code=401, detail="Session expired. Please log in again.")
+        except jwt.InvalidTokenError as e:
+            raise HTTPException(status_code=401, detail=f"Invalid Supabase session signature: {str(e)}")
+    else:
+        # Enforce real JWTs
+        raise HTTPException(
+            status_code=401,
+            detail="Authentication failed: Expected a valid 3-part Supabase JWT access token."
+        )
+
+@app.post("/auth/supabase-login")
+def supabase_login(req: SupabaseLoginRequest, db: Session = Depends(get_db)):
+    payload = decode_supabase_token(req.access_token)
+    
+    email = payload.get("email")
+    if not email:
+        raise HTTPException(status_code=400, detail="Invalid token payload: missing email address.")
+        
+    metadata = payload.get("user_metadata", {})
+    name = metadata.get("full_name") or metadata.get("name") or email.split("@")[0].capitalize()
+
+    if req.role == "student":
+        student = db.query(Student).filter(Student.email == email).first()
+        if not student:
+            # Signup new student automatically!
+            student = Student(
+                name=name,
+                email=email,
+                branch="CSE",
+                cgpa=8.5,
+                tenth_pct=90.0,
+                twelfth_pct=90.0,
+                backlog_count=0,
+                api_score=85.0,
+                ssi_score=75.0,
+                prs_score=80.0
+            )
+            db.add(student)
+            db.commit()
+            db.refresh(student)
+
+            
+        return {
+            "token": req.access_token,
+            "role": "student",
+            "is_signup": True,
+            "user": {
+                "id": student.id,
+                "name": student.name,
+                "email": student.email,
+                "branch": student.branch,
+                "cgpa": student.cgpa,
+                "api_score": student.api_score,
+                "ssi_score": student.ssi_score,
+                "prs_score": student.prs_score
+            }
+        }
+        
+    elif req.role == "recruiter":
+        # Recruiter mock profile
+        company = "Acme Systems"
+        if email and "@" in email:
+            domain = email.split("@")[1].split(".")[0]
+            if domain not in ["gmail", "yahoo", "outlook", "placement", "example"]:
+                company = domain.capitalize()
+                
+        return {
+            "token": req.access_token,
+            "role": "recruiter",
+            "user": {
+                "name": name,
+                "email": email,
+                "company": company
+            }
+        }
+        
+    elif req.role == "tpo":
+        # Head of Placements
+        tpo_users = [
+            {"id": 1, "name": "Maya Chen", "email": "maya.chen@placement.edu", "phone": "+919999911111"},
+            {"id": 2, "name": "Rajesh Kumar", "email": "rajesh.kumar@placement.edu", "phone": "+919999922222"},
+            {"id": 3, "name": "Sunita Rao", "email": "sunita.rao@placement.edu", "phone": "+919999933333"}
+        ]
+        
+        # Verify if registered TPO, or allow custom social login for hackathon demo
+        found = next((t for t in tpo_users if t["email"] == email), None)
+        if found:
+            selected_tpo = found
+        else:
+            selected_tpo = {
+                "id": 99,
+                "name": name,
+                "email": email,
+                "phone": "+919999999999"
+            }
+            
+        return {
+            "token": req.access_token,
+            "role": "tpo",
+            "user": selected_tpo
+        }
+        
+    else:
+        raise HTTPException(status_code=400, detail="Invalid role specified")
+
+@app.post("/auth/login")
+def login(req: LoginRequest, db: Session = Depends(get_db)):
+    if req.role == "student":
+        # Attempt to find student by email, default to first student if not provided
+        email = req.email or "aditya.sharma@example.com"
+        student = db.query(Student).filter(Student.email == email).first()
+        if not student:
+            # Fallback mock for demo
+            student = db.query(Student).first()
+        
+        return {
+            "token": f"mock-student-token-{student.id}",
+            "role": "student",
+            "user": {
+                "id": student.id,
+                "name": student.name,
+                "email": student.email,
+                "branch": student.branch,
+                "cgpa": student.cgpa,
+                "api_score": student.api_score,
+                "ssi_score": student.ssi_score,
+                "prs_score": student.prs_score
+            }
+        }
+        
+    elif req.role == "recruiter":
+        # Recruiter mock profile
+        company = "Acme Systems"
+        if req.email and "@" in req.email:
+            company = req.email.split("@")[1].split(".")[0].capitalize()
+        
+        return {
+            "token": f"mock-recruiter-token-{company.lower()}",
+            "role": "recruiter",
+            "user": {
+                "name": f"{company} Recruiter Partner",
+                "email": req.email or f"recruiter@{company.lower()}.com",
+                "company": company
+            }
+        }
+        
+    elif req.role == "tpo":
+        # 3 Head of Placement accounts
+        tpo_users = [
+            {"id": 1, "name": "Maya Chen", "email": "maya.chen@placement.edu", "phone": "+919999911111"},
+            {"id": 2, "name": "Rajesh Kumar", "email": "rajesh.kumar@placement.edu", "phone": "+919999922222"},
+            {"id": 3, "name": "Sunita Rao", "email": "sunita.rao@placement.edu", "phone": "+919999933333"}
+        ]
+        
+        selected_tpo = tpo_users[0] # Default to Maya Chen
+        
+        # Verify method
+        if req.auth_method == "google":
+            # Match by mock token or search mail
+            if req.email:
+                found = next((t for t in tpo_users if t["email"] == req.email), None)
+                if found: selected_tpo = found
+        elif req.auth_method == "number":
+            if req.phone:
+                found = next((t for t in tpo_users if t["phone"] == req.phone), None)
+                if found: selected_tpo = found
+        elif req.auth_method == "mail":
+            if req.email:
+                found = next((t for t in tpo_users if t["email"] == req.email), None)
+                if found: selected_tpo = found
+                
+        return {
+            "token": f"mock-tpo-token-{selected_tpo['id']}",
+            "role": "tpo",
+            "user": selected_tpo
+        }
+        
+    else:
+        raise HTTPException(status_code=400, detail="Invalid role specified")
+
+
+
 # ==========================================
 # STUDENTS ENDPOINTS
 # ==========================================
