@@ -1,0 +1,289 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
+:root {
+  --primary: #000000;
+  --secondary: #5c5f60;
+  --background: #f9f9f9;
+  --surface: #ffffff;
+  --surface-container-low: #f3f3f4;
+  --surface-container-high: #e8e8e8;
+  --outline: #dadce0;
+  --outline-variant: #cfc4c5;
+  --error: #ba1a1a;
+  
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  
+  --radius-card: 16px;
+  --radius-pill: 9999px;
+  --radius-sm: 8px;
+  
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 40px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--background);
+  color: var(--primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+}
+.material-symbols-outlined.filled {
+  font-variation-settings: 'FILL' 1;
+}
+
+/* Layout Utilities */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.top-bar {
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--outline-variant);
+  height: 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--spacing-lg);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.main-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  padding: var(--spacing-xl) var(--spacing-lg);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-xl);
+}
+
+@media (min-width: 768px) {
+  .main-content {
+    grid-template-columns: 8fr 4fr;
+  }
+}
+
+/* Typography */
+h1 {
+  font-family: var(--font-heading);
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--spacing-xs) 0;
+}
+h2 {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 var(--spacing-md) 0;
+}
+h3 {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+.subtitle {
+  color: var(--secondary);
+  font-size: 18px;
+  margin-top: 0;
+}
+
+/* Cards */
+.card {
+  background-color: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+/* Buttons */
+.btn {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px var(--spacing-lg);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  border: none;
+  transition: opacity 0.2s, background-color 0.2s;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+}
+.btn-primary:hover:not(:disabled) {
+  opacity: 0.9;
+}
+.btn-secondary {
+  background-color: var(--surface);
+  color: var(--primary);
+  border: 1px solid var(--outline);
+}
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--background);
+}
+
+/* Table */
+.table-container {
+  background-color: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+th {
+  background-color: var(--surface-container-low);
+  padding: var(--spacing-md);
+  font-size: 12px;
+  color: var(--secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  border-bottom: 1px solid var(--outline);
+}
+td {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--outline-variant);
+  font-size: 14px;
+}
+tr:last-child td {
+  border-bottom: none;
+}
+tr:hover {
+  background-color: var(--background);
+}
+
+/* Badges/Tags */
+.badge {
+  background-color: var(--surface-container-high);
+  color: var(--primary);
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+}
+.badge.active {
+  background-color: var(--primary);
+  color: white;
+}
+
+/* Form Elements */
+textarea {
+  width: 100%;
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-md);
+  font-family: var(--font-body);
+  font-size: 14px;
+  resize: vertical;
+}
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* Progress */
+.progress-bg {
+  width: 100%;
+  height: 4px;
+  background-color: var(--surface-container-high);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  margin-top: var(--spacing-xs);
+}
+.progress-fill {
+  height: 100%;
+  background-color: var(--primary);
+}
+
+.exceptions-list {
+  background-color: var(--error);
+  color: white;
+  padding: var(--spacing-md);
+  border-radius: var(--radius-sm);
+  margin-top: var(--spacing-sm);
+}
+.exceptions-list button {
+  background: white;
+  color: var(--error);
+  border: none;
+  padding: 4px 8px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+/* Status dots */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  display: inline-block;
+}
+
+/* Utility */
+.d-flex { display: flex; }
+.flex-col { flex-direction: column; }
+.gap-xs { gap: var(--spacing-xs); }
+.gap-sm { gap: var(--spacing-sm); }
+.gap-md { gap: var(--spacing-md); }
+.gap-lg { gap: var(--spacing-lg); }
+.gap-xl { gap: var(--spacing-xl); }
+.justify-between { justify-content: space-between; }
+.items-center { align-items: center; }
+.mt-sm { margin-top: var(--spacing-sm); }
+.mt-md { margin-top: var(--spacing-md); }
+.mt-lg { margin-top: var(--spacing-lg); }
+.mb-xs { margin-bottom: var(--spacing-xs); }
+.w-full { width: 100%; }
+.text-secondary { color: var(--secondary); }
+.text-sm { font-size: 14px; }
