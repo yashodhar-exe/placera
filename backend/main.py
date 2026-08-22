@@ -5,13 +5,15 @@ import json
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
+from sqlalchemy.orm import joinedload
 from pydantic import BaseModel
 import contextlib
 import logging
 
 from app.database import get_db, engine, Base
-from app.models import JobDrive, EligibilityResult, CandidateMatch, Interview, SystemException, Resume, AgentEvent, Offer, ReadinessPlan
+from app.models import JobDrive, EligibilityResult, CandidateMatch, Interview, SystemException, Resume, AgentEvent, Offer, ReadinessPlan, User, Student
 from app.agents.manager import PlacementManagerAgent
+from app.auth import get_password_hash, verify_password, create_access_token
 
 logging.basicConfig(level=logging.INFO)
 
@@ -41,6 +43,29 @@ class JDConfirmRequest(BaseModel):
     allowed_branches: list[str] | None
     max_backlogs: int | None
     allow_prior_offers: bool
+
+class SignupRequest(BaseModel):
+    name: str | None = None
+    email: str
+    password: str
+    role: str
+
+class LoginRequest(BaseModel):
+    email: str
+    password: str
+
+@app.get("/api/drives")
+async def get_drives(db: AsyncSession = Depends(get_db)):
+    result = await db.execute(
+        select(JobDrive).options(joinedload(JobDrive.company)).order_by(JobDrive.id.desc())
+    )
+    drives = result.scalars().all()
+    return [{
+        "id": d.id,
+        "company_name": d.company.name if d.company else f"Company {d.company_id}",
+        "role": d.role or "Unspecified Role",
+        "status": d.status,
+    } for d in drives]
 
 @app.post("/api/drives")
 async def create_drive(company_id: int, db: AsyncSession = Depends(get_db)):
@@ -88,8 +113,11 @@ async def run_matching(drive_id: int, db: AsyncSession = Depends(get_db)):
     count = await manager.run_matching(db, drive_id)
     return {"matched_count": count}
 
-@app.get("/api/drives/{drive_id}/matches")
-async def get_matches(drive_id: int, db: AsyncSession = Depends(get_db)):
+@app.post("/api/drives/{drive_id}/matches")
+async def run_and_get_matches(drive_id: int, db: AsyncSession = Depends(get_db)):
+    # 1. Run the AI Matching engine
+    await manager.run_matching(db, drive_id)
+    # 2. Fetch the newly created match results
     result = await db.execute(select(CandidateMatch).where(CandidateMatch.drive_id == drive_id).order_by(CandidateMatch.match_score.desc()))
     return result.scalars().all()
 
@@ -138,7 +166,58 @@ async def send_notifications(drive_id: int):
     manager.send_update_notifications(drive_id, "Schedule has been finalized.")
     return {"status": "sent"}
 
-# --- V2 Endpoints ---
+# --- Auth Endpoints ---
+
+@app.post("/api/auth/signup")
+async def signup(req: SignupRequest, db: AsyncSession = Depends(get_db)):
+    existing_user = await db.execute(select(User).where(User.email == req.email))
+    if existing_user.scalars().first():
+        raise HTTPException(status_code=400, detail="Email already registered")
+        
+    student_id = None
+    if req.role == "student":
+        existing_student = await db.execute(select(Student).where(Student.email == req.email))
+        student = existing_student.scalars().first()
+        if student:
+            student_id = student.id
+        else:
+            new_student = Student(name=req.name or "New Student", email=req.email)
+            db.add(new_student)
+            await db.flush()
+            student_id = new_student.id
+            
+    new_user = User(
+        email=req.email,
+        password_hash=get_password_hash(req.password),
+        role=req.role,
+        student_id=student_id
+    )
+    db.add(new_user)
+    await db.commit()
+    
+    token = create_access_token({"sub": req.email, "role": req.role, "student_id": student_id})
+    return {"token": token, "role": req.role, "student_id": student_id, "name": req.name}
+
+@app.post("/api/auth/login")
+async def login(req: LoginRequest, db: AsyncSession = Depends(get_db)):
+    result = await db.execute(select(User).where(User.email == req.email))
+    user = result.scalars().first()
+    
+    if not user or not verify_password(req.password, user.password_hash):
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+        
+    token = create_access_token({"sub": user.email, "role": user.role, "student_id": user.student_id})
+    
+    name = user.email
+    if user.role == "student" and user.student_id:
+        student_res = await db.execute(select(Student).where(Student.id == user.student_id))
+        student = student_res.scalars().first()
+        if student:
+            name = student.name
+            
+    return {"token": token, "role": user.role, "student_id": user.student_id, "name": name}
+
+# --- V1 Mock Endpoints ---
 
 @app.post("/api/students/{student_id}/resume")
 async def upload_resume(student_id: int, file: UploadFile = File(...), db: AsyncSession = Depends(get_db)):
@@ -148,7 +227,11 @@ async def upload_resume(student_id: int, file: UploadFile = File(...), db: Async
         shutil.copyfileobj(file.file, buffer)
     
     resume = await manager.parse_and_store_resume(db, student_id, file_path)
-    return {"status": "success", "resume_id": resume.id}
+    return {
+        "status": "success", 
+        "resume_id": resume.id,
+        "parsed_data": json.loads(resume.structured_data) if resume.structured_data else {}
+    }
 
 @app.get("/api/agent-events")
 async def get_agent_events(db: AsyncSession = Depends(get_db)):

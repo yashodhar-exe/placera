@@ -1,0 +1,984 @@
+id,student_id,title,description,domain_tags
+1,1,E-commerce Recommender,Perferendis perferendis nesciunt reprehenderit velit autem doloremque ad sunt natus totam dolore.,IoT
+2,2,IoT Smart Campus,Odio iure praesentium officiis blanditiis aliquid alias voluptatum.,Data Engineering
+3,2,AI Resume Screener,Atque suscipit consequatur iste perferendis quia veniam in.,Data Engineering
+4,2,Chatbot Assistant,Suscipit omnis rerum nulla vel eius porro dolor ipsam.,Web
+5,3,AI Resume Screener,Sequi aut placeat molestias voluptate facere id deleniti commodi sed.,Web
+6,3,Library Management Portal,At distinctio odit voluptas amet ex voluptates ratione dignissimos rerum mollitia nesciunt repellat doloremque.,Web
+7,4,Attendance Tracker,Ratione nisi eius voluptates voluptates molestiae reiciendis beatae sint.,AI/ML
+8,4,Chatbot Assistant,Accusamus ratione dolores eum cupiditate amet qui minima quia.,Data Engineering
+9,5,Campus Event App,Ipsum facere nisi iste dolore nostrum quas tenetur omnis error officia adipisci voluptatum sed.,Cloud
+10,5,E-commerce Recommender,Placeat laudantium tenetur asperiores aspernatur non aperiam eius odio molestias eveniet voluptatum minus.,AI/ML
+11,6,Weather Prediction Model,Magni inventore recusandae beatae omnis soluta mollitia sint inventore suscipit impedit repudiandae id quas.,IoT
+12,6,Attendance Tracker,Incidunt pariatur fugiat corrupti ullam architecto rerum at atque qui repellat nam.,Mobile
+13,7,Weather Prediction Model,Vero natus pariatur illum sit velit in totam amet enim est aut magni culpa laboriosam sed.,Cloud
+14,8,Weather Prediction Model,Sapiente facilis quis nemo rem sapiente voluptate repellendus nostrum odit ad ut.,Web
+15,9,Library Management Portal,Adipisci earum quis ullam expedita delectus corporis omnis architecto qui voluptas.,Data Engineering
+16,9,Chatbot Assistant,Quia dolor in exercitationem fuga quam quod necessitatibus.,Cloud
+17,10,Campus Event App,Sunt culpa quidem amet aspernatur ipsam incidunt non.,Data Engineering
+18,11,IoT Smart Campus,Earum quidem beatae inventore eligendi perspiciatis laborum pariatur aliquid hic nobis ab error.,IoT
+19,12,Chatbot Assistant,Quisquam quisquam enim blanditiis libero inventore consectetur minus dolorem nam.,AI/ML
+20,13,Campus Event App,Asperiores similique aliquam accusantium ullam similique nemo nemo quae in beatae accusantium.,Data Engineering
+21,13,Placement Analytics Dashboard,Cupiditate veniam itaque porro facere ipsa autem ipsa id aspernatur sit quia.,Data Engineering
+22,14,Campus Event App,Ex cumque magni beatae magni temporibus expedita quas reprehenderit repellendus.,AI/ML
+23,14,Placement Analytics Dashboard,Aut ducimus cupiditate corrupti quis asperiores veritatis occaecati iure natus.,Cloud
+24,15,IoT Smart Campus,Ipsum unde natus odio numquam sint occaecati corrupti architecto ipsam esse earum animi magni est iste.,IoT
+25,15,Weather Prediction Model,Fuga enim officia voluptate at nisi fugit neque.,Mobile
+26,15,IoT Smart Campus,Ipsum repellat officiis eum labore corrupti aperiam.,Data Engineering
+27,16,Chatbot Assistant,Repellat saepe voluptatem assumenda officia aliquam provident voluptatibus.,IoT
+28,16,Placement Analytics Dashboard,Minima culpa fuga eligendi illum excepturi nisi ratione officia aperiam atque perspiciatis eligendi quam omnis.,Mobile
+29,17,Fraud Detection System,Sit ex nesciunt consequuntur expedita voluptas praesentium hic nisi vel est fugiat recusandae repellat pariatur repudiandae.,Cloud
+30,17,Weather Prediction Model,Atque perferendis magni accusantium est veritatis exercitationem quisquam deleniti voluptatum culpa eos ratione magni molestiae.,Web
+31,18,Attendance Tracker,Alias excepturi quisquam consectetur fugiat cum rerum quo repellat cumque ipsa illum perspiciatis dolores ipsam.,IoT
+32,18,Fraud Detection System,Quibusdam quos doloremque dolores vitae quos temporibus deserunt perspiciatis necessitatibus ipsam.,Cloud
+33,19,Library Management Portal,Quod magnam in cum dicta non sit amet laboriosam fuga vel.,IoT
+34,19,Chatbot Assistant,Sed eligendi quis earum temporibus corporis ipsa veniam dolore iste expedita ad amet magnam doloremque.,IoT
+35,19,Weather Prediction Model,Fugiat adipisci ut saepe officiis recusandae consequuntur enim.,IoT
+36,20,AI Resume Screener,Possimus consequuntur provident ipsum a aspernatur ducimus rerum molestias quas minus beatae enim error.,Mobile
+37,21,Chatbot Assistant,Dolores odit numquam aperiam saepe libero modi.,Cloud
+38,22,Campus Event App,Maiores doloribus corporis inventore nostrum dolores impedit optio assumenda voluptate architecto minima magni voluptates mollitia hic.,IoT
+39,22,IoT Smart Campus,Aliquam harum fuga quibusdam explicabo architecto dolores omnis aut neque quidem consequatur explicabo excepturi.,Cloud
+40,23,AI Resume Screener,Rerum placeat voluptatem laboriosam delectus consequatur quaerat velit alias.,Web
+41,23,IoT Smart Campus,Aliquam dicta aliquam ut maiores voluptatibus molestiae ducimus quidem deleniti.,Cloud
+42,24,Chatbot Assistant,Similique aliquid omnis earum reiciendis ipsa id ipsam vero excepturi deleniti porro.,Cloud
+43,24,Campus Event App,Unde maxime reiciendis quas aspernatur nobis reprehenderit molestias eum aspernatur optio esse.,IoT
+44,25,IoT Smart Campus,Quaerat cumque ipsam ipsum quas tenetur nostrum ipsa odit recusandae animi perferendis illo maiores quibusdam cum.,AI/ML
+45,26,Attendance Tracker,Consequuntur non quos alias architecto quod facilis.,Mobile
+46,26,Weather Prediction Model,Veniam adipisci corrupti ipsum fuga ipsam asperiores consequuntur facilis et eius vero ad.,Mobile
+47,26,AI Resume Screener,Libero harum natus ea ea ipsum voluptatum eligendi totam.,Cloud
+48,27,Chatbot Assistant,Dicta consequatur asperiores cupiditate quae voluptatum repellat voluptas voluptates pariatur quae mollitia enim error.,AI/ML
+49,27,IoT Smart Campus,Quae unde odit recusandae magni commodi dicta consequuntur ratione.,Mobile
+50,27,AI Resume Screener,Facere nemo iusto voluptatem consectetur sunt aperiam.,Mobile
+51,28,AI Resume Screener,Voluptatum quaerat minima quisquam reprehenderit asperiores voluptas odit ipsum perspiciatis exercitationem soluta quos.,IoT
+52,29,Fraud Detection System,Delectus vitae inventore tenetur animi commodi corrupti cum eum quae exercitationem velit tempora sapiente dolorum odio.,Mobile
+53,29,Placement Analytics Dashboard,Earum numquam nostrum atque odit nihil neque cupiditate numquam temporibus excepturi unde aliquam sint aspernatur.,IoT
+54,30,Attendance Tracker,Eaque distinctio nemo nulla adipisci suscipit molestias odit error doloribus rem illo iste porro culpa.,Mobile
+55,30,Fraud Detection System,Laborum dignissimos non est quaerat quasi similique voluptate consectetur fuga natus eum iure.,IoT
+56,31,IoT Smart Campus,Ipsum consequuntur amet veniam sint in vitae temporibus repellendus ut quam.,IoT
+57,31,Attendance Tracker,Quis libero maiores libero est ad veniam magnam vitae dolor.,Cloud
+58,31,E-commerce Recommender,Aliquid eligendi nisi sapiente perferendis enim ab autem consequatur eaque facilis illo.,Mobile
+59,32,Fraud Detection System,Id necessitatibus deserunt mollitia asperiores magnam quisquam.,IoT
+60,32,Campus Event App,Repudiandae numquam nostrum consectetur atque fuga voluptates nam facilis corporis nobis.,IoT
+61,33,IoT Smart Campus,Magnam aliquid consequatur ex labore itaque non maiores eveniet nostrum cum voluptatibus qui.,Data Engineering
+62,33,Attendance Tracker,Nisi magni magni laudantium natus labore accusantium ex autem impedit esse.,IoT
+63,33,Chatbot Assistant,Ad labore voluptas quos quod neque quam nesciunt cupiditate occaecati nulla sapiente corporis perspiciatis adipisci veniam.,AI/ML
+64,34,Attendance Tracker,Deleniti ipsam in impedit dignissimos magnam nostrum iusto.,Cloud
+65,34,Library Management Portal,Provident maxime natus voluptatum laboriosam fugiat vero itaque.,Mobile
+66,34,Campus Event App,Exercitationem explicabo quo quam officia possimus nostrum deleniti doloribus nam dolore voluptate error enim dignissimos.,AI/ML
+67,35,Weather Prediction Model,Et expedita ut recusandae earum commodi perspiciatis fugit voluptatem repellendus veritatis rem enim enim.,Data Engineering
+68,35,AI Resume Screener,Expedita ipsam ducimus laboriosam dicta molestiae ut possimus.,AI/ML
+69,35,Weather Prediction Model,Autem qui dolores amet temporibus dolorem doloremque aut ex.,AI/ML
+70,36,Attendance Tracker,Aut quo a mollitia ut illum vel soluta labore dicta vitae eum officia tenetur.,Data Engineering
+71,37,Chatbot Assistant,Officiis doloremque qui sed alias ullam in saepe.,AI/ML
+72,37,IoT Smart Campus,Voluptatum id libero vel vitae unde soluta.,IoT
+73,38,IoT Smart Campus,Error nobis unde ex iste odit minima.,Cloud
+74,38,Weather Prediction Model,Sed iusto deserunt beatae cum itaque ducimus delectus qui.,Cloud
+75,39,Library Management Portal,Necessitatibus quidem cupiditate sequi tempore repudiandae maiores assumenda pariatur delectus consequuntur.,Cloud
+76,39,Weather Prediction Model,Vel ab fugit ipsum eaque eveniet nesciunt nemo ea facere dolores pariatur.,IoT
+77,40,Library Management Portal,Esse illo magnam tempora provident est blanditiis totam eos nostrum dolor consequatur corrupti quibusdam.,IoT
+78,40,Weather Prediction Model,Fuga praesentium totam quidem reiciendis repudiandae quis perspiciatis nisi ratione minima minus facere totam beatae repudiandae.,IoT
+79,41,IoT Smart Campus,Dicta modi cum sequi ipsam perspiciatis quaerat laborum tempore ipsum animi consequatur impedit natus.,Web
+80,42,Library Management Portal,Iure rem quam id repellendus quia neque aliquid exercitationem aperiam voluptatibus vel architecto ut adipisci.,Data Engineering
+81,43,IoT Smart Campus,Debitis consequatur odit quas vitae fugiat tempora ipsum totam fugiat aspernatur vitae soluta.,IoT
+82,44,Attendance Tracker,Officiis expedita debitis modi minus quas dolore a ad.,AI/ML
+83,44,Library Management Portal,Iure quaerat incidunt fugit dolorem itaque culpa deleniti soluta quisquam adipisci.,Data Engineering
+84,44,Campus Event App,Nostrum vel suscipit dolores architecto nisi ipsum perferendis sit doloribus aliquid ipsa molestiae.,AI/ML
+85,45,AI Resume Screener,Consequuntur voluptatibus doloremque totam nemo neque quo repellendus.,Mobile
+86,45,Weather Prediction Model,Error corporis optio dolore error aperiam veniam sunt tenetur numquam.,Cloud
+87,45,AI Resume Screener,Nam aliquid exercitationem officia fugit minima possimus illum error delectus modi dolores dolorem.,AI/ML
+88,46,E-commerce Recommender,Rem totam natus voluptas nam consequatur doloribus dignissimos officia.,Cloud
+89,46,IoT Smart Campus,Sed at quam deleniti eaque perferendis nobis sit deleniti quis quam nam laboriosam sit.,AI/ML
+90,47,Chatbot Assistant,Esse tenetur distinctio deleniti qui quia quidem totam possimus provident id dolores.,AI/ML
+91,48,E-commerce Recommender,Quod fugit modi facere ea maiores libero atque voluptatem iusto saepe totam.,Mobile
+92,48,Library Management Portal,Est aliquid sint qui accusamus mollitia nesciunt quam eos deserunt dolorem necessitatibus.,Mobile
+93,49,Campus Event App,Libero omnis placeat ducimus reprehenderit vitae odit laudantium cumque recusandae.,Web
+94,50,Placement Analytics Dashboard,Consequuntur molestias delectus suscipit voluptatibus vero minima saepe asperiores.,Data Engineering
+95,50,E-commerce Recommender,Quisquam impedit sapiente doloremque provident ab magni.,Mobile
+96,50,Campus Event App,Aperiam odit ut totam omnis accusamus minus illum accusantium quam modi enim.,Web
+97,51,Placement Analytics Dashboard,Repellat perferendis rem tenetur autem atque corrupti deleniti minima repellendus eaque id fuga illo.,Data Engineering
+98,51,IoT Smart Campus,Doloribus possimus error repudiandae aspernatur voluptatibus officiis adipisci illo fugiat labore odio praesentium assumenda sapiente.,AI/ML
+99,51,AI Resume Screener,Natus similique atque minus aliquam distinctio sint suscipit labore aliquid asperiores unde.,Mobile
+100,52,Library Management Portal,Natus adipisci ut et vero nesciunt quibusdam quae id aspernatur cum dolores rerum harum tempore.,Data Engineering
+101,53,Fraud Detection System,Fugit qui ratione porro aspernatur quia exercitationem atque doloremque asperiores non nostrum.,Mobile
+102,53,Chatbot Assistant,Id quo adipisci earum voluptatibus laudantium explicabo velit inventore perspiciatis optio assumenda nulla reiciendis quae aspernatur.,Data Engineering
+103,53,Library Management Portal,Fugit quos culpa harum facere at velit ipsam quis.,Data Engineering
+104,54,Campus Event App,Consequatur deleniti ipsum mollitia illum ad explicabo at.,Cloud
+105,54,IoT Smart Campus,Quos sint accusamus impedit quod quam nam voluptatibus doloribus maxime placeat cumque eaque eaque corporis cumque.,Web
+106,54,Library Management Portal,In laborum asperiores dolorum doloribus numquam nisi deserunt autem esse veniam.,IoT
+107,55,Library Management Portal,Sapiente fugit similique ipsam inventore reprehenderit officiis nisi error nobis possimus laboriosam.,IoT
+108,55,Chatbot Assistant,Vitae voluptas eos possimus laudantium nemo doloribus fugiat repellendus.,Web
+109,56,Fraud Detection System,Facilis ut dicta voluptatum debitis quisquam ad quas velit distinctio reiciendis rerum architecto.,Cloud
+110,57,Attendance Tracker,Perferendis consequuntur esse dolorum culpa incidunt fugiat ipsum nisi neque modi unde sit.,Data Engineering
+111,57,Chatbot Assistant,Molestiae ratione facere tempora modi odit assumenda quisquam omnis explicabo officia aliquid voluptates.,Data Engineering
+112,58,Library Management Portal,Vitae ex recusandae autem atque dolore quia nam porro dolore fugiat iure perspiciatis.,AI/ML
+113,58,E-commerce Recommender,Corrupti voluptatum laboriosam eos ullam assumenda rerum quas expedita exercitationem quos maxime expedita atque.,IoT
+114,58,AI Resume Screener,Eum error repellat beatae sed officia perspiciatis cum voluptates doloribus cupiditate cum nam vero.,IoT
+115,59,Placement Analytics Dashboard,Reiciendis occaecati delectus omnis hic qui sunt ipsum inventore a.,IoT
+116,60,E-commerce Recommender,Dignissimos quibusdam repellat aperiam aut sit deleniti eveniet itaque ea.,IoT
+117,60,AI Resume Screener,Minus odit nisi nostrum nesciunt expedita sapiente nulla repellendus provident error nostrum assumenda consequatur.,Cloud
+118,60,IoT Smart Campus,Dolores blanditiis fuga consequuntur harum nisi nemo in laborum.,IoT
+119,61,Fraud Detection System,Possimus officia voluptatum mollitia laudantium consequuntur et iste amet facere ab consequatur repellendus vitae magnam.,Web
+120,62,Placement Analytics Dashboard,Illum laudantium quae ipsam cumque natus recusandae dolore adipisci dolore enim quos natus quo.,Cloud
+121,62,IoT Smart Campus,Mollitia beatae beatae quod reprehenderit facilis reprehenderit aliquam quaerat molestias voluptatibus aut rerum quibusdam.,Cloud
+122,62,Library Management Portal,Soluta adipisci ea similique assumenda sint blanditiis repellat distinctio qui porro.,Web
+123,63,AI Resume Screener,Odio cumque consequuntur dignissimos dignissimos animi expedita eligendi molestiae eum provident enim eaque similique voluptates perspiciatis.,AI/ML
+124,63,IoT Smart Campus,Consequatur quibusdam illum animi eius omnis praesentium consequatur.,IoT
+125,63,Placement Analytics Dashboard,Quae repudiandae quis perspiciatis laudantium neque eaque impedit iste.,Web
+126,64,Attendance Tracker,Illo quibusdam possimus soluta iste laborum neque sit.,Web
+127,64,Fraud Detection System,Quasi itaque optio facere aperiam modi dolor inventore.,IoT
+128,65,IoT Smart Campus,Libero eum eligendi molestias consectetur sequi ratione tempora quis aliquid.,AI/ML
+129,65,Chatbot Assistant,Quos itaque commodi similique ipsam a vero dicta porro consequatur officiis culpa ut earum omnis dolorum.,Cloud
+130,66,Placement Analytics Dashboard,Optio officiis amet numquam quas quidem inventore at atque distinctio aspernatur nisi.,Cloud
+131,66,Placement Analytics Dashboard,Perspiciatis ab possimus repellendus voluptates in consequatur architecto fugit quas aut et sunt consequatur quo.,Data Engineering
+132,67,Campus Event App,Odit perspiciatis architecto natus nostrum cum expedita distinctio quibusdam.,Data Engineering
+133,67,Placement Analytics Dashboard,Nulla ipsam dolor tempore consequuntur commodi quas expedita inventore ratione dolorum officia dolorum.,Data Engineering
+134,68,Weather Prediction Model,Nobis non quod porro sed omnis error maxime magni quibusdam eos amet tempore veritatis libero beatae.,Mobile
+135,68,AI Resume Screener,Odit architecto suscipit accusamus facere et harum saepe in molestias cupiditate iusto voluptates asperiores.,Mobile
+136,68,AI Resume Screener,Architecto ea aliquam aperiam ratione magni occaecati magnam impedit praesentium assumenda modi nulla eius est maiores.,AI/ML
+137,69,E-commerce Recommender,Voluptate culpa eveniet nesciunt quis officiis officia est ipsa veritatis.,Web
+138,69,Campus Event App,Animi assumenda ipsa iste non est qui qui blanditiis provident.,Web
+139,69,AI Resume Screener,Cum veritatis minima quos quam cumque consectetur.,Mobile
+140,70,Weather Prediction Model,Quasi blanditiis tempore ex inventore minima ea voluptate occaecati libero magni.,Mobile
+141,71,Placement Analytics Dashboard,Libero necessitatibus facilis ducimus aut nemo quam dolorem.,Web
+142,71,Chatbot Assistant,A similique accusamus aliquid facilis ullam debitis vero alias rem quae omnis dolore dolorum totam.,Cloud
+143,71,Placement Analytics Dashboard,Earum aspernatur fuga magnam temporibus debitis rem voluptatem veritatis architecto iure eligendi.,Web
+144,72,E-commerce Recommender,Eveniet mollitia ab dicta natus esse numquam iure nihil laudantium quo.,AI/ML
+145,72,AI Resume Screener,Quasi molestias recusandae corrupti ut ad molestiae odio possimus ab.,Data Engineering
+146,72,Campus Event App,A omnis sed quas aut minus dolores laudantium animi voluptatum quae at.,Mobile
+147,73,E-commerce Recommender,Tempore maxime praesentium fuga voluptate assumenda atque consequatur reprehenderit asperiores.,Mobile
+148,73,AI Resume Screener,Aperiam optio consectetur eos sed unde hic rerum eveniet iste doloremque velit consequatur quo autem.,Data Engineering
+149,74,Attendance Tracker,Cum iure illo modi vitae dignissimos est eaque.,Web
+150,75,Attendance Tracker,At rem esse provident nobis dolor sequi corporis quae.,Cloud
+151,75,IoT Smart Campus,Id aliquid error reprehenderit cupiditate veritatis sequi nam mollitia atque aut recusandae.,Data Engineering
+152,75,Weather Prediction Model,Accusamus rerum voluptatem consectetur reprehenderit fuga occaecati officia neque.,Cloud
+153,76,Placement Analytics Dashboard,Totam asperiores voluptatum deserunt officia repellat at sed repellat commodi velit.,Mobile
+154,77,IoT Smart Campus,Cumque nemo reprehenderit hic adipisci placeat cupiditate.,Data Engineering
+155,77,AI Resume Screener,Tenetur eius ipsum corrupti nostrum nulla officia libero sunt laboriosam.,Data Engineering
+156,78,Weather Prediction Model,Eius consequatur dicta suscipit minima occaecati reiciendis recusandae.,AI/ML
+157,78,Attendance Tracker,Quos facere molestias laborum totam magnam harum debitis eum dolor tempore quod.,IoT
+158,79,IoT Smart Campus,Repellat iusto facere nesciunt doloremque cum dolorum dolores.,Mobile
+159,80,AI Resume Screener,Repellendus totam animi voluptatum dolor sed reiciendis explicabo saepe sapiente debitis nihil rem possimus totam.,IoT
+160,80,IoT Smart Campus,Provident explicabo necessitatibus consequuntur veniam saepe repellat.,Web
+161,80,Campus Event App,Molestiae cupiditate alias animi nobis accusantium labore ex nostrum rem exercitationem debitis rem sit.,IoT
+162,81,Weather Prediction Model,Accusantium nesciunt totam quo sed similique vero fuga.,Cloud
+163,81,AI Resume Screener,Nesciunt excepturi eum voluptate quasi ipsa odit laborum et provident natus suscipit nostrum.,Data Engineering
+164,82,Attendance Tracker,Dolore nihil cupiditate esse porro consectetur quas veniam veniam hic voluptatibus vitae.,Cloud
+165,82,Chatbot Assistant,Delectus et repellat nostrum odit aut libero.,Web
+166,82,Campus Event App,Quia dolores voluptatem cumque suscipit at quae odit suscipit ipsum eaque dolorum.,Cloud
+167,83,Weather Prediction Model,Expedita ratione quam aliquid ipsa in cumque impedit.,Cloud
+168,84,Placement Analytics Dashboard,Expedita fugiat repudiandae ratione neque quis dolorem iste reiciendis alias accusantium ea.,Data Engineering
+169,84,Library Management Portal,Asperiores cumque fugiat quasi molestias tempore at nisi.,AI/ML
+170,84,E-commerce Recommender,Tempora provident inventore officiis non ipsa amet ex voluptate illum mollitia unde molestiae optio error atque.,Cloud
+171,85,Placement Analytics Dashboard,Nemo saepe corrupti facere incidunt eos optio nobis dicta ad cupiditate eos aspernatur.,Web
+172,85,Library Management Portal,Est id laudantium optio at molestias delectus suscipit.,AI/ML
+173,85,Fraud Detection System,Delectus aliquid ipsam ea saepe natus corrupti possimus atque pariatur repellat impedit.,Mobile
+174,86,Weather Prediction Model,Dolorem aperiam harum minima vitae porro vel nemo doloremque error hic sequi alias necessitatibus maxime nemo.,IoT
+175,86,Attendance Tracker,Corporis veniam ipsum veniam cumque distinctio deserunt aliquam aspernatur placeat dicta reprehenderit corporis nisi eum quas.,Mobile
+176,87,E-commerce Recommender,Assumenda nam mollitia sequi maxime totam accusamus praesentium.,Cloud
+177,87,Campus Event App,Minima in impedit corporis nihil quis velit unde natus aut enim modi exercitationem illum fugit laborum.,AI/ML
+178,87,IoT Smart Campus,Labore cupiditate illo nulla perspiciatis illo id soluta porro aliquid labore eaque fuga excepturi recusandae est.,IoT
+179,88,E-commerce Recommender,Similique placeat voluptas dolorem error quia quo eum quas non at ipsam totam illum.,AI/ML
+180,88,Weather Prediction Model,Quis sint reprehenderit maiores culpa est magni consequatur sed sunt adipisci deserunt rerum saepe.,AI/ML
+181,88,AI Resume Screener,Alias amet facere dicta fuga iure id ullam perspiciatis doloribus.,IoT
+182,89,IoT Smart Campus,Nisi debitis sit nesciunt expedita cum tempora quibusdam porro eligendi harum cum nemo vitae.,IoT
+183,90,Attendance Tracker,Officia perspiciatis eaque illum accusantium quos quisquam ab tenetur officia.,Data Engineering
+184,90,IoT Smart Campus,Reiciendis dolore non velit quae quae eius tempora sed itaque dolor error maxime numquam nesciunt ab.,Cloud
+185,91,Chatbot Assistant,Natus nisi eligendi placeat laboriosam excepturi eius eveniet eius omnis veritatis officiis.,IoT
+186,91,E-commerce Recommender,Corrupti quisquam tempore rem rem nobis optio perspiciatis quam omnis.,IoT
+187,92,E-commerce Recommender,Ea in harum alias provident nemo deleniti quas dolore modi quos.,Data Engineering
+188,92,Chatbot Assistant,Magni sapiente saepe soluta debitis atque consectetur ea repellat quis delectus perspiciatis.,Web
+189,92,Attendance Tracker,Omnis dolore dolore sit in suscipit fuga nesciunt iure blanditiis amet odio.,Mobile
+190,93,Chatbot Assistant,Velit architecto suscipit magnam sint fugit error amet sequi consequuntur dicta illum necessitatibus tenetur itaque et.,Cloud
+191,93,Campus Event App,Quod laborum occaecati debitis odio a earum quis cumque.,AI/ML
+192,94,Fraud Detection System,Laudantium quis at nostrum odio illo vitae fugit alias.,AI/ML
+193,94,Placement Analytics Dashboard,Quas veniam tempora quidem minus accusantium a quasi dolorem soluta.,Data Engineering
+194,94,Campus Event App,Consectetur fugit nihil cumque reprehenderit error enim quas nisi excepturi suscipit.,AI/ML
+195,95,Library Management Portal,Exercitationem temporibus facere deleniti veniam ullam illo dolorem quas.,Cloud
+196,95,IoT Smart Campus,Distinctio accusantium magnam commodi quae recusandae fugiat odit quo.,Data Engineering
+197,96,AI Resume Screener,Aliquid voluptatum optio officiis accusantium porro impedit fugit molestias labore corrupti possimus occaecati error optio optio.,IoT
+198,97,Library Management Portal,Numquam praesentium in tempore maiores nulla eligendi quos libero non quod.,AI/ML
+199,97,AI Resume Screener,Voluptate facere illum cum molestias tenetur porro laboriosam doloremque accusamus at beatae nemo laudantium veniam.,IoT
+200,97,Weather Prediction Model,Asperiores quam temporibus officia itaque voluptate eaque amet repellat soluta sequi facere perspiciatis incidunt blanditiis.,Mobile
+201,98,Weather Prediction Model,Ab consequuntur officia eveniet tempora veritatis eaque.,Mobile
+202,98,Placement Analytics Dashboard,Fuga exercitationem beatae id itaque saepe porro laboriosam.,Web
+203,98,Library Management Portal,Officiis reiciendis beatae possimus animi velit cum impedit nihil rem perspiciatis debitis fugit.,AI/ML
+204,99,Library Management Portal,Nostrum similique sunt quas tempora laboriosam laborum suscipit ipsam aperiam omnis accusamus.,Web
+205,99,Attendance Tracker,Quisquam nemo natus voluptate pariatur excepturi minima praesentium atque optio dolorum exercitationem perspiciatis harum saepe.,AI/ML
+206,100,E-commerce Recommender,Tempora nostrum accusamus vel magni iusto libero cumque quibusdam eum ex eius magni mollitia fugiat.,AI/ML
+207,100,Chatbot Assistant,Aspernatur ipsam nemo at libero et voluptatem quia accusantium illo.,IoT
+208,100,AI Resume Screener,Nam a at nobis nulla esse magni.,Web
+209,101,E-commerce Recommender,Omnis itaque exercitationem repudiandae repellendus sapiente ex quisquam nobis quaerat.,IoT
+210,101,Attendance Tracker,Quaerat beatae quis dolore exercitationem rerum vitae eos minima praesentium aliquid cum.,IoT
+211,101,Library Management Portal,Reprehenderit quia illum ducimus deserunt blanditiis sequi dolor repudiandae.,Web
+212,102,E-commerce Recommender,Quaerat autem impedit unde saepe nihil quo ipsum omnis vero.,AI/ML
+213,102,Fraud Detection System,Vitae a quasi mollitia inventore nesciunt unde quos tenetur.,Data Engineering
+214,103,Attendance Tracker,Cupiditate repellendus aut omnis non eum sunt in non possimus dolorum id exercitationem eos rem consequuntur.,AI/ML
+215,104,AI Resume Screener,Praesentium quibusdam error praesentium similique quae vel odio dicta numquam enim exercitationem perferendis voluptatem officiis vero.,Data Engineering
+216,104,Fraud Detection System,Molestiae odio quae quis natus nesciunt velit quae perferendis tempora modi soluta in accusamus.,Mobile
+217,104,Library Management Portal,Ad corporis pariatur dicta quibusdam cum enim dolorum.,Cloud
+218,105,Attendance Tracker,Porro eos quidem adipisci repellendus aut sint qui.,Cloud
+219,106,Fraud Detection System,Quia natus dolores quos reiciendis enim optio unde harum vero.,IoT
+220,106,Fraud Detection System,Vitae amet quia dicta sit similique ipsam dolorem odio quae facilis nihil.,IoT
+221,106,Campus Event App,Deserunt quam deserunt ipsum voluptatem asperiores vitae quasi blanditiis aliquam eius eaque cum sapiente ab iure.,Cloud
+222,107,Campus Event App,Aliquam ut nisi quo numquam sapiente error ratione mollitia.,Cloud
+223,108,Campus Event App,Quos et dolore delectus architecto magnam impedit modi.,AI/ML
+224,108,Fraud Detection System,Expedita sunt optio ex eos veniam nulla labore.,Mobile
+225,108,IoT Smart Campus,Reprehenderit voluptatem ab pariatur ipsum temporibus nostrum numquam vero placeat eum totam velit harum molestiae.,Web
+226,109,Attendance Tracker,Ad maxime quo maiores magni laborum eos officiis eum aspernatur atque.,Mobile
+227,109,Placement Analytics Dashboard,Modi occaecati distinctio occaecati distinctio placeat saepe dignissimos repudiandae soluta qui ipsa repellendus asperiores placeat.,IoT
+228,109,IoT Smart Campus,Itaque ex assumenda amet recusandae nam nemo.,IoT
+229,110,IoT Smart Campus,Tenetur illum iste illo et harum blanditiis ab quam aperiam.,Mobile
+230,110,Placement Analytics Dashboard,Aliquid sed facere magnam enim placeat non eligendi unde fugit reprehenderit adipisci culpa dolore quia reiciendis.,Data Engineering
+231,110,Placement Analytics Dashboard,Eos odio error suscipit vitae sint officia vero accusamus soluta consequuntur aliquam nemo hic molestias.,Data Engineering
+232,111,Weather Prediction Model,Esse quibusdam temporibus exercitationem impedit officia maiores cum.,Data Engineering
+233,111,AI Resume Screener,Nulla dolorum beatae perferendis necessitatibus amet quibusdam voluptatibus molestias officia.,Mobile
+234,112,Library Management Portal,Enim architecto atque quas laborum ex consectetur omnis.,Cloud
+235,112,Chatbot Assistant,Eligendi architecto deserunt laborum eveniet optio possimus corrupti.,Data Engineering
+236,112,Placement Analytics Dashboard,Facilis et incidunt a doloribus dolore qui ipsa saepe consequatur quasi soluta iure facere esse.,Cloud
+237,113,Placement Analytics Dashboard,Autem officia aspernatur eligendi repudiandae tempora deserunt quasi occaecati quas tempora sed occaecati repellat neque.,Web
+238,113,Weather Prediction Model,Distinctio alias ea tempora molestiae omnis corrupti hic tempora nihil similique consequatur magnam at facilis ab.,Mobile
+239,113,Library Management Portal,Sed rem nostrum cumque maiores ipsum debitis veniam optio voluptas.,Cloud
+240,114,Weather Prediction Model,Vel aliquam quis doloremque eaque doloremque pariatur maxime recusandae harum ullam sunt aliquam officiis.,AI/ML
+241,114,Chatbot Assistant,Provident maxime repudiandae rerum ea molestias cupiditate officiis.,Web
+242,115,Placement Analytics Dashboard,Nesciunt tempore aspernatur dolorum voluptate dolore illo repellendus exercitationem recusandae suscipit ab.,Cloud
+243,116,Weather Prediction Model,Ipsam dolorem maiores eligendi corrupti culpa nobis repellendus optio.,Web
+244,116,Attendance Tracker,Repellat quam laboriosam laboriosam distinctio cum rerum ad aliquam nemo cum occaecati aliquam.,AI/ML
+245,116,Campus Event App,Corporis cumque ullam maxime illo voluptas odit soluta quas reprehenderit veniam dolor non iusto laboriosam.,Web
+246,117,AI Resume Screener,Rerum nobis recusandae reprehenderit delectus optio eaque quam exercitationem iste.,Mobile
+247,117,AI Resume Screener,Architecto fugiat consequatur accusantium minima tenetur placeat repudiandae non debitis temporibus nobis soluta minus quibusdam at.,IoT
+248,118,Weather Prediction Model,Temporibus molestiae a vel perspiciatis inventore in soluta possimus.,Data Engineering
+249,119,Chatbot Assistant,Dolorem rem ratione fugit nihil qui quis possimus atque consequatur labore doloremque similique.,Cloud
+250,120,AI Resume Screener,Nisi molestiae ducimus a quia ab minima maxime fugiat dignissimos rem.,Web
+251,120,Attendance Tracker,Facere culpa officiis ducimus sequi incidunt facilis eius perspiciatis quidem impedit quos laboriosam.,Data Engineering
+252,121,Chatbot Assistant,Nam laborum voluptates neque quo id consequuntur sint blanditiis dolorem quos veniam.,AI/ML
+253,121,Attendance Tracker,Dolor id excepturi mollitia possimus provident cum vitae.,Cloud
+254,122,Fraud Detection System,Rem reprehenderit iusto nobis at ea fuga.,Cloud
+255,123,Library Management Portal,Alias fugit voluptates nostrum maxime quae nisi veniam reprehenderit odit ipsa dicta omnis rem enim alias.,AI/ML
+256,123,AI Resume Screener,Magni praesentium nostrum perferendis facere omnis voluptate assumenda eius id pariatur illo dicta accusamus provident ullam.,Cloud
+257,124,Placement Analytics Dashboard,Eligendi rerum totam expedita vitae eius non deserunt ut nemo ea illum autem asperiores eos.,AI/ML
+258,125,AI Resume Screener,Rem vero soluta repellat nemo possimus vitae natus.,Mobile
+259,125,Placement Analytics Dashboard,Quidem vero itaque itaque nesciunt ad blanditiis architecto odio voluptatibus.,Web
+260,126,E-commerce Recommender,Reiciendis impedit explicabo modi praesentium ea enim id quibusdam exercitationem.,AI/ML
+261,126,Weather Prediction Model,Ut labore explicabo tempora eaque veniam placeat tenetur libero dicta quasi sit dignissimos dicta dolorum.,Cloud
+262,127,Placement Analytics Dashboard,Explicabo quod blanditiis aspernatur veritatis laudantium ab sequi vero sed fuga et tempore sunt nemo eius.,AI/ML
+263,128,E-commerce Recommender,Voluptates totam eligendi dolore nemo amet reiciendis laboriosam molestiae.,AI/ML
+264,128,Weather Prediction Model,Expedita similique quod itaque blanditiis maxime et ab perferendis fugit aut facere similique deleniti.,Data Engineering
+265,128,Fraud Detection System,Dolores iusto nostrum facilis libero distinctio praesentium fuga sequi eius debitis.,AI/ML
+266,129,Fraud Detection System,Voluptatem placeat repellendus quam rem nam sequi deserunt reiciendis.,Web
+267,129,Fraud Detection System,Labore ab in consequatur tempora occaecati modi et laborum.,IoT
+268,130,Weather Prediction Model,Natus necessitatibus id porro animi repellendus labore occaecati ipsum ex facere.,Data Engineering
+269,131,Fraud Detection System,Nam repellat exercitationem illum expedita perspiciatis non nemo officiis modi voluptatem eligendi eveniet magni quod.,Data Engineering
+270,131,AI Resume Screener,Suscipit fugit enim occaecati corporis cumque repellat excepturi occaecati nemo sed architecto cum dolorem.,Cloud
+271,132,Placement Analytics Dashboard,Officiis quae non hic suscipit quos vel quibusdam maxime ipsum cumque sequi.,IoT
+272,132,IoT Smart Campus,Quas optio velit praesentium aspernatur cumque aut aperiam soluta.,Data Engineering
+273,133,Attendance Tracker,Amet quo minima voluptatum aut nulla assumenda ut harum dolorem qui ipsam consectetur minima cupiditate.,Cloud
+274,133,AI Resume Screener,Optio similique eveniet labore voluptate molestiae earum.,AI/ML
+275,134,AI Resume Screener,Consequatur veniam molestiae nihil itaque quibusdam soluta ipsa odit modi tenetur laboriosam dolorem.,Cloud
+276,135,Fraud Detection System,Ipsam facilis ea esse a repellendus sed exercitationem.,Web
+277,135,IoT Smart Campus,Modi porro laudantium quidem error quisquam reiciendis nisi reiciendis molestias deleniti sunt ipsa dolorum.,Web
+278,135,Chatbot Assistant,Repudiandae dolore aspernatur numquam maxime reiciendis nostrum possimus earum officiis minus eaque deleniti.,Mobile
+279,136,Fraud Detection System,Delectus enim odio nulla earum numquam deleniti accusantium.,Data Engineering
+280,136,Campus Event App,Voluptas ad voluptas eligendi commodi ipsa ab.,Data Engineering
+281,137,Placement Analytics Dashboard,Corrupti laudantium exercitationem est reiciendis voluptatum iure recusandae.,Web
+282,138,E-commerce Recommender,Aspernatur quibusdam corporis eaque hic molestiae delectus tempore dolorum fugit accusamus voluptate.,Web
+283,139,IoT Smart Campus,Harum voluptate doloribus voluptatum dicta quasi atque pariatur dignissimos harum.,Data Engineering
+284,139,Chatbot Assistant,Vel culpa quas quia mollitia commodi laboriosam error facere amet pariatur.,IoT
+285,139,Fraud Detection System,Doloremque ipsa accusamus recusandae nesciunt id doloribus voluptas.,Mobile
+286,140,Campus Event App,Quos labore nisi fuga at culpa at nulla ut voluptatum numquam animi officia praesentium recusandae commodi.,Web
+287,140,E-commerce Recommender,Et nam officia expedita tempora quasi accusantium fugiat quam dolorum.,Data Engineering
+288,140,Chatbot Assistant,Laborum ipsa eos possimus deleniti delectus expedita.,Cloud
+289,141,Placement Analytics Dashboard,Eius rerum totam mollitia architecto culpa eos ea facilis a odit fugiat delectus accusantium.,Mobile
+290,141,Fraud Detection System,Quod dolores quam omnis molestiae harum minima libero mollitia nostrum eum odit.,Cloud
+291,142,Campus Event App,Atque omnis aliquam vel debitis adipisci autem deleniti.,IoT
+292,142,Attendance Tracker,Necessitatibus saepe omnis minima praesentium ducimus facilis.,AI/ML
+293,142,IoT Smart Campus,Quaerat accusamus ullam omnis unde rerum iusto odit facere quia tempora reprehenderit recusandae animi nulla minus.,Cloud
+294,143,Chatbot Assistant,Rerum aspernatur dolor maxime aut doloremque harum deserunt.,Data Engineering
+295,144,Attendance Tracker,Necessitatibus veniam nam nam quia quisquam nemo perferendis praesentium incidunt.,Web
+296,145,Attendance Tracker,Cumque debitis illo excepturi culpa voluptatum ipsam explicabo.,Mobile
+297,146,Library Management Portal,Mollitia voluptatum sapiente impedit odio repudiandae eum dolores molestias fugiat mollitia quia.,Data Engineering
+298,146,Chatbot Assistant,Vitae ipsum id quas voluptatem nisi maxime voluptatibus error error dolore sequi.,Cloud
+299,146,Fraud Detection System,Quo velit reprehenderit ullam maiores necessitatibus nemo.,Cloud
+300,147,E-commerce Recommender,Alias explicabo consequuntur facilis neque doloremque repellat at.,Cloud
+301,147,Chatbot Assistant,Necessitatibus dolor aspernatur eveniet laboriosam laborum tempore praesentium reprehenderit atque odit alias repellat.,Data Engineering
+302,148,Library Management Portal,Aspernatur animi quo expedita repellendus impedit sint sit dolorem officiis nobis accusamus.,AI/ML
+303,149,Attendance Tracker,Fugit esse aliquam molestiae corrupti magnam dolore amet quasi hic ipsum nisi magnam dolore enim hic.,Data Engineering
+304,150,Attendance Tracker,Excepturi labore quia molestias ea id ipsa praesentium quis.,IoT
+305,151,Library Management Portal,Nam laborum officiis deserunt nulla quasi doloribus asperiores quod eum unde at perferendis incidunt.,Web
+306,151,Attendance Tracker,Deleniti exercitationem omnis quo cumque expedita reprehenderit rem numquam ipsam unde doloremque.,Cloud
+307,151,Library Management Portal,Culpa quas assumenda qui doloribus numquam corporis rerum enim exercitationem rem esse.,Web
+308,152,Weather Prediction Model,Ad distinctio modi dignissimos minima ea laboriosam quas consequuntur praesentium accusantium nesciunt optio aliquam.,Mobile
+309,152,Weather Prediction Model,Animi dicta possimus earum iure veniam architecto optio optio.,Web
+310,152,Placement Analytics Dashboard,Sint accusantium sint officiis doloremque fugit voluptate aut et sint minus delectus.,Web
+311,153,AI Resume Screener,Vitae natus quae aliquam ullam esse laudantium quia accusantium placeat explicabo esse voluptatum voluptatem.,AI/ML
+312,153,Placement Analytics Dashboard,Repellat numquam soluta tempora repellendus adipisci mollitia eius corrupti tempore omnis.,Mobile
+313,154,Campus Event App,Quas maxime perspiciatis sit placeat impedit nemo incidunt.,AI/ML
+314,154,Library Management Portal,Tenetur eveniet molestiae dignissimos consequuntur molestiae reiciendis similique est provident minima.,Mobile
+315,154,Fraud Detection System,Inventore tenetur quo omnis natus culpa architecto minus quaerat.,Web
+316,155,Placement Analytics Dashboard,Et sunt quas quisquam sunt impedit illum ipsam ut.,AI/ML
+317,155,Attendance Tracker,Corrupti deleniti consectetur ad voluptates nulla non nostrum nisi doloremque ad.,Web
+318,156,Attendance Tracker,Porro labore magnam non quae fugiat sequi laudantium.,Web
+319,156,Campus Event App,Cum dolorem illum voluptas unde veniam dolore perferendis dicta.,Mobile
+320,157,Attendance Tracker,Architecto unde voluptates sint laudantium eveniet itaque doloribus illo aliquam.,Cloud
+321,157,Attendance Tracker,Quam hic vel nemo modi odit provident aliquam autem itaque soluta soluta.,Web
+322,158,E-commerce Recommender,Maxime id quasi nam maiores occaecati aliquid enim id esse.,Web
+323,159,Campus Event App,Itaque in nostrum amet maxime consequuntur rerum iste quam beatae quod.,AI/ML
+324,160,AI Resume Screener,Consequatur impedit iste debitis nihil quae dicta iste dolorum porro tenetur recusandae quaerat commodi beatae.,IoT
+325,160,Attendance Tracker,Odio assumenda provident quas voluptate nostrum cum mollitia aliquam cupiditate excepturi sit sint cum.,Mobile
+326,161,Attendance Tracker,Debitis quae in est quisquam ipsum occaecati blanditiis consectetur.,Data Engineering
+327,161,Chatbot Assistant,A quisquam accusamus libero libero rem non laudantium dolor optio.,Mobile
+328,162,IoT Smart Campus,Illum aspernatur nobis doloribus molestias nulla nam repudiandae aliquid corporis officiis alias sequi pariatur.,Web
+329,162,Weather Prediction Model,Error ullam aliquid impedit debitis perferendis nostrum porro nisi ratione debitis iste neque ut at error.,Cloud
+330,162,AI Resume Screener,Tempore reprehenderit quis sapiente aperiam iusto commodi similique eveniet impedit distinctio distinctio.,IoT
+331,163,Campus Event App,Autem quas occaecati voluptates laborum porro ut voluptates.,Web
+332,164,IoT Smart Campus,Incidunt sed ea nemo numquam unde nostrum libero quas libero repellat.,Web
+333,165,Chatbot Assistant,Doloremque enim deserunt blanditiis iure reiciendis qui dignissimos nostrum impedit aliquid expedita rem distinctio odit porro.,IoT
+334,165,Fraud Detection System,Ratione est magni eum ab placeat exercitationem quam nulla adipisci cupiditate.,Mobile
+335,166,Attendance Tracker,Rerum ullam laboriosam labore alias consequatur culpa itaque sint tempore iure repellendus.,IoT
+336,166,Fraud Detection System,Rerum error quam et modi dignissimos placeat reiciendis.,AI/ML
+337,167,IoT Smart Campus,Architecto corrupti sapiente excepturi fugiat modi cumque non deleniti blanditiis quos est.,Web
+338,167,Campus Event App,Quae earum assumenda soluta fuga repudiandae esse minima cupiditate fugiat alias dicta.,Mobile
+339,167,Attendance Tracker,Ipsam ad laboriosam magnam deleniti unde quasi minima.,Mobile
+340,168,E-commerce Recommender,Corporis sit reprehenderit vel perspiciatis consequatur quam itaque quae minima a ut.,IoT
+341,169,Fraud Detection System,Sit ex suscipit aut quisquam quia ad quis odit distinctio dicta enim minus quo perferendis earum.,Cloud
+342,170,AI Resume Screener,Earum accusamus numquam maiores dignissimos expedita et consequuntur provident.,Web
+343,170,Fraud Detection System,Nemo cupiditate est tempora molestiae amet adipisci temporibus amet fugit assumenda.,Data Engineering
+344,171,IoT Smart Campus,Debitis nisi nihil saepe praesentium nulla est repellendus quae perferendis modi voluptate quidem.,Web
+345,172,IoT Smart Campus,Necessitatibus at rem praesentium atque est officia quisquam iusto veniam corporis tempore ducimus facilis.,IoT
+346,172,Library Management Portal,Praesentium pariatur ratione sunt iste adipisci labore expedita itaque.,Mobile
+347,173,Campus Event App,Eligendi expedita nemo magni illo quae autem nam architecto.,Data Engineering
+348,173,Chatbot Assistant,Minus id impedit nulla molestias voluptate fugit exercitationem repellendus nihil quos.,Mobile
+349,173,Library Management Portal,Necessitatibus exercitationem possimus cupiditate pariatur qui quae saepe beatae nisi eveniet atque ipsum.,Cloud
+350,174,Library Management Portal,Veritatis architecto autem repellendus quo fugiat laudantium optio at repellendus suscipit.,Data Engineering
+351,174,Fraud Detection System,Quidem optio iste eos nulla ipsum dignissimos.,Mobile
+352,174,Fraud Detection System,Error recusandae perspiciatis ullam vel quaerat totam voluptatibus nesciunt nostrum magni sed.,Data Engineering
+353,175,Attendance Tracker,Aperiam tempore voluptas a nam voluptatem autem eligendi adipisci inventore nihil.,AI/ML
+354,175,Attendance Tracker,Et fugit fugit molestias optio labore deleniti fugit unde saepe culpa voluptatum pariatur consequatur asperiores accusamus.,Web
+355,175,Attendance Tracker,Omnis voluptate consequatur consequatur rem similique tempora possimus ut numquam iste incidunt reprehenderit harum.,Data Engineering
+356,176,E-commerce Recommender,Delectus non neque sed dolores magnam illum molestias facilis voluptatem.,Web
+357,176,Weather Prediction Model,Laboriosam fuga neque vitae aspernatur quas minima similique quibusdam eius maxime minima nostrum doloribus occaecati.,Data Engineering
+358,177,Chatbot Assistant,Placeat molestiae neque nostrum temporibus modi ab iste.,Web
+359,177,IoT Smart Campus,Nemo ex explicabo voluptate eos cumque possimus nisi esse quos ea occaecati neque nemo.,Mobile
+360,177,Campus Event App,Repellat numquam enim assumenda magni sed eius consequatur eligendi similique accusamus.,AI/ML
+361,178,Library Management Portal,Nobis tenetur qui omnis fuga cupiditate quos doloremque.,Mobile
+362,179,Attendance Tracker,Reiciendis similique exercitationem assumenda corporis ut culpa libero voluptatibus.,Mobile
+363,179,Placement Analytics Dashboard,Dolores ipsam odit distinctio quasi exercitationem odit quidem blanditiis cumque id error quia.,Cloud
+364,179,IoT Smart Campus,Doloremque placeat harum ea minus ipsa enim reiciendis fugit et minus veritatis atque minus explicabo.,Data Engineering
+365,180,Weather Prediction Model,Nostrum officiis earum earum rem ducimus nesciunt itaque perferendis doloribus perferendis quo maxime.,Mobile
+366,180,Library Management Portal,Et ab ab architecto illum minima placeat expedita quam.,Data Engineering
+367,180,Weather Prediction Model,Deserunt ad at vel omnis saepe veniam odit provident blanditiis sequi.,Data Engineering
+368,181,Chatbot Assistant,Fugiat quisquam officia rem delectus beatae delectus eos optio.,Data Engineering
+369,181,Weather Prediction Model,Odit ullam eius incidunt temporibus quo eum cum.,Mobile
+370,182,Library Management Portal,Eius aperiam harum voluptatum ducimus repellat debitis architecto.,Web
+371,183,AI Resume Screener,Nostrum debitis laudantium corporis quisquam dolor officia totam quaerat aut.,Mobile
+372,184,E-commerce Recommender,Architecto quas quod accusantium libero officiis a alias.,AI/ML
+373,184,IoT Smart Campus,Eaque praesentium temporibus nemo maiores velit laudantium ipsa sapiente quos quos molestiae a.,Cloud
+374,185,AI Resume Screener,Commodi modi voluptatibus ex esse animi voluptatum officia facilis sequi excepturi sapiente quis enim.,IoT
+375,185,Attendance Tracker,Debitis aliquam fugit deleniti possimus tempore occaecati facere assumenda odio.,Mobile
+376,185,AI Resume Screener,Consequuntur deserunt quaerat nihil laudantium aperiam molestiae est modi rerum.,AI/ML
+377,186,Placement Analytics Dashboard,Vitae accusamus excepturi excepturi quam illo distinctio omnis minima velit sit modi qui doloremque.,Mobile
+378,187,Chatbot Assistant,Alias consequuntur officiis iusto ullam aliquid praesentium consectetur.,Web
+379,187,Chatbot Assistant,Odio temporibus reprehenderit atque nostrum saepe aperiam repellendus beatae.,Web
+380,187,E-commerce Recommender,Reiciendis dolore rem incidunt repellat voluptatem perspiciatis eveniet voluptate nemo consequatur saepe recusandae quisquam nihil excepturi.,Mobile
+381,188,E-commerce Recommender,Earum quidem cumque fuga cumque doloribus neque consequatur ratione.,IoT
+382,188,Fraud Detection System,Nostrum quod accusamus laborum ab debitis at officiis suscipit impedit rem quo possimus dignissimos odit minima.,Web
+383,188,IoT Smart Campus,Dolores cupiditate porro nisi quaerat nostrum at repudiandae error in nam deleniti voluptates.,Web
+384,189,E-commerce Recommender,Nulla sint voluptates magni iure occaecati dignissimos amet.,AI/ML
+385,189,Chatbot Assistant,Recusandae placeat voluptas labore debitis pariatur aliquam officia.,Mobile
+386,190,Fraud Detection System,Distinctio dolorum nulla suscipit iste autem amet modi culpa adipisci maiores.,Data Engineering
+387,190,Placement Analytics Dashboard,Tempora quam nihil eveniet dicta perspiciatis eveniet quod.,IoT
+388,191,IoT Smart Campus,Dolorem dolores impedit dicta tempora asperiores nesciunt amet ipsa dolor non debitis.,IoT
+389,191,Weather Prediction Model,Consequatur quam odio voluptate dicta consectetur porro animi consequatur sequi itaque cupiditate.,Web
+390,192,Attendance Tracker,Dolore eos culpa recusandae veritatis temporibus neque mollitia dolorem illum maxime similique.,Web
+391,193,IoT Smart Campus,Nihil saepe eius quas quasi doloribus eveniet neque tempora nihil.,Web
+392,193,IoT Smart Campus,Totam tempore in aliquid voluptatibus quasi magnam incidunt hic.,Cloud
+393,194,Library Management Portal,Iste dolores nam accusamus quasi veniam consequatur eos.,IoT
+394,194,AI Resume Screener,Accusamus pariatur cum itaque necessitatibus nesciunt voluptate iure.,Mobile
+395,195,Weather Prediction Model,Soluta illo ratione fuga iure odio similique architecto tempora.,Web
+396,195,Weather Prediction Model,Minus eos quidem praesentium nostrum nemo dignissimos placeat nulla excepturi ut maiores.,IoT
+397,196,Library Management Portal,Suscipit beatae facilis nulla facilis cupiditate nam architecto quae dignissimos voluptatem dolores.,Data Engineering
+398,197,Chatbot Assistant,Officiis qui quibusdam sit praesentium quidem quis eum.,AI/ML
+399,197,Fraud Detection System,Magnam in amet fuga iste magnam repudiandae iusto minus repudiandae tempore.,Web
+400,197,E-commerce Recommender,Numquam reiciendis veniam repellat velit aperiam tempora itaque aspernatur tempore enim vero autem eius.,Web
+401,198,Library Management Portal,Libero soluta maxime occaecati eos voluptas molestiae consequatur expedita.,AI/ML
+402,198,Chatbot Assistant,Qui accusantium deleniti ad reiciendis rerum maxime excepturi neque omnis ratione laborum pariatur.,IoT
+403,198,Attendance Tracker,Sapiente ipsum esse consequatur ratione cupiditate ea laborum voluptas quo aliquid explicabo iste cumque unde.,Mobile
+404,199,Weather Prediction Model,Eligendi voluptate saepe possimus pariatur corrupti dolores aliquam et consectetur ea delectus natus alias et.,Data Engineering
+405,199,IoT Smart Campus,Corporis ipsum voluptate modi commodi ad ut quisquam veniam unde culpa voluptas.,IoT
+406,200,Fraud Detection System,Voluptate ex provident labore enim velit voluptatem nemo corporis natus tenetur ipsam porro quasi tempore.,Mobile
+407,200,Fraud Detection System,Perspiciatis blanditiis ad nulla dolore facere eveniet non deserunt.,AI/ML
+408,201,Campus Event App,Dolore vel eius ad modi ipsum perferendis assumenda maiores deserunt et non velit tenetur facere.,Web
+409,202,Fraud Detection System,Quaerat incidunt harum accusamus exercitationem est ipsum natus dolor.,Cloud
+410,202,Fraud Detection System,Qui impedit ipsam cum quas tempore quas impedit saepe nisi corporis esse voluptates.,Cloud
+411,203,Attendance Tracker,Voluptates architecto vero quidem at illum totam impedit nam quae quidem consequatur delectus fugit mollitia.,Data Engineering
+412,203,AI Resume Screener,Reprehenderit error nesciunt laudantium qui dolore recusandae.,Data Engineering
+413,204,Attendance Tracker,Ea veritatis rerum labore officiis tempora impedit laudantium porro.,Data Engineering
+414,204,AI Resume Screener,Adipisci quisquam laudantium voluptas nisi facere laboriosam ipsa ducimus placeat.,Data Engineering
+415,204,Fraud Detection System,Fuga quasi accusantium ea neque corporis itaque possimus facere.,Mobile
+416,205,E-commerce Recommender,Earum in totam explicabo enim minus vel.,IoT
+417,205,Campus Event App,Deserunt occaecati quisquam nisi cumque eum et sapiente reiciendis earum praesentium facere modi expedita corporis.,AI/ML
+418,206,IoT Smart Campus,Maxime fuga laborum excepturi tenetur aut culpa dolore deleniti.,IoT
+419,207,Fraud Detection System,Nostrum rerum minima minus mollitia quidem beatae itaque asperiores reprehenderit unde laboriosam est facere repellendus.,AI/ML
+420,208,Campus Event App,Minima voluptas cupiditate esse quia blanditiis consectetur possimus porro esse distinctio voluptatem incidunt quis beatae accusantium.,AI/ML
+421,208,AI Resume Screener,Quidem aliquam autem recusandae maiores animi blanditiis ducimus architecto pariatur quidem quos ullam dignissimos.,Web
+422,209,Attendance Tracker,Delectus expedita at sapiente velit veniam expedita cum magnam quas.,Mobile
+423,209,E-commerce Recommender,Magnam architecto reprehenderit quis minus quaerat vitae cupiditate quidem a.,Web
+424,210,AI Resume Screener,Unde ullam sed labore praesentium delectus perferendis autem.,Cloud
+425,210,Placement Analytics Dashboard,Voluptatem incidunt maiores illum quis et iure maxime libero facere enim quam.,Data Engineering
+426,210,IoT Smart Campus,Eveniet blanditiis eligendi nobis est voluptate ipsam mollitia.,Mobile
+427,211,Chatbot Assistant,Voluptates incidunt sequi tempora rem vel facilis accusamus perferendis perferendis id.,Web
+428,212,Campus Event App,Omnis assumenda corporis id nihil aut unde voluptate aperiam voluptate excepturi nisi voluptatibus commodi saepe.,Data Engineering
+429,212,Campus Event App,Eius quae neque earum ratione officia id labore nobis illo laborum eius quisquam autem.,AI/ML
+430,213,Library Management Portal,Laudantium doloremque velit adipisci qui rerum libero ad debitis non eveniet.,Data Engineering
+431,213,AI Resume Screener,Numquam atque asperiores quibusdam quisquam recusandae dicta optio laudantium ea exercitationem.,IoT
+432,213,Attendance Tracker,Molestias veritatis adipisci inventore totam fugit et fugiat itaque adipisci nam similique esse provident laudantium.,Data Engineering
+433,214,E-commerce Recommender,Est harum quisquam necessitatibus laudantium mollitia molestiae iusto natus.,Web
+434,215,Library Management Portal,Magni hic libero voluptas nulla explicabo voluptate eum adipisci.,IoT
+435,215,Fraud Detection System,Consectetur facilis repellat nesciunt quisquam numquam fugit.,Web
+436,216,Fraud Detection System,Exercitationem facere expedita optio dolorum officia nihil tenetur aperiam esse excepturi accusantium eveniet.,Mobile
+437,216,IoT Smart Campus,Omnis in maiores in accusantium iusto ad et necessitatibus eum atque laborum porro dignissimos.,Web
+438,216,Library Management Portal,Magnam quisquam excepturi nostrum facilis ipsa libero sed ratione saepe modi enim aliquid voluptatum.,IoT
+439,217,Placement Analytics Dashboard,Rem numquam vero quaerat neque nihil earum necessitatibus minus incidunt expedita asperiores reprehenderit.,Web
+440,217,Library Management Portal,Rem inventore molestiae dicta illo numquam iste quis debitis accusantium provident sint nemo distinctio.,Web
+441,218,Fraud Detection System,Eaque odit repellat sequi tenetur vel quas animi dicta iure dolores quia quisquam sapiente.,Data Engineering
+442,219,Chatbot Assistant,Et rerum aperiam dignissimos impedit reprehenderit officia ducimus nobis illo beatae deleniti doloribus.,Cloud
+443,220,Library Management Portal,Iure nam ipsa officia alias cum consequatur ea rem omnis debitis.,Data Engineering
+444,220,Fraud Detection System,Vitae laborum accusantium similique assumenda nobis sint.,Data Engineering
+445,220,AI Resume Screener,Tempore perferendis suscipit id saepe sapiente doloremque necessitatibus magnam blanditiis optio neque quod.,AI/ML
+446,221,Library Management Portal,Dolorum sunt dolores commodi rem eveniet nesciunt harum quibusdam doloremque in corporis cupiditate voluptas ipsa.,IoT
+447,221,E-commerce Recommender,Sint animi modi praesentium beatae molestias labore doloribus eius quos corporis.,Mobile
+448,222,Campus Event App,Quaerat reprehenderit accusantium vitae non sapiente optio velit porro ratione dolores mollitia est vero.,Cloud
+449,222,Attendance Tracker,Temporibus placeat modi dolores ipsam ab vero unde ullam error vel quidem.,Data Engineering
+450,223,Weather Prediction Model,Distinctio tempora totam occaecati sunt quisquam illo alias sint reprehenderit velit.,Cloud
+451,224,Campus Event App,Qui unde ex in ullam aut cum ea architecto in quas molestias eveniet possimus.,Data Engineering
+452,224,Fraud Detection System,Odit delectus ipsam odit a dicta esse.,IoT
+453,225,Placement Analytics Dashboard,Aspernatur culpa maiores voluptas rerum quis sed placeat recusandae eum laboriosam quasi ea porro repudiandae.,Data Engineering
+454,226,E-commerce Recommender,Dicta impedit delectus soluta velit sunt dolore veniam unde officia occaecati.,Web
+455,227,E-commerce Recommender,Voluptate dicta praesentium cumque id inventore ea at.,Cloud
+456,227,AI Resume Screener,Cumque necessitatibus accusamus minima quo unde repudiandae laudantium dolore dicta veniam repellendus.,IoT
+457,227,Attendance Tracker,Enim laudantium consectetur sequi nobis voluptatum eligendi perspiciatis in illum corporis.,IoT
+458,228,IoT Smart Campus,Voluptate doloremque iste dolorum nesciunt officia assumenda iusto sit voluptate id.,Data Engineering
+459,228,Chatbot Assistant,Quae provident quasi ducimus atque animi ex doloremque tenetur voluptatum.,AI/ML
+460,229,IoT Smart Campus,Quae repellat a magnam fugit voluptate perferendis consequatur tempora aliquam debitis cumque laudantium excepturi iusto at.,AI/ML
+461,230,Library Management Portal,Inventore ea et voluptatem libero voluptate eligendi facere inventore temporibus ea repudiandae unde maxime ipsa.,Data Engineering
+462,230,E-commerce Recommender,Et voluptatum quis corrupti sequi omnis reiciendis amet corrupti.,Web
+463,231,Placement Analytics Dashboard,Delectus iusto cum iusto blanditiis tempora libero ipsam voluptates natus.,Cloud
+464,232,AI Resume Screener,Laudantium sapiente sint commodi atque sit debitis cumque magni earum tempora nesciunt nesciunt voluptas.,AI/ML
+465,232,Library Management Portal,Quisquam debitis ullam doloribus libero atque eveniet eligendi voluptatem commodi fuga ut autem eum adipisci.,IoT
+466,233,Weather Prediction Model,Rerum optio iste veritatis nisi ab voluptas omnis veritatis eveniet quasi quasi vero necessitatibus.,Mobile
+467,233,Weather Prediction Model,Sint reiciendis eligendi reiciendis quia molestias nobis at ducimus dolores.,Web
+468,234,E-commerce Recommender,At sequi cum quod eligendi quibusdam omnis blanditiis laudantium inventore rem est placeat.,AI/ML
+469,235,Campus Event App,Facere atque facilis dicta ipsum harum eaque nobis at.,IoT
+470,236,Library Management Portal,Repellat nostrum ipsa incidunt aliquam exercitationem iure dolore placeat culpa libero occaecati minima.,IoT
+471,236,Library Management Portal,Iusto aspernatur reiciendis error voluptates placeat error dolorum incidunt necessitatibus mollitia.,Data Engineering
+472,237,IoT Smart Campus,Maiores magni impedit iure quam repellat explicabo.,AI/ML
+473,238,Library Management Portal,Aspernatur magnam beatae optio debitis delectus hic assumenda soluta error nesciunt iste pariatur numquam eaque vitae.,Web
+474,238,Library Management Portal,Distinctio aspernatur voluptatem ea perferendis inventore accusantium hic accusamus.,Web
+475,238,Campus Event App,Itaque illo omnis quia quas esse repellat nulla porro vitae perferendis rem assumenda consequatur.,Mobile
+476,239,Fraud Detection System,Beatae accusamus voluptas similique distinctio officiis officiis ipsa numquam ratione.,AI/ML
+477,240,E-commerce Recommender,Assumenda quo corporis in blanditiis temporibus qui ipsum laborum accusantium.,Web
+478,241,Weather Prediction Model,Nesciunt dicta necessitatibus rerum amet ab occaecati quae voluptatem sed qui nisi mollitia enim.,Cloud
+479,242,Placement Analytics Dashboard,Id maiores quam vel temporibus sint doloremque aperiam accusantium nemo mollitia eaque officia suscipit.,AI/ML
+480,243,Campus Event App,Libero vel expedita possimus accusantium enim deleniti exercitationem.,Mobile
+481,243,Chatbot Assistant,Magni nesciunt placeat ullam sequi quaerat iusto sunt quam hic.,Data Engineering
+482,243,Attendance Tracker,Rerum perferendis quasi recusandae reiciendis sapiente numquam eligendi quibusdam pariatur consectetur dicta non.,Web
+483,244,IoT Smart Campus,Recusandae velit laudantium doloremque nam voluptatum facere ea.,AI/ML
+484,244,Library Management Portal,Cupiditate similique magnam rem excepturi beatae dolorem natus laborum.,Web
+485,244,Placement Analytics Dashboard,Quos quo quo nam tempore sequi soluta nobis aut amet veniam reiciendis.,IoT
+486,245,AI Resume Screener,Voluptate quos non similique aut natus magni cumque.,Cloud
+487,245,E-commerce Recommender,Sit tenetur culpa eos ipsam magni quasi aut officia.,Data Engineering
+488,245,Placement Analytics Dashboard,Reprehenderit commodi dicta voluptas quisquam ab rerum labore enim cupiditate eaque quaerat.,Data Engineering
+489,246,Placement Analytics Dashboard,Facere pariatur corrupti quidem in dolorem reiciendis impedit illum itaque sequi recusandae facere.,AI/ML
+490,246,Attendance Tracker,Ipsam quo quaerat maxime architecto excepturi illo.,Data Engineering
+491,246,Chatbot Assistant,Ipsa hic alias ullam corrupti nemo voluptate voluptatem reiciendis.,Web
+492,247,AI Resume Screener,Voluptate in suscipit praesentium sit quam et exercitationem repudiandae tempore nostrum corporis illo officia suscipit.,Web
+493,248,Placement Analytics Dashboard,Ratione officiis possimus suscipit quos illo deserunt error alias ex quam qui commodi voluptatibus eligendi at.,Data Engineering
+494,249,Attendance Tracker,Est exercitationem odio ad tempora molestiae ea rerum esse in magnam quasi sapiente ea magni.,Mobile
+495,250,AI Resume Screener,Aliquid officiis commodi error qui iste voluptatem rem voluptates.,IoT
+496,250,AI Resume Screener,Quaerat vel pariatur sapiente doloremque error pariatur repellendus nemo consequuntur fugiat qui autem maiores deserunt.,Web
+497,250,Campus Event App,Iste corporis incidunt illum at incidunt consectetur dolor aspernatur perspiciatis illo nam.,IoT
+498,251,Placement Analytics Dashboard,Sit nesciunt odio voluptatum porro veniam quasi impedit cum magni laborum itaque voluptas.,Web
+499,251,IoT Smart Campus,Sint blanditiis distinctio labore quia velit fuga veritatis nobis illum blanditiis nemo aliquam corrupti fuga.,Data Engineering
+500,251,Chatbot Assistant,Esse laborum ratione consequuntur nihil aliquid tempora suscipit dolor reprehenderit laborum commodi.,AI/ML
+501,252,Attendance Tracker,Architecto aliquid laboriosam est iste excepturi fugiat rerum rerum consequatur consequuntur odio.,Cloud
+502,252,Attendance Tracker,Pariatur corrupti quas at numquam numquam harum tempore excepturi aliquid perferendis ipsam eius at.,Cloud
+503,253,Weather Prediction Model,Provident nemo recusandae provident natus commodi nam deserunt nulla.,Data Engineering
+504,253,Attendance Tracker,Quidem vero maxime quibusdam magnam accusantium omnis minus vitae eius dignissimos rerum saepe neque assumenda.,AI/ML
+505,253,AI Resume Screener,Non illo aliquid similique ad ipsa impedit similique et ducimus beatae aut cumque corporis ducimus.,Web
+506,254,Campus Event App,Culpa veritatis perspiciatis animi vero delectus quae error.,Mobile
+507,254,Weather Prediction Model,Eum impedit eveniet fugiat repudiandae commodi dicta quibusdam.,AI/ML
+508,255,Placement Analytics Dashboard,Dolores magni magnam veniam earum et mollitia aperiam adipisci odio totam accusantium mollitia nesciunt aut quis.,Mobile
+509,255,Attendance Tracker,Esse illum assumenda odio dignissimos voluptas fuga voluptates quos.,Data Engineering
+510,255,Attendance Tracker,Veritatis vero nam aliquam repellat vero nulla officiis cumque animi ullam earum dolorum perspiciatis voluptatum.,Data Engineering
+511,256,E-commerce Recommender,Distinctio sapiente eligendi cum modi architecto at praesentium rerum quam voluptatum soluta distinctio magnam reiciendis sunt.,IoT
+512,257,Chatbot Assistant,Odio voluptatem provident earum optio eum distinctio vero eveniet totam consequatur ullam.,Cloud
+513,257,AI Resume Screener,Labore temporibus perferendis impedit tempora provident quis modi ratione officiis aspernatur adipisci rerum perferendis perferendis explicabo.,AI/ML
+514,257,Weather Prediction Model,Repudiandae facere debitis quisquam possimus ab iure vel ipsam dolore accusantium eligendi.,Web
+515,258,Library Management Portal,Deleniti repellendus numquam repellat dolore voluptatem voluptas alias laudantium provident non ab.,Cloud
+516,258,IoT Smart Campus,Beatae eius magnam cupiditate deserunt qui perferendis nobis cupiditate nihil quia consectetur ut.,AI/ML
+517,259,E-commerce Recommender,Sunt quas earum sed ad voluptas perspiciatis nostrum perspiciatis sunt.,Web
+518,259,Fraud Detection System,Vel odit velit amet vel inventore voluptatum.,AI/ML
+519,259,Weather Prediction Model,Commodi maxime libero maxime aliquam quam aliquid ullam minus et hic.,Mobile
+520,260,Campus Event App,Aspernatur nemo ad qui voluptatem incidunt asperiores dolorum cum est numquam atque.,IoT
+521,260,Campus Event App,Inventore ad reiciendis vel saepe doloribus labore vero rerum reprehenderit maxime dolores asperiores nobis.,Mobile
+522,260,Chatbot Assistant,Quisquam numquam neque assumenda aperiam alias et sed aperiam consectetur ullam ipsam error.,IoT
+523,261,AI Resume Screener,Inventore aut animi amet sed illo nulla illum sint ratione numquam iste iure incidunt nulla aut.,Data Engineering
+524,261,Placement Analytics Dashboard,Iste eveniet deserunt aut nisi architecto ratione.,Mobile
+525,261,Fraud Detection System,Temporibus commodi magni explicabo laboriosam nulla delectus consequuntur aliquid consectetur.,Cloud
+526,262,IoT Smart Campus,Ipsa vero quidem est suscipit quod corporis est exercitationem fuga ab nesciunt perspiciatis animi magni saepe.,Data Engineering
+527,262,Attendance Tracker,In deserunt dicta tenetur quos exercitationem pariatur.,IoT
+528,263,Placement Analytics Dashboard,Nobis ex neque vitae nulla in cum iste ratione aliquam dolor a dolore dolorem.,Cloud
+529,263,Placement Analytics Dashboard,Distinctio laboriosam quisquam repellendus rem fugiat id repudiandae ab ab facere mollitia consequuntur ipsam occaecati totam.,Web
+530,263,AI Resume Screener,Aliquam adipisci dicta cupiditate suscipit quaerat excepturi mollitia debitis accusantium sapiente tenetur.,Cloud
+531,264,Weather Prediction Model,Rerum consequatur omnis suscipit excepturi distinctio itaque.,Web
+532,264,Fraud Detection System,Repellat optio velit voluptate voluptatum sunt soluta aperiam corporis unde recusandae deleniti.,Web
+533,265,Campus Event App,Possimus et inventore odio ullam quis nesciunt sequi eos corrupti doloribus occaecati.,AI/ML
+534,266,E-commerce Recommender,Sit sed voluptas suscipit distinctio aspernatur iusto optio aperiam magni quibusdam.,Data Engineering
+535,266,Campus Event App,Fugiat maxime debitis quae minima laboriosam veritatis labore neque odit ratione officiis dignissimos tempora iste.,Web
+536,267,Placement Analytics Dashboard,Id esse suscipit necessitatibus vel fugiat mollitia consequatur assumenda ipsam.,Web
+537,267,Fraud Detection System,Dolorem aliquam maiores excepturi iste inventore facilis libero earum ad ipsam eaque.,Web
+538,268,Chatbot Assistant,Facere assumenda sapiente maiores officia ratione unde atque.,IoT
+539,268,E-commerce Recommender,Facere molestias ex perferendis dolorum quia quisquam sapiente.,Web
+540,269,Placement Analytics Dashboard,Provident voluptatum voluptatum quibusdam qui totam ab error reprehenderit quos.,IoT
+541,269,Weather Prediction Model,Veniam reprehenderit quidem accusamus omnis voluptatibus veritatis sint dolorem quam distinctio doloremque nesciunt.,Cloud
+542,270,Placement Analytics Dashboard,Quidem quam itaque recusandae est deleniti quo praesentium distinctio ipsum nam fugiat neque consectetur velit.,Mobile
+543,270,Chatbot Assistant,Libero omnis explicabo dolorem incidunt quibusdam quis.,Web
+544,270,Attendance Tracker,Error nesciunt necessitatibus adipisci consequuntur voluptate voluptatibus necessitatibus reiciendis totam nemo hic fugit veniam aperiam.,Mobile
+545,271,Placement Analytics Dashboard,Deleniti autem necessitatibus iste tempora at aut mollitia adipisci porro laborum delectus architecto.,Cloud
+546,272,Attendance Tracker,Eligendi doloremque optio architecto animi maxime cupiditate similique illum culpa beatae modi laboriosam.,Web
+547,272,Weather Prediction Model,Harum temporibus dignissimos sit est repellendus optio culpa.,Cloud
+548,272,Chatbot Assistant,Vel nesciunt magnam placeat eius ab consequuntur aperiam id rem minima tenetur sunt itaque nemo.,Cloud
+549,273,Placement Analytics Dashboard,Enim sunt itaque praesentium quae error nostrum repellat.,Data Engineering
+550,274,AI Resume Screener,Impedit debitis nulla inventore harum omnis praesentium atque praesentium.,Data Engineering
+551,275,Campus Event App,Dolores sit earum occaecati eos totam praesentium.,AI/ML
+552,276,AI Resume Screener,Tenetur illum quis commodi fuga quidem magnam quod illum cumque.,Web
+553,277,IoT Smart Campus,Magni iure asperiores possimus quibusdam fugit quia sequi id ab.,Cloud
+554,278,IoT Smart Campus,Quae consequatur pariatur iure itaque assumenda omnis quae.,Web
+555,279,Library Management Portal,Consequuntur reprehenderit sapiente cupiditate accusantium aut eos modi hic aspernatur quis perspiciatis corrupti.,Data Engineering
+556,280,Attendance Tracker,Debitis quaerat tempora minus ipsam aliquid odio minima optio optio aut porro.,Web
+557,280,Weather Prediction Model,Amet a quo quisquam ut fugiat dolores at in voluptatibus excepturi deleniti pariatur.,Web
+558,281,Attendance Tracker,Vero atque saepe optio quam aliquid maiores repellendus eum occaecati.,Cloud
+559,282,Fraud Detection System,Dignissimos molestiae vel blanditiis distinctio explicabo cupiditate illo et harum itaque architecto repellendus officiis fuga architecto.,Mobile
+560,282,Attendance Tracker,Illum quisquam libero voluptatibus quae recusandae ullam necessitatibus dolorum atque.,Data Engineering
+561,283,AI Resume Screener,Voluptatem possimus perspiciatis voluptas possimus ex odio sunt et sed laboriosam ex.,Data Engineering
+562,283,Weather Prediction Model,Totam ipsum maiores quia magnam provident accusamus accusantium quis commodi dolores incidunt doloribus aspernatur consequuntur libero.,Mobile
+563,284,Library Management Portal,Corrupti dignissimos alias unde nisi veniam qui eveniet eius officia.,Web
+564,284,Weather Prediction Model,Maxime voluptate officia enim ad sed ex.,Data Engineering
+565,285,Weather Prediction Model,Dignissimos amet ullam voluptates reiciendis possimus dolore sit maxime delectus.,Cloud
+566,285,Library Management Portal,Ab sit architecto deserunt odio consequuntur dignissimos at nihil rerum ut dolores aspernatur quam est quam.,Web
+567,285,Weather Prediction Model,Incidunt non esse nemo voluptas dicta similique laboriosam veritatis facere.,AI/ML
+568,286,E-commerce Recommender,Cumque ipsam magnam quasi quis reprehenderit recusandae accusantium fugit sequi quis ullam.,AI/ML
+569,286,IoT Smart Campus,Modi mollitia cupiditate fugit esse eligendi natus laboriosam ex quaerat deserunt totam a similique quas fugiat.,Cloud
+570,287,Campus Event App,Unde velit voluptas fuga laudantium odit nihil illum aliquam ullam harum natus deserunt.,Cloud
+571,288,Library Management Portal,Vero quo quibusdam expedita quae odio fuga animi harum incidunt doloribus labore ullam.,Data Engineering
+572,288,Library Management Portal,Occaecati perspiciatis possimus officia ea iste perspiciatis ducimus nobis veritatis sapiente accusamus.,Mobile
+573,289,IoT Smart Campus,Officia totam id nesciunt tempore maxime deleniti in.,Data Engineering
+574,289,Library Management Portal,Ducimus esse voluptas omnis fugit est illum soluta quas at odio quod exercitationem.,Cloud
+575,290,Campus Event App,Eaque distinctio quibusdam praesentium ab cumque laudantium atque quo.,Mobile
+576,291,Attendance Tracker,Minima omnis quasi cupiditate fugiat provident dicta delectus veniam iste repellendus delectus animi.,Data Engineering
+577,291,Attendance Tracker,Repellat deleniti voluptatem sit ipsam totam autem odio aspernatur.,Web
+578,291,Placement Analytics Dashboard,Fugiat eius exercitationem nesciunt labore perferendis aut aperiam.,AI/ML
+579,292,Chatbot Assistant,Pariatur ratione aliquam distinctio recusandae fugiat maxime.,IoT
+580,292,Weather Prediction Model,Ut labore excepturi inventore fuga tempora voluptatum repellendus velit pariatur fugiat.,Data Engineering
+581,292,Weather Prediction Model,Voluptate sit rem a sit illo saepe unde.,Data Engineering
+582,293,Weather Prediction Model,Nobis sit eius praesentium repellendus fuga nulla.,Mobile
+583,293,E-commerce Recommender,Maiores optio a odit velit eum odio sit voluptas quasi perspiciatis doloremque laborum qui.,Data Engineering
+584,293,Fraud Detection System,Expedita vel velit labore omnis praesentium aut harum.,IoT
+585,294,Placement Analytics Dashboard,Deserunt corporis maxime nemo sequi magnam consectetur reiciendis error perferendis molestias soluta cumque ipsum blanditiis optio.,Data Engineering
+586,295,Fraud Detection System,Doloribus cupiditate velit praesentium autem voluptatibus adipisci ut eveniet fugit.,Data Engineering
+587,296,Weather Prediction Model,Dolore ducimus labore tempore commodi consequatur modi quas at porro sit.,Web
+588,297,Chatbot Assistant,Quisquam nobis officia fugiat quaerat quasi fugit odit natus sequi repellat dolore blanditiis assumenda at.,IoT
+589,297,Library Management Portal,Vel quia blanditiis facilis sequi veritatis nemo a aperiam modi sed voluptatem eum facilis perspiciatis recusandae.,Cloud
+590,298,Chatbot Assistant,Optio nihil autem ab sequi et repellendus error dolor perspiciatis corporis eligendi quia sed repudiandae.,IoT
+591,298,Placement Analytics Dashboard,Nisi est voluptatibus commodi voluptatum provident laboriosam.,IoT
+592,298,Weather Prediction Model,Libero provident fugiat voluptatem ex repudiandae distinctio quasi repellat praesentium.,IoT
+593,299,Attendance Tracker,Unde quod sequi quas error repellendus totam.,IoT
+594,299,Library Management Portal,Voluptatibus molestias excepturi perspiciatis voluptatibus quidem hic minus eligendi.,Web
+595,300,Placement Analytics Dashboard,Praesentium molestias atque eum recusandae sint amet vel esse omnis.,Mobile
+596,301,Campus Event App,Consequuntur possimus enim corporis dolor quibusdam quasi ab quas nemo perspiciatis voluptates corporis veniam incidunt.,IoT
+597,301,Fraud Detection System,Unde atque voluptate debitis amet voluptatem officiis nihil voluptas.,Mobile
+598,301,Campus Event App,Quam doloribus blanditiis id esse nisi cupiditate quia quod voluptatibus perferendis at iure repellendus fugit odio.,Data Engineering
+599,302,Fraud Detection System,Facilis blanditiis assumenda laudantium pariatur magni ad nemo nemo earum quia recusandae debitis.,Web
+600,302,Campus Event App,Voluptatum praesentium error commodi eveniet quae similique modi illo praesentium hic repellendus quos minus.,Cloud
+601,303,AI Resume Screener,Maxime nesciunt quae ratione commodi quidem vitae tempore.,AI/ML
+602,304,Weather Prediction Model,Similique possimus a ipsum et aliquam nemo officiis assumenda.,IoT
+603,304,Fraud Detection System,Sed alias voluptatem magni facilis molestias in veniam a error veniam.,Data Engineering
+604,304,IoT Smart Campus,Temporibus eos modi consequuntur laudantium est tenetur voluptatum non magni porro optio aliquid alias consequuntur.,AI/ML
+605,305,Campus Event App,Vero nobis dolor facere consectetur numquam asperiores ducimus fugit temporibus.,Data Engineering
+606,306,E-commerce Recommender,Itaque velit perspiciatis velit corporis dignissimos occaecati earum odio officia quaerat natus officia.,Mobile
+607,306,IoT Smart Campus,Non in corrupti voluptatibus inventore ad nobis aspernatur commodi beatae molestias architecto odit facilis ex.,Cloud
+608,307,Fraud Detection System,Corporis reiciendis earum atque voluptatem dolore veritatis quos commodi minima soluta.,Data Engineering
+609,307,Weather Prediction Model,Reprehenderit laudantium minus praesentium sint mollitia non tempore cupiditate veniam harum exercitationem qui voluptas minus nisi.,Mobile
+610,307,AI Resume Screener,Labore consectetur ab maiores culpa commodi fugiat quasi amet quas voluptate provident dolorum.,IoT
+611,308,Fraud Detection System,In itaque ipsa explicabo iusto enim veritatis maxime quaerat unde dolorem odio assumenda esse quo sapiente.,IoT
+612,309,E-commerce Recommender,Asperiores dolores atque nemo assumenda enim ut repellat.,Web
+613,309,Attendance Tracker,Vitae incidunt magni quasi laboriosam maiores voluptatum.,IoT
+614,310,E-commerce Recommender,Praesentium illo nulla tenetur quia quae praesentium quibusdam doloribus qui veritatis reprehenderit sunt minus non.,Data Engineering
+615,310,Campus Event App,Ipsum cumque ut quis temporibus cupiditate facilis consequatur explicabo amet libero cupiditate voluptas excepturi perspiciatis rerum.,AI/ML
+616,310,Placement Analytics Dashboard,Enim laboriosam eaque a occaecati hic ullam ut vero.,Data Engineering
+617,311,Weather Prediction Model,Repudiandae alias iure nulla laborum explicabo nulla eveniet explicabo a tempora delectus explicabo aut laudantium.,AI/ML
+618,312,E-commerce Recommender,Minus tempore illum totam ab quo dolorum iusto.,Data Engineering
+619,312,Weather Prediction Model,Error incidunt delectus repellat autem ipsa saepe cum explicabo inventore facere sit.,IoT
+620,312,Campus Event App,Beatae eligendi consequatur in ex adipisci pariatur veniam vero voluptatem.,Web
+621,313,Campus Event App,In mollitia reiciendis quaerat eveniet quisquam sunt magnam unde.,Web
+622,313,Library Management Portal,Consectetur vero recusandae commodi exercitationem accusamus placeat amet rerum inventore nisi ab laboriosam.,Web
+623,314,AI Resume Screener,Laborum quis dolorum corrupti maiores dolorum quisquam sint voluptatibus dolorum reprehenderit.,Cloud
+624,315,Attendance Tracker,Labore quos aut quas nostrum deleniti sequi occaecati corrupti blanditiis.,Cloud
+625,315,Attendance Tracker,Alias voluptatibus ut incidunt nulla at amet illum esse odio doloremque excepturi laboriosam.,Web
+626,316,Campus Event App,Incidunt amet beatae facilis velit quae doloribus tempora delectus a optio eum eligendi eius non.,IoT
+627,317,Weather Prediction Model,Delectus veniam facilis esse atque accusamus mollitia similique ex qui facere quod minus.,Mobile
+628,318,Fraud Detection System,Dolores eius nesciunt assumenda autem occaecati nobis aliquam voluptas sunt repellendus deserunt.,IoT
+629,318,Campus Event App,Unde asperiores molestias exercitationem quas voluptatibus dicta quam aliquam deleniti mollitia dolorum soluta sequi.,AI/ML
+630,319,AI Resume Screener,Voluptate tempora ipsum quaerat tenetur architecto in ut magnam accusantium nobis possimus consectetur aliquid necessitatibus.,Mobile
+631,320,E-commerce Recommender,Qui id placeat sit voluptas cumque quibusdam fugit quod id.,AI/ML
+632,320,Chatbot Assistant,Dignissimos a nemo nihil ab ut maiores magnam quam ea sequi.,AI/ML
+633,321,Attendance Tracker,Provident mollitia cupiditate aliquid dolores aliquam corporis sunt unde earum ratione.,Cloud
+634,322,AI Resume Screener,Voluptatibus distinctio blanditiis officiis odio voluptas eveniet veniam sunt eaque.,Data Engineering
+635,322,Placement Analytics Dashboard,Illum nostrum eveniet animi repellendus reprehenderit dolor vitae debitis.,AI/ML
+636,323,Fraud Detection System,Modi voluptatem quod quos autem quia fugit.,AI/ML
+637,323,AI Resume Screener,Sit odio mollitia repellendus dolore eaque neque repellat quidem culpa doloremque.,AI/ML
+638,324,Placement Analytics Dashboard,Fuga temporibus atque delectus delectus similique deleniti laudantium quas officia accusantium cum debitis.,Cloud
+639,325,IoT Smart Campus,Porro deleniti corporis incidunt iste officia illo quam consequatur quibusdam accusamus aut fugit.,Cloud
+640,325,Library Management Portal,Repudiandae quis officia aliquam dolorum assumenda consequuntur occaecati.,Mobile
+641,326,Fraud Detection System,Recusandae ab recusandae molestiae repellendus sequi assumenda.,Mobile
+642,326,Chatbot Assistant,Laboriosam natus ipsam cum ex culpa animi porro occaecati.,Data Engineering
+643,327,Chatbot Assistant,Accusantium aliquid molestias aut suscipit impedit a dolore dolorem.,IoT
+644,327,Attendance Tracker,Corporis omnis dolorem soluta harum sunt reprehenderit beatae cumque beatae aut veritatis facere.,Mobile
+645,328,Weather Prediction Model,Ex facere unde assumenda aliquam corrupti inventore ex delectus incidunt tempora porro numquam enim soluta earum.,IoT
+646,328,Fraud Detection System,Optio ut repellat quae asperiores a ut corrupti omnis eum hic quam quos laboriosam.,Data Engineering
+647,329,Chatbot Assistant,Beatae incidunt quas corporis eum consectetur quisquam explicabo.,Mobile
+648,330,Library Management Portal,Incidunt possimus impedit recusandae ex reiciendis omnis doloribus in libero modi minus reprehenderit harum.,AI/ML
+649,331,Campus Event App,Quaerat minima quod repellat dolor assumenda facere dicta sed facere labore consequatur beatae tenetur facere sed.,Data Engineering
+650,331,Fraud Detection System,Eos corporis sequi voluptas totam doloribus repudiandae animi consequuntur.,AI/ML
+651,331,IoT Smart Campus,Fugiat ad vitae fuga praesentium optio asperiores saepe sit.,AI/ML
+652,332,Attendance Tracker,Corporis consequuntur doloribus accusamus rerum impedit quisquam.,IoT
+653,332,Library Management Portal,Quia quibusdam praesentium error illum excepturi quos possimus enim culpa sunt adipisci quibusdam magnam.,Mobile
+654,333,Library Management Portal,Id incidunt veniam iste quae ducimus nemo.,IoT
+655,333,Weather Prediction Model,Quae incidunt culpa voluptate maxime voluptate commodi distinctio nulla dolor delectus.,Cloud
+656,333,Attendance Tracker,Non aspernatur possimus labore officiis illo fugit amet fuga incidunt earum autem facilis quod excepturi.,IoT
+657,334,Chatbot Assistant,Eligendi molestiae aperiam nisi quidem est mollitia odit adipisci eaque.,IoT
+658,335,Chatbot Assistant,Natus natus ratione aliquid et velit ab explicabo eligendi id deserunt quibusdam quas voluptate praesentium.,IoT
+659,336,Chatbot Assistant,Ex tempore magnam magnam quod ad recusandae labore.,IoT
+660,337,Attendance Tracker,Enim corrupti iure suscipit at quaerat sunt.,Data Engineering
+661,337,Library Management Portal,Quisquam cum vitae maiores quas officiis ut exercitationem quos.,Cloud
+662,337,Fraud Detection System,Enim numquam velit aliquam quae placeat dolores voluptatum non vero necessitatibus voluptatibus.,Data Engineering
+663,338,Weather Prediction Model,Rem consequuntur sit molestias voluptas quos assumenda atque.,Mobile
+664,339,AI Resume Screener,Cumque eos architecto nemo explicabo architecto quae itaque voluptates voluptatem quis ipsam.,IoT
+665,339,Weather Prediction Model,Velit voluptas laborum facilis enim illum nulla perspiciatis ipsam.,IoT
+666,340,Attendance Tracker,Sapiente veritatis fugiat placeat magni ea soluta placeat nulla officia qui doloribus reprehenderit ab sequi.,Cloud
+667,340,Campus Event App,Fugiat necessitatibus sequi dolore soluta pariatur expedita iusto modi repellendus autem.,IoT
+668,341,IoT Smart Campus,Quasi totam ullam quisquam dicta eveniet et voluptatum laborum.,Cloud
+669,341,Campus Event App,Beatae iste molestias veniam corporis distinctio necessitatibus voluptates quo aperiam repellat ratione voluptatem distinctio.,AI/ML
+670,341,AI Resume Screener,Sint veritatis placeat earum odio assumenda architecto illo error quae.,Data Engineering
+671,342,IoT Smart Campus,Minima pariatur ea rerum at temporibus exercitationem quidem cum expedita in labore porro.,IoT
+672,342,Campus Event App,Vitae ipsa totam necessitatibus reprehenderit natus tempora dicta quam.,Data Engineering
+673,343,Library Management Portal,Nulla eum voluptates vel quia qui et corrupti itaque corporis sint beatae voluptas illo maxime a.,AI/ML
+674,343,IoT Smart Campus,Velit similique odio odit neque alias quia deleniti possimus quo nobis dolor distinctio deleniti.,IoT
+675,344,Attendance Tracker,Veritatis fuga facilis error esse reprehenderit commodi libero voluptatum impedit explicabo repudiandae incidunt voluptate excepturi.,Web
+676,345,AI Resume Screener,Itaque fuga mollitia cum ipsa eligendi optio perspiciatis odio.,IoT
+677,346,Placement Analytics Dashboard,Vel temporibus aut assumenda saepe at accusamus ut aut quibusdam numquam molestias odio magnam rem pariatur.,Data Engineering
+678,347,Weather Prediction Model,Distinctio quod mollitia beatae sequi veritatis expedita recusandae iure tenetur officia quos id.,Mobile
+679,348,E-commerce Recommender,Quos magni eaque omnis esse temporibus tenetur perferendis a tenetur adipisci ad.,Web
+680,348,Library Management Portal,Sapiente maxime qui et cupiditate nemo inventore nam hic nulla hic amet.,IoT
+681,349,Campus Event App,Inventore vel hic quas illo et culpa doloremque quae commodi blanditiis neque hic quis totam.,AI/ML
+682,349,Library Management Portal,Culpa eum at ad accusamus quo corrupti nulla molestiae voluptas nemo ad quasi voluptatem odio.,Cloud
+683,349,Chatbot Assistant,Delectus officiis dolore deserunt saepe quas rem fugiat ea amet assumenda corporis.,AI/ML
+684,350,Fraud Detection System,Odit neque aut itaque nisi autem eligendi.,Cloud
+685,351,Chatbot Assistant,At laudantium facere saepe hic laudantium accusantium asperiores vero.,IoT
+686,352,Weather Prediction Model,Distinctio in suscipit odio iste cum error temporibus.,IoT
+687,352,IoT Smart Campus,Occaecati sequi blanditiis exercitationem expedita voluptatum nobis a maxime ducimus commodi non modi maxime quis.,IoT
+688,353,Attendance Tracker,Sint beatae dolor eveniet dolor quas velit eaque laboriosam veritatis.,Web
+689,353,AI Resume Screener,Provident officiis iusto repellat ipsa veniam ullam dolorum dicta sapiente quaerat vitae.,Mobile
+690,354,AI Resume Screener,Nesciunt quisquam est recusandae veritatis laborum sunt incidunt.,AI/ML
+691,354,Chatbot Assistant,Repellendus numquam non inventore necessitatibus fugiat odio aperiam cumque alias maiores.,AI/ML
+692,355,Attendance Tracker,Illum nobis soluta veniam minus id beatae repellat inventore delectus doloribus dolor fuga corporis et ab.,Cloud
+693,355,AI Resume Screener,Quaerat distinctio necessitatibus eum doloremque architecto eligendi.,IoT
+694,355,Chatbot Assistant,Minima aut eius non sunt similique asperiores tempora in quidem.,Cloud
+695,356,Weather Prediction Model,Repellendus dicta amet laudantium aliquid earum blanditiis iste nobis nihil dolores accusantium.,Mobile
+696,357,Placement Analytics Dashboard,Officia sequi voluptates tenetur eligendi sapiente illo.,IoT
+697,357,Placement Analytics Dashboard,Ullam aliquam officia architecto atque rem quam earum quidem id nam est nostrum hic possimus.,Mobile
+698,357,IoT Smart Campus,Laudantium odit tenetur sapiente vel aut dolore repudiandae consequuntur voluptatibus similique quam dolorem at.,Cloud
+699,358,Weather Prediction Model,Repellendus modi a porro amet sunt aliquam aliquid esse ea porro recusandae.,Data Engineering
+700,359,Campus Event App,Earum cupiditate consequuntur itaque commodi similique quidem suscipit vitae impedit ipsum commodi.,Mobile
+701,359,Fraud Detection System,Dolores labore laudantium eligendi quo laboriosam at quisquam quae explicabo saepe doloribus officia sequi possimus.,Cloud
+702,360,AI Resume Screener,Voluptas animi accusamus dolor repellendus deleniti autem dignissimos.,Web
+703,360,Placement Analytics Dashboard,Quis maiores et velit provident omnis sed autem consectetur totam harum iste nulla dicta id architecto.,Data Engineering
+704,360,Library Management Portal,Cum esse sit officiis corporis soluta quia dolores tempora deleniti adipisci optio iste.,Cloud
+705,361,E-commerce Recommender,Blanditiis mollitia explicabo distinctio id inventore ex ipsam fuga aliquid fugit.,Web
+706,361,Library Management Portal,Deserunt deleniti debitis eius non maxime autem amet dolorum beatae beatae tempora nemo.,Web
+707,362,Campus Event App,Aperiam aut dolorem nulla quaerat hic aut quasi sunt eaque.,Data Engineering
+708,362,E-commerce Recommender,Cupiditate dignissimos odio provident enim a delectus tenetur numquam qui.,Cloud
+709,362,Placement Analytics Dashboard,Cumque placeat cumque ex iste vitae pariatur incidunt accusantium voluptate.,Web
+710,363,E-commerce Recommender,Cupiditate quis ab explicabo labore a sit labore.,Mobile
+711,363,AI Resume Screener,Reprehenderit necessitatibus voluptatibus saepe minima cumque corporis.,Cloud
+712,363,Fraud Detection System,Aut rem excepturi laudantium expedita molestias optio ducimus.,Mobile
+713,364,Attendance Tracker,Accusamus explicabo quae tempora quo sequi temporibus nisi beatae placeat quas accusantium voluptatem sequi.,IoT
+714,364,E-commerce Recommender,Facere adipisci neque possimus inventore dignissimos at ullam fugiat.,Data Engineering
+715,365,Placement Analytics Dashboard,Vitae soluta perspiciatis tempore ipsum vero minima eaque.,Data Engineering
+716,365,Campus Event App,Suscipit hic impedit voluptatibus est aliquam maxime exercitationem nostrum inventore iste voluptas.,Mobile
+717,365,Attendance Tracker,Enim voluptas libero placeat iure corrupti vitae numquam optio esse enim reiciendis.,IoT
+718,366,Placement Analytics Dashboard,Iste dolor repudiandae commodi laborum a explicabo.,Web
+719,366,Library Management Portal,Amet consequuntur soluta quos magnam vero natus.,Web
+720,366,Weather Prediction Model,Quae consequuntur quasi inventore ullam enim adipisci ut.,IoT
+721,367,Campus Event App,Repellat odio in vitae atque ea error est natus perspiciatis.,IoT
+722,367,IoT Smart Campus,Rem consequuntur quisquam dolorum impedit dicta esse error unde itaque delectus quos.,AI/ML
+723,368,Weather Prediction Model,Atque minima possimus magnam placeat facere explicabo iure vero itaque totam ad quisquam.,Mobile
+724,368,Library Management Portal,Quidem nostrum esse doloribus maiores consectetur molestiae natus.,IoT
+725,369,Weather Prediction Model,Amet sapiente commodi pariatur iure quis maxime saepe assumenda earum voluptates.,Data Engineering
+726,369,IoT Smart Campus,Ex atque enim laboriosam ex aperiam qui perferendis.,AI/ML
+727,370,E-commerce Recommender,Praesentium maiores natus voluptas consequatur tempora odit.,Mobile
+728,370,Attendance Tracker,Error est voluptatibus ab laborum porro beatae a nobis.,IoT
+729,370,IoT Smart Campus,Maxime doloribus aut ad magni hic unde error laborum.,IoT
+730,371,Campus Event App,Reprehenderit sapiente molestias reprehenderit placeat similique nulla inventore odio.,AI/ML
+731,371,Fraud Detection System,Consequuntur quia dolores maiores praesentium dicta laboriosam enim aut.,Mobile
+732,372,E-commerce Recommender,Laudantium pariatur hic possimus autem impedit incidunt adipisci itaque natus accusamus esse officia tempora nulla aliquam.,IoT
+733,373,Campus Event App,Vitae iusto quam eius voluptatem facere sequi magnam expedita provident hic aperiam.,IoT
+734,373,Campus Event App,Explicabo quaerat excepturi quaerat ratione eius quis esse hic.,Cloud
+735,374,Library Management Portal,Fugiat iusto omnis nemo unde quod minima consectetur eum veritatis expedita nulla illo aliquid.,IoT
+736,374,Campus Event App,Doloremque pariatur libero perspiciatis eum doloremque quo totam recusandae.,Mobile
+737,375,Attendance Tracker,Tempore cupiditate tempora quidem in aperiam nostrum beatae.,Web
+738,376,Placement Analytics Dashboard,Ipsam fugiat occaecati adipisci cupiditate autem ipsum consequatur.,IoT
+739,376,Fraud Detection System,Nam deserunt laudantium perspiciatis dolorem quia inventore minus ratione assumenda ad vero atque alias consequuntur.,Mobile
+740,376,Campus Event App,Facere illum molestias asperiores delectus quas tenetur.,AI/ML
+741,377,Campus Event App,Libero rerum necessitatibus labore explicabo nulla nam consequuntur architecto incidunt fugiat architecto aspernatur quos error.,Data Engineering
+742,377,AI Resume Screener,Libero amet molestiae ad reprehenderit enim repudiandae hic facere.,AI/ML
+743,378,Campus Event App,Voluptas asperiores nemo sequi ut magnam id animi possimus.,Data Engineering
+744,378,AI Resume Screener,Nesciunt vel voluptates officiis adipisci in dicta suscipit.,AI/ML
+745,379,Chatbot Assistant,Consequuntur molestias quasi unde optio soluta doloremque asperiores.,IoT
+746,379,Weather Prediction Model,Temporibus praesentium quisquam alias voluptatem veniam nisi nostrum aspernatur mollitia veniam earum aliquam alias magni.,Cloud
+747,379,Weather Prediction Model,Inventore esse sed voluptas accusantium animi quo repellat modi similique placeat qui.,Web
+748,380,AI Resume Screener,Laboriosam harum fugiat commodi praesentium mollitia blanditiis blanditiis nulla temporibus explicabo exercitationem ullam dolores at.,AI/ML
+749,381,Library Management Portal,Dolorem quibusdam suscipit recusandae necessitatibus voluptatibus accusamus.,Data Engineering
+750,382,Fraud Detection System,Repellat asperiores consectetur debitis aliquam expedita omnis doloribus eos non.,IoT
+751,382,Weather Prediction Model,Omnis omnis asperiores vel dignissimos provident repellendus tempore similique ipsam esse facilis mollitia sit.,Web
+752,383,AI Resume Screener,Minima eaque possimus magnam amet tempore provident numquam eius dignissimos.,IoT
+753,383,Weather Prediction Model,Sapiente maxime esse mollitia commodi quam ratione alias doloremque.,Data Engineering
+754,383,Library Management Portal,Officiis iste beatae libero alias eius fugit repudiandae assumenda eius non libero sint.,Mobile
+755,384,AI Resume Screener,Ipsam dolore fugit optio minus optio adipisci quis vel tenetur quidem excepturi repudiandae.,AI/ML
+756,384,AI Resume Screener,Repellat nihil quidem exercitationem repudiandae ipsa incidunt quas quasi animi autem.,AI/ML
+757,385,IoT Smart Campus,Veritatis ut enim voluptatibus modi incidunt quaerat quisquam ea vero iusto voluptatibus dolores.,Data Engineering
+758,386,Fraud Detection System,Eligendi placeat earum voluptatum quo eos necessitatibus.,AI/ML
+759,387,Library Management Portal,Nulla facere omnis quos repellat non commodi.,Cloud
+760,387,AI Resume Screener,Optio saepe sed ipsam accusantium ab alias facere odit nam illum neque aspernatur tempore mollitia.,Mobile
+761,387,Campus Event App,Ipsam ducimus ratione ea libero dolorem cupiditate sit.,Cloud
+762,388,Weather Prediction Model,Doloremque omnis delectus magni ipsam et mollitia.,Data Engineering
+763,388,Fraud Detection System,Aperiam quaerat ea ducimus perspiciatis similique explicabo quaerat nobis expedita.,Mobile
+764,389,Chatbot Assistant,Magni beatae aspernatur dignissimos necessitatibus repudiandae perspiciatis architecto.,AI/ML
+765,390,IoT Smart Campus,Soluta corporis eveniet ratione ex illum officiis iusto voluptate numquam cum aliquid ut.,IoT
+766,391,Placement Analytics Dashboard,Ad non repellat magni quos magni neque exercitationem dolor rerum adipisci quas fugit voluptatum aspernatur aspernatur.,Data Engineering
+767,392,IoT Smart Campus,Natus voluptatum occaecati quasi molestiae commodi soluta reiciendis non omnis.,Cloud
+768,392,Library Management Portal,Ipsam eaque saepe eos doloribus doloribus quisquam facere iste quibusdam blanditiis dolores quasi sunt facere.,Cloud
+769,393,Fraud Detection System,Natus asperiores facere laborum dolorem ratione dolorem repudiandae voluptates unde doloribus tenetur.,Cloud
+770,394,AI Resume Screener,Pariatur non recusandae exercitationem blanditiis illum magnam corrupti laudantium sunt dicta debitis iste cumque in quisquam.,IoT
+771,394,AI Resume Screener,Quia consectetur alias inventore porro voluptatibus consequatur sint ullam temporibus explicabo illo nam quae.,Web
+772,394,Fraud Detection System,Excepturi repudiandae excepturi non autem quam asperiores ullam veniam.,Web
+773,395,Placement Analytics Dashboard,Occaecati qui ipsa quidem praesentium quasi quam nihil reprehenderit magni corrupti ab nihil.,Web
+774,395,Library Management Portal,Fugit ipsa magni nihil velit atque error exercitationem natus tempore neque sapiente incidunt eum.,Cloud
+775,395,AI Resume Screener,Quidem veritatis aliquam velit sunt quasi inventore eius sunt et expedita cumque.,Mobile
+776,396,Fraud Detection System,Earum ipsa suscipit enim ullam voluptates quidem unde pariatur consequuntur dignissimos.,Web
+777,397,Campus Event App,Quidem ad temporibus vero molestiae reiciendis ab rerum ad dicta velit necessitatibus quasi maxime rerum.,IoT
+778,398,E-commerce Recommender,Ullam quaerat ullam blanditiis suscipit laudantium assumenda consequatur eius pariatur voluptas.,Cloud
+779,399,AI Resume Screener,Quia dolore asperiores culpa excepturi iste quasi perferendis.,AI/ML
+780,400,Chatbot Assistant,Provident et unde inventore ut recusandae et sapiente.,Mobile
+781,400,Campus Event App,Alias odio ab consequatur fugiat velit perferendis eaque corrupti repellendus quasi eligendi dicta soluta veritatis similique.,Cloud
+782,400,Placement Analytics Dashboard,A architecto nam dignissimos debitis in ea fugit nesciunt odit.,Data Engineering
+783,401,Placement Analytics Dashboard,Minus veritatis soluta sapiente soluta pariatur laudantium occaecati nisi molestiae eos dolor vitae tempore.,Mobile
+784,402,IoT Smart Campus,In ipsum dolorum incidunt debitis vero optio expedita id consectetur sunt.,Mobile
+785,402,Campus Event App,Nobis porro adipisci eaque dolor sed illum natus eum perferendis illum repellat incidunt ea.,Data Engineering
+786,402,Library Management Portal,Eaque quas excepturi repellendus est illum nemo.,Cloud
+787,403,IoT Smart Campus,Modi quod beatae voluptas nostrum consectetur molestiae veniam accusantium.,Mobile
+788,403,Fraud Detection System,At provident totam quisquam mollitia omnis maxime facere dicta culpa modi similique.,Mobile
+789,403,IoT Smart Campus,Enim cum fugiat impedit mollitia dolorum accusamus sapiente quidem minima.,Cloud
+790,404,AI Resume Screener,Id laborum culpa error dolorem quo dolorum earum commodi quos omnis consectetur qui earum.,IoT
+791,405,Attendance Tracker,Asperiores magnam provident quasi accusantium quia molestiae ullam.,AI/ML
+792,405,Attendance Tracker,Quasi recusandae deserunt non est eum maiores ad.,AI/ML
+793,405,E-commerce Recommender,Itaque aut voluptas nemo fugiat inventore dolore illo eius eligendi praesentium.,Web
+794,406,Fraud Detection System,Doloribus accusantium libero hic fuga molestias autem dolore voluptate id doloremque fuga natus odit.,Web
+795,407,Fraud Detection System,Corporis occaecati assumenda natus dignissimos velit nisi assumenda illo saepe minima saepe.,Web
+796,407,E-commerce Recommender,Animi laudantium illum qui rerum alias porro nisi sit eaque.,Mobile
+797,407,Fraud Detection System,Quidem recusandae molestias est officiis eum quae maiores similique voluptatibus.,Web
+798,408,IoT Smart Campus,Ullam incidunt aspernatur consectetur accusamus maxime commodi deserunt.,AI/ML
+799,408,E-commerce Recommender,Aliquam incidunt cupiditate rem laborum quibusdam molestias id.,Mobile
+800,409,Campus Event App,Blanditiis voluptatum quam sunt earum eum suscipit natus cumque enim placeat.,IoT
+801,409,Library Management Portal,Veritatis fuga non iusto distinctio ex quia voluptatum unde cum quaerat labore et debitis iusto voluptatibus.,Data Engineering
+802,410,Weather Prediction Model,Est deleniti possimus modi ex aperiam iusto.,Mobile
+803,411,IoT Smart Campus,Architecto odio sunt exercitationem accusamus deserunt eligendi tenetur incidunt.,Web
+804,411,AI Resume Screener,Facilis quisquam vel natus odit dicta nihil aut dolor debitis natus.,Web
+805,411,E-commerce Recommender,Reiciendis nesciunt quisquam ex quo nihil eius rem sit.,IoT
+806,412,Attendance Tracker,Distinctio a doloremque dolor ut nostrum corporis labore a aspernatur voluptas consequatur rem incidunt.,IoT
+807,412,Chatbot Assistant,Eveniet magnam blanditiis nam fugiat harum labore est minima minus sunt sapiente veritatis veniam.,IoT
+808,412,IoT Smart Campus,Quae saepe natus laudantium ratione placeat nam ipsa expedita ad facilis.,Cloud
+809,413,Weather Prediction Model,Quo exercitationem incidunt nulla soluta ullam deleniti fugiat ut voluptatum deserunt facere deserunt nesciunt.,Web
+810,413,Chatbot Assistant,Atque fuga ducimus ullam non alias eius laboriosam aliquam possimus ducimus numquam.,Web
+811,413,Weather Prediction Model,Reprehenderit sint unde voluptatum odio laudantium labore soluta quibusdam rem alias adipisci tempora corrupti quasi.,Data Engineering
+812,414,Attendance Tracker,Assumenda rerum blanditiis ipsam quae et similique eius sequi.,Cloud
+813,415,AI Resume Screener,Qui ex perferendis tempore tempore cumque voluptates quam facilis accusamus optio impedit pariatur aperiam deserunt quis.,Mobile
+814,416,IoT Smart Campus,Quas assumenda ipsam eius dicta magnam cupiditate quia saepe.,AI/ML
+815,416,AI Resume Screener,Est natus blanditiis iure saepe assumenda ut.,Data Engineering
+816,416,AI Resume Screener,Blanditiis at quas delectus nihil vitae quisquam ratione.,Mobile
+817,417,E-commerce Recommender,Odit itaque soluta velit est perspiciatis velit sint quibusdam qui.,Mobile
+818,417,Attendance Tracker,Amet provident debitis consequuntur et dolorem deleniti sunt debitis eos possimus.,Web
+819,418,AI Resume Screener,At explicabo facilis quo minima repudiandae porro cupiditate veniam nesciunt culpa.,AI/ML
+820,418,Attendance Tracker,Distinctio praesentium expedita repellat recusandae dignissimos praesentium magnam rerum recusandae at quo ducimus iusto adipisci.,Data Engineering
+821,419,AI Resume Screener,Maxime occaecati labore iusto eum natus omnis temporibus.,AI/ML
+822,419,IoT Smart Campus,Praesentium occaecati sit ab in ex officia aut totam esse iure delectus.,Web
+823,420,Fraud Detection System,Ipsa nulla nisi possimus quasi labore doloribus.,Mobile
+824,420,AI Resume Screener,Nobis laboriosam illo aliquam ut doloremque vel unde autem incidunt earum neque.,Data Engineering
+825,420,Chatbot Assistant,Adipisci maiores ullam suscipit vitae velit dicta voluptas quibusdam consectetur ex vero voluptas est quisquam reiciendis.,Cloud
+826,421,E-commerce Recommender,Id itaque omnis dicta cupiditate esse delectus similique ipsa quam culpa nam quod a.,Cloud
+827,421,E-commerce Recommender,Exercitationem iusto placeat praesentium totam pariatur rerum provident quis.,Cloud
+828,421,AI Resume Screener,Harum et vel id eveniet eligendi perferendis sit.,Cloud
+829,422,Chatbot Assistant,Hic asperiores laborum qui nesciunt dolore non quisquam fuga excepturi reprehenderit nostrum quibusdam totam officia consequuntur.,Web
+830,423,Chatbot Assistant,Aliquid error at fugit debitis corrupti est perferendis laboriosam ea.,Web
+831,423,IoT Smart Campus,Debitis id maxime autem rem expedita quasi omnis illo rem cum consectetur magni.,IoT
+832,424,Weather Prediction Model,Accusamus officiis pariatur in amet incidunt quia blanditiis rem tenetur magnam quos quae sapiente.,Cloud
+833,424,Fraud Detection System,Beatae debitis incidunt quis sit aspernatur ab veniam provident ducimus maiores nostrum.,Data Engineering
+834,424,E-commerce Recommender,Ipsa iure aliquam sint itaque amet nobis fuga incidunt perferendis quisquam ad eaque eos.,Web
+835,425,IoT Smart Campus,Accusantium eveniet odio nisi facere alias qui dolorum assumenda atque quas odio inventore.,IoT
+836,426,Campus Event App,Exercitationem itaque nulla ullam temporibus ut reprehenderit necessitatibus aliquam eveniet alias.,Web
+837,426,Weather Prediction Model,Voluptate odit sunt fugit voluptatem aspernatur unde quibusdam in ad veniam ducimus officiis sunt saepe inventore.,Web
+838,426,E-commerce Recommender,Recusandae necessitatibus voluptatum nulla molestiae recusandae possimus aliquid.,Cloud
+839,427,Chatbot Assistant,Labore quis ipsa quia quod eius perferendis non tenetur perspiciatis earum illum accusantium impedit consectetur.,IoT
+840,428,Fraud Detection System,Iure ratione odio atque dolore quae dolore nostrum quas non itaque.,Web
+841,428,Library Management Portal,Odio eveniet harum ut accusamus excepturi expedita ipsam iure quia distinctio possimus perferendis.,Data Engineering
+842,428,Library Management Portal,Illo optio necessitatibus aspernatur laborum voluptates assumenda quibusdam minus esse quibusdam.,Web
+843,429,IoT Smart Campus,Perferendis adipisci numquam cumque expedita inventore voluptatum ad voluptate nam laudantium doloremque ullam consectetur.,Data Engineering
+844,429,E-commerce Recommender,Veniam commodi id distinctio beatae enim sint quisquam voluptates voluptatem mollitia explicabo dolor tempore eius quo.,Mobile
+845,430,Attendance Tracker,Autem suscipit vero quis et modi hic similique libero iure repudiandae ipsum unde debitis enim minus.,Cloud
+846,430,AI Resume Screener,Quis omnis placeat atque neque in in deleniti adipisci dolore non magnam.,Mobile
+847,431,Chatbot Assistant,Nobis quasi veniam eveniet dolorum necessitatibus iusto at.,Data Engineering
+848,431,AI Resume Screener,Ad nobis ratione harum maiores deserunt totam itaque quam dolores iusto quae.,AI/ML
+849,432,Attendance Tracker,Eum eos tempora dignissimos itaque doloribus nobis voluptatibus reiciendis voluptate.,IoT
+850,433,Fraud Detection System,Odit rem saepe sit tenetur doloribus quam architecto quibusdam placeat illo maxime iusto harum.,Web
+851,434,E-commerce Recommender,Vero sunt modi quaerat non voluptatibus quaerat ipsa repudiandae animi repellat repudiandae quam.,AI/ML
+852,435,Placement Analytics Dashboard,Facilis quaerat maiores officiis inventore commodi corporis.,Data Engineering
+853,435,IoT Smart Campus,Quidem neque recusandae quam facilis omnis consequuntur doloribus laboriosam eaque ex.,Data Engineering
+854,435,Campus Event App,Itaque quae quibusdam quidem exercitationem porro ex ipsum.,IoT
+855,436,IoT Smart Campus,Necessitatibus nisi quis corporis enim dolore fuga facilis eos velit culpa.,Data Engineering
+856,436,IoT Smart Campus,Labore ipsam eos quia possimus corporis eos fugit odio adipisci distinctio.,IoT
+857,437,Weather Prediction Model,Corrupti accusamus facilis magni sit maxime labore tempore voluptas officia nesciunt.,AI/ML
+858,437,Fraud Detection System,Et fugiat sint laborum cumque minima cupiditate tempore accusamus veniam exercitationem est dolore eius.,AI/ML
+859,437,Placement Analytics Dashboard,Officiis explicabo itaque totam temporibus saepe sapiente quos minima.,Web
+860,438,IoT Smart Campus,Qui facilis adipisci occaecati veritatis magni earum vitae sed modi.,Data Engineering
+861,438,Chatbot Assistant,Voluptas animi necessitatibus dolorum ducimus qui porro officiis.,IoT
+862,438,IoT Smart Campus,Dolorem quaerat debitis voluptatem eaque eius quia quasi totam temporibus.,Web
+863,439,Placement Analytics Dashboard,Minima aperiam dolorem nesciunt neque iure modi quos eum.,Cloud
+864,439,Library Management Portal,Deserunt blanditiis assumenda deserunt molestiae dolor laborum necessitatibus.,Cloud
+865,439,IoT Smart Campus,Inventore temporibus quam ipsam odit nihil odio quidem voluptatibus dolorum illum earum occaecati eveniet laboriosam eligendi.,Web
+866,440,AI Resume Screener,Eaque minus exercitationem perspiciatis magnam numquam beatae quidem delectus ab tempora.,Web
+867,441,IoT Smart Campus,Iusto cum aperiam inventore esse unde ipsam odit molestiae delectus quod quis distinctio magnam eum.,Web
+868,441,Placement Analytics Dashboard,Iusto placeat unde distinctio perferendis eum deleniti id cupiditate culpa optio eveniet maiores labore nisi.,Mobile
+869,442,Weather Prediction Model,Quod earum ut iusto sequi esse corporis ex explicabo quia ipsum incidunt hic.,Data Engineering
+870,442,Chatbot Assistant,Ab velit animi illum officia consequuntur itaque earum repellendus dicta optio ducimus rerum.,Web
+871,443,Attendance Tracker,Eum ratione eveniet nam dicta dolor magnam.,Mobile
+872,444,E-commerce Recommender,Autem doloribus eveniet laboriosam quam iusto voluptas aliquid optio porro tenetur.,AI/ML
+873,444,Library Management Portal,Dolorum voluptates nesciunt animi animi exercitationem modi ipsa eligendi iusto sunt asperiores voluptate quasi.,Mobile
+874,444,E-commerce Recommender,Soluta nihil nemo natus ipsa eveniet molestias optio nam.,Mobile
+875,445,Fraud Detection System,Porro consequuntur quo sit praesentium qui vero facere quo quibusdam dolor.,AI/ML
+876,446,E-commerce Recommender,Iusto itaque ex perspiciatis provident ducimus quibusdam ad blanditiis illum id laborum.,Web
+877,446,IoT Smart Campus,Rerum animi voluptatibus fuga natus voluptatum vero.,IoT
+878,447,Fraud Detection System,Ratione laudantium nemo odio quasi natus voluptate quos minus reiciendis sed assumenda.,Data Engineering
+879,448,Chatbot Assistant,Nostrum voluptatibus quibusdam quisquam inventore eius iste sunt qui officiis asperiores officia excepturi minus.,AI/ML
+880,448,Fraud Detection System,Suscipit illo eos numquam harum ab eum corrupti sequi nesciunt quisquam minus officiis.,AI/ML
+881,449,E-commerce Recommender,Quo nemo explicabo sunt sint corrupti quo dignissimos delectus ad.,Mobile
+882,449,AI Resume Screener,Velit aliquam consectetur expedita architecto sit unde omnis dicta cum voluptatibus doloremque ullam quo ad soluta.,Mobile
+883,450,Campus Event App,Commodi veniam ad sint sequi dignissimos aliquid ipsa dicta quo nihil commodi voluptas.,Mobile
+884,451,Placement Analytics Dashboard,Totam quam commodi quidem blanditiis laudantium non quibusdam et deleniti voluptates reiciendis facere ducimus.,Mobile
+885,451,Weather Prediction Model,Velit accusamus fugit in vitae aut facere est.,AI/ML
+886,452,AI Resume Screener,Ipsa sed error voluptatum assumenda officia harum iusto.,Web
+887,452,IoT Smart Campus,Quas tempore aliquid sed debitis ab maxime consequuntur iusto aliquam nisi.,Cloud
+888,453,AI Resume Screener,Sint optio fuga impedit culpa cupiditate vel vitae quia repellat.,Data Engineering
+889,454,Campus Event App,Facilis unde ratione adipisci dignissimos illo fuga sapiente numquam.,AI/ML
+890,454,E-commerce Recommender,Quos ex suscipit alias sit totam aliquid.,IoT
+891,455,Weather Prediction Model,Quis quam cumque aut expedita dolore in architecto voluptas iure impedit tempore.,Data Engineering
+892,456,Chatbot Assistant,Consequatur nobis odio est iusto temporibus consectetur omnis facilis nostrum quaerat labore quibusdam.,Mobile
+893,456,Campus Event App,Deserunt dolor consectetur velit dolorem aspernatur atque illo suscipit autem dolorem delectus optio eveniet voluptate.,Data Engineering
+894,457,AI Resume Screener,Maxime neque sunt quis consectetur in optio neque vel alias temporibus harum aliquid dicta delectus corporis.,Mobile
+895,457,Library Management Portal,Saepe dolores id accusamus laboriosam similique deleniti.,Data Engineering
+896,457,Campus Event App,Illo voluptatibus iste ea ipsam quia omnis maiores excepturi voluptatum delectus exercitationem sit quo itaque.,Web
+897,458,Weather Prediction Model,Pariatur exercitationem maxime aperiam facilis odit vitae commodi.,IoT
+898,458,Chatbot Assistant,Voluptate rerum blanditiis quae commodi expedita iste mollitia vel vitae.,AI/ML
+899,459,AI Resume Screener,Delectus reprehenderit suscipit magni consequuntur perspiciatis quod dicta quia minima quod natus minus aliquid.,Web
+900,459,E-commerce Recommender,Facilis dolorem veniam minus fugiat aut cumque odio nulla sapiente quibusdam corrupti velit non similique.,Web
+901,459,Campus Event App,Aliquid voluptas id harum maxime in labore eum quam error asperiores.,AI/ML
+902,460,Chatbot Assistant,Pariatur dignissimos quasi nisi architecto quidem consequuntur laboriosam cum voluptas voluptate voluptatem hic cum in.,Data Engineering
+903,460,Campus Event App,Deserunt rerum architecto vitae eius tempora commodi qui velit corrupti ipsam perferendis quis ab blanditiis est.,AI/ML
+904,461,Library Management Portal,Quo nisi doloremque ipsa reprehenderit molestiae nostrum corrupti.,Web
+905,461,E-commerce Recommender,Soluta veniam aliquam saepe ducimus occaecati incidunt cumque quae sint laborum enim.,IoT
+906,461,Weather Prediction Model,Aut voluptatum nobis nobis facere sit pariatur saepe vitae in odit sint eius quam eius.,AI/ML
+907,462,Library Management Portal,Odit eveniet pariatur dolorum explicabo accusamus quae laborum nesciunt dolore inventore.,Cloud
+908,462,Campus Event App,Aut quos provident natus saepe fugiat maxime unde fugit nobis nihil.,IoT
+909,463,IoT Smart Campus,Nemo blanditiis quisquam facere perferendis temporibus in hic.,Data Engineering
+910,463,Weather Prediction Model,Expedita ratione sequi nemo minima velit repellat.,IoT
+911,464,AI Resume Screener,Quia inventore tenetur dolor debitis occaecati eveniet eos impedit adipisci itaque tempora facere placeat explicabo vitae.,AI/ML
+912,465,Campus Event App,Ipsum aliquid itaque voluptatibus ea recusandae distinctio quo molestias eum illo.,Web
+913,466,Placement Analytics Dashboard,Quos cupiditate libero at explicabo modi rem vitae et esse totam at.,Cloud
+914,466,Attendance Tracker,Est libero delectus fugit eaque provident expedita rem tempore quidem vero eum beatae.,IoT
+915,467,Chatbot Assistant,Est magni odit eos nam debitis nulla asperiores at quae totam optio sequi corporis excepturi explicabo.,IoT
+916,468,Placement Analytics Dashboard,Ullam aut vero repellendus suscipit eos necessitatibus aspernatur voluptatum.,Cloud
+917,468,Library Management Portal,Repudiandae doloribus culpa voluptatibus ad dolore possimus dolor soluta ipsam repellat corporis error.,Data Engineering
+918,469,Library Management Portal,Similique laboriosam ipsa nam voluptatum deleniti delectus.,Mobile
+919,469,Weather Prediction Model,Neque occaecati suscipit voluptatem quia provident voluptatem rem ea fuga tempore vel eum explicabo vero.,AI/ML
+920,470,Campus Event App,Eum repudiandae praesentium recusandae neque atque totam voluptates provident.,Cloud
+921,471,Campus Event App,Et rem nobis quam quaerat officia mollitia voluptates iure nemo amet nulla libero ipsa veritatis.,Cloud
+922,471,E-commerce Recommender,Ad ipsum officiis tempore labore provident aperiam explicabo veritatis.,Web
+923,471,E-commerce Recommender,Necessitatibus veniam quas quae laudantium provident velit voluptates dolor iste modi.,AI/ML
+924,472,Weather Prediction Model,Ex necessitatibus soluta veniam corporis molestiae placeat et ab non quae.,Web
+925,472,Library Management Portal,Nesciunt quo architecto aperiam impedit cum deserunt voluptatem quo voluptatibus saepe adipisci.,Web
+926,472,AI Resume Screener,Quas ex atque illo praesentium placeat rem fugit labore sed delectus est debitis inventore.,IoT
+927,473,IoT Smart Campus,Libero delectus illo dolorem voluptates odio excepturi quibusdam minima accusantium non.,IoT
+928,473,Campus Event App,Animi fuga cumque vitae minus a harum adipisci temporibus natus similique veritatis deleniti nulla delectus.,Cloud
+929,473,Fraud Detection System,Voluptate atque placeat culpa fugiat debitis ipsam sapiente quo magni.,Web
+930,474,Campus Event App,Adipisci aliquam modi vero velit rem est eos expedita debitis maxime tempore libero.,IoT
+931,474,AI Resume Screener,Culpa nostrum excepturi iste omnis rerum quos velit pariatur aperiam doloribus consequuntur vero laudantium recusandae aliquam.,Web
+932,474,Weather Prediction Model,Totam ullam repellat tenetur provident saepe atque maxime.,Web
+933,475,Attendance Tracker,Tenetur natus praesentium maxime quidem officia eligendi consequatur quis eos numquam illo.,Mobile
+934,476,Placement Analytics Dashboard,Aspernatur ad aut natus non esse voluptatibus quo quo praesentium minus aliquam.,Data Engineering
+935,477,AI Resume Screener,Esse nesciunt tempore molestiae odit qui modi aliquid.,Web
+936,477,Weather Prediction Model,Harum explicabo modi reprehenderit placeat inventore magni sed magni perspiciatis aliquid.,AI/ML
+937,477,IoT Smart Campus,Atque veniam tempora quae asperiores dignissimos dignissimos odit accusamus ullam.,Data Engineering
+938,478,Attendance Tracker,Tempore blanditiis enim temporibus optio totam ex debitis harum dolorem.,IoT
+939,478,Chatbot Assistant,Aliquid consequuntur doloribus pariatur sunt in necessitatibus sint numquam dignissimos soluta qui earum.,Web
+940,479,Placement Analytics Dashboard,Impedit impedit eius tempore repellendus laborum nobis.,Data Engineering
+941,479,Weather Prediction Model,Possimus aliquam quisquam consectetur porro architecto beatae culpa ratione architecto modi cumque qui veritatis quaerat possimus.,Cloud
+942,480,E-commerce Recommender,Modi eligendi necessitatibus autem blanditiis reprehenderit sunt veniam mollitia libero consectetur.,AI/ML
+943,480,E-commerce Recommender,Iusto autem dolorem rerum delectus quis rem.,AI/ML
+944,480,E-commerce Recommender,Ipsa fuga qui ipsam quisquam optio magnam voluptate quisquam quam.,Mobile
+945,481,Weather Prediction Model,Necessitatibus veniam exercitationem veniam ullam expedita dicta.,IoT
+946,481,Chatbot Assistant,Hic corrupti eos aperiam delectus deserunt omnis ipsa.,Web
+947,482,Placement Analytics Dashboard,Architecto doloribus minus nam corporis vitae animi placeat illum modi nulla cumque ut.,Web
+948,483,Chatbot Assistant,Alias temporibus placeat ab a animi harum necessitatibus sequi quis alias molestias.,AI/ML
+949,484,Library Management Portal,Officiis tenetur vel officia eligendi nulla ipsum.,Mobile
+950,485,AI Resume Screener,Placeat nostrum exercitationem voluptates iste ullam corrupti modi facere corporis.,Cloud
+951,485,Campus Event App,Vitae harum ducimus cum qui inventore error aliquam illum.,Data Engineering
+952,486,Chatbot Assistant,Sequi voluptates commodi occaecati dignissimos illo sunt itaque iste veritatis iure excepturi pariatur consequatur minus.,Data Engineering
+953,486,E-commerce Recommender,Dolor deleniti deserunt sit omnis nulla tempore molestias quisquam illum.,Mobile
+954,487,Placement Analytics Dashboard,Distinctio consequuntur autem officiis error rerum quo numquam amet dolor mollitia.,AI/ML
+955,488,Campus Event App,Optio vel inventore velit ad dignissimos necessitatibus cupiditate voluptates.,Cloud
+956,488,Chatbot Assistant,Quo odit nemo reiciendis corrupti et doloribus qui quis laborum nostrum quis minus occaecati alias.,Mobile
+957,488,Chatbot Assistant,Ratione assumenda ab similique amet sequi et temporibus.,IoT
+958,489,IoT Smart Campus,Quia vero esse architecto numquam et temporibus ipsum excepturi cupiditate.,Cloud
+959,489,Chatbot Assistant,Aut natus tempore corrupti impedit minus nulla culpa mollitia iusto voluptatem.,Cloud
+960,489,E-commerce Recommender,Voluptate optio corporis ipsam quidem consequatur fugit fugit cupiditate accusantium.,Web
+961,490,Weather Prediction Model,Ut nesciunt delectus tempora voluptas veniam necessitatibus suscipit voluptates suscipit architecto consequatur.,Cloud
+962,491,Campus Event App,Perspiciatis totam beatae vel vero deserunt odio eos recusandae ratione explicabo.,AI/ML
+963,492,Fraud Detection System,Accusamus tempora in cumque sed deleniti eligendi maxime totam laudantium temporibus amet dolores esse.,IoT
+964,492,Placement Analytics Dashboard,Voluptatum excepturi earum voluptatum omnis optio ex adipisci sit unde ab nemo esse dicta.,AI/ML
+965,492,Attendance Tracker,Fugit alias perferendis possimus excepturi rem sequi quos illum exercitationem velit quaerat mollitia laborum.,Cloud
+966,493,Library Management Portal,Assumenda ipsum perferendis rem totam similique tempore ad consectetur quis doloribus.,IoT
+967,494,IoT Smart Campus,Fuga culpa reiciendis quod sint ab accusamus rem sit.,AI/ML
+968,495,E-commerce Recommender,Architecto nesciunt vitae voluptas occaecati ex pariatur nostrum animi consequuntur ullam unde delectus quaerat at inventore.,Mobile
+969,495,Library Management Portal,Distinctio quaerat harum numquam deserunt repellendus provident libero provident iusto.,IoT
+970,495,IoT Smart Campus,Sint aperiam delectus ab debitis deserunt corporis molestiae voluptate praesentium praesentium asperiores deleniti eum voluptatibus cum.,Web
+971,496,Placement Analytics Dashboard,Error impedit odit dolor dolorum exercitationem dolores ab tempora placeat eligendi cum aperiam laudantium temporibus animi.,Web
+972,496,Attendance Tracker,Aspernatur quisquam quaerat accusamus quia at nihil totam facere perspiciatis perspiciatis aperiam ea.,Web
+973,496,IoT Smart Campus,Iste quia laboriosam libero quis et voluptatum deleniti nesciunt aliquam explicabo iure.,Data Engineering
+974,497,IoT Smart Campus,Eveniet recusandae veniam illo sit iure corrupti qui harum veniam sit ratione fugit sit.,Mobile
+975,497,Chatbot Assistant,Id accusamus recusandae optio cupiditate nihil delectus atque hic.,Mobile
+976,497,AI Resume Screener,Earum deserunt libero culpa rerum sequi eius deleniti non.,Data Engineering
+977,498,Library Management Portal,Inventore veniam cum voluptas animi vero architecto eum labore enim doloremque velit rem impedit.,AI/ML
+978,498,IoT Smart Campus,Vero occaecati excepturi est nulla nostrum nobis.,Data Engineering
+979,499,Campus Event App,Eligendi quam rem sint fuga voluptas aperiam ipsum impedit distinctio eveniet doloremque sit est totam.,AI/ML
+980,499,E-commerce Recommender,Ratione nam neque ex deserunt consectetur eum odio voluptas dolorem nihil dolores reprehenderit laborum.,Cloud
+981,499,Campus Event App,Tempora et sunt fugit corrupti eum minus iure tempore veniam quas architecto harum deserunt.,IoT
+982,500,Fraud Detection System,Quae facilis quod labore dolore a explicabo nulla natus quos vero.,AI/ML
+983,500,Attendance Tracker,Voluptates non modi reprehenderit officia vero nisi blanditiis quasi quasi deserunt reiciendis eligendi ratione.,AI/ML

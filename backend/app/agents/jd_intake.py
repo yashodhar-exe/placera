@@ -36,7 +36,7 @@ class JDIntakeAgent:
             
         prompt = f"""
         Extract the following structured requirements from the job description text below.
-        Return a JSON object conforming to this schema:
+        Return ONLY a raw JSON object (no markdown, no backticks) conforming to this schema:
         {{
             "role": "Job Title",
             "skills_mandatory": ["skill1", "skill2"],
@@ -54,20 +54,18 @@ class JDIntakeAgent:
         try:
             response = self.client.models.generate_content(
                 model='gemini-3.6-flash',
-                contents=prompt,
-                config={
-                    'response_mime_type': 'application/json',
-                    'response_schema': JDRequirements,
-                }
+                contents=prompt
             )
             
-            # The SDK will automatically parse the response according to the schema
-            return response.parsed
+            import json
+            content = response.text.strip()
+            if content.startswith("```json"):
+                content = content[7:]
+            if content.endswith("```"):
+                content = content[:-3]
+            
+            data = json.loads(content)
+            return JDRequirements(**data)
         except Exception as e:
             print(f"Error parsing JD with Gemini: {e}")
-            # Fallback to mock
-            return JDRequirements(
-                role="Unknown Role (Fallback)",
-                skills_mandatory=[],
-                skills_preferred=[],
-            )
+            raise e

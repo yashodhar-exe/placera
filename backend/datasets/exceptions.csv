@@ -1,0 +1,81 @@
+id,entity_type,entity_id,description,status
+1,eligibility_result,393,Borderline eligibility for student 393 on drive 1: Meets all eligibility criteria,Open
+2,eligibility_result,495,Borderline eligibility for student 495 on drive 1: Meets all eligibility criteria,Resolved
+3,eligibility_result,520,Borderline eligibility for student 20 on drive 2: Meets all eligibility criteria,Resolved
+4,eligibility_result,529,Borderline eligibility for student 29 on drive 2: Meets all eligibility criteria,Resolved
+5,eligibility_result,571,Borderline eligibility for student 71 on drive 2: Meets all eligibility criteria,Open
+6,eligibility_result,634,Borderline eligibility for student 134 on drive 2: Meets all eligibility criteria,Resolved
+7,eligibility_result,798,Borderline eligibility for student 298 on drive 2: Meets all eligibility criteria,Open
+8,eligibility_result,897,Borderline eligibility for student 397 on drive 2: Meets all eligibility criteria,Open
+9,eligibility_result,939,Borderline eligibility for student 439 on drive 2: Meets all eligibility criteria,Open
+10,eligibility_result,963,Borderline eligibility for student 463 on drive 2: Meets all eligibility criteria,Open
+11,eligibility_result,1015,Borderline eligibility for student 15 on drive 3: Meets all eligibility criteria,Resolved
+12,eligibility_result,1087,Borderline eligibility for student 87 on drive 3: Meets all eligibility criteria,Resolved
+13,eligibility_result,1092,Borderline eligibility for student 92 on drive 3: Meets all eligibility criteria,Resolved
+14,eligibility_result,1096,Borderline eligibility for student 96 on drive 3: Meets all eligibility criteria,Resolved
+15,eligibility_result,1100,Borderline eligibility for student 100 on drive 3: Meets all eligibility criteria,Open
+16,eligibility_result,1122,Borderline eligibility for student 122 on drive 3: Meets all eligibility criteria,Resolved
+17,eligibility_result,1145,Borderline eligibility for student 145 on drive 3: Meets all eligibility criteria,Open
+18,eligibility_result,1162,Borderline eligibility for student 162 on drive 3: Meets all eligibility criteria,Open
+19,eligibility_result,1180,Borderline eligibility for student 180 on drive 3: Meets all eligibility criteria,Open
+20,eligibility_result,1212,Borderline eligibility for student 212 on drive 3: Meets all eligibility criteria,Resolved
+21,eligibility_result,1304,Borderline eligibility for student 304 on drive 3: Meets all eligibility criteria,Resolved
+22,eligibility_result,1369,Borderline eligibility for student 369 on drive 3: Meets all eligibility criteria,Open
+23,eligibility_result,1390,Borderline eligibility for student 390 on drive 3: Meets all eligibility criteria,Resolved
+24,eligibility_result,1438,Borderline eligibility for student 438 on drive 3: Meets all eligibility criteria,Resolved
+25,eligibility_result,1443,Borderline eligibility for student 443 on drive 3: Meets all eligibility criteria,Open
+26,eligibility_result,1461,Borderline eligibility for student 461 on drive 3: Meets all eligibility criteria,Resolved
+27,eligibility_result,1514,Borderline eligibility for student 14 on drive 4: Meets all eligibility criteria,Open
+28,eligibility_result,1526,Borderline eligibility for student 26 on drive 4: Meets all eligibility criteria,Open
+29,eligibility_result,1557,Borderline eligibility for student 57 on drive 4: Meets all eligibility criteria,Open
+30,eligibility_result,1573,Borderline eligibility for student 73 on drive 4: Meets all eligibility criteria,Open
+31,eligibility_result,1638,Borderline eligibility for student 138 on drive 4: Meets all eligibility criteria,Resolved
+32,eligibility_result,1661,Borderline eligibility for student 161 on drive 4: Meets all eligibility criteria,Resolved
+33,eligibility_result,1814,Borderline eligibility for student 314 on drive 4: Meets all eligibility criteria,Open
+34,eligibility_result,1855,Borderline eligibility for student 355 on drive 4: Meets all eligibility criteria,Open
+35,eligibility_result,1870,Borderline eligibility for student 370 on drive 4: Meets all eligibility criteria,Resolved
+36,eligibility_result,1933,Borderline eligibility for student 433 on drive 4: Meets all eligibility criteria,Open
+37,eligibility_result,2023,Borderline eligibility for student 23 on drive 5: Meets all eligibility criteria,Resolved
+38,eligibility_result,2048,Borderline eligibility for student 48 on drive 5: Meets all eligibility criteria,Resolved
+39,eligibility_result,2097,Borderline eligibility for student 97 on drive 5: Meets all eligibility criteria,Open
+40,eligibility_result,2102,Borderline eligibility for student 102 on drive 5: Meets all eligibility criteria,Open
+41,candidate_match,1,Low-confidence match (34.18) for student 2 on drive 1,Resolved
+42,candidate_match,3,Low-confidence match (44.45) for student 8 on drive 1,Open
+43,candidate_match,4,Low-confidence match (43.29) for student 11 on drive 1,Resolved
+44,candidate_match,5,Low-confidence match (46.42) for student 16 on drive 1,Open
+45,candidate_match,6,Low-confidence match (38.5) for student 17 on drive 1,Open
+46,candidate_match,7,Low-confidence match (45.58) for student 18 on drive 1,Open
+47,candidate_match,8,Low-confidence match (35.11) for student 20 on drive 1,Open
+48,candidate_match,9,Low-confidence match (38.48) for student 21 on drive 1,Resolved
+49,candidate_match,10,Low-confidence match (44.34) for student 22 on drive 1,Open
+50,candidate_match,11,Low-confidence match (37.66) for student 23 on drive 1,Resolved
+51,candidate_match,12,Low-confidence match (44.48) for student 29 on drive 1,Open
+52,candidate_match,13,Low-confidence match (39.1) for student 30 on drive 1,Open
+53,candidate_match,15,Low-confidence match (48.75) for student 37 on drive 1,Resolved
+54,candidate_match,16,Low-confidence match (49.28) for student 40 on drive 1,Open
+55,candidate_match,17,Low-confidence match (42.27) for student 41 on drive 1,Resolved
+56,candidate_match,18,Low-confidence match (44.8) for student 43 on drive 1,Resolved
+57,candidate_match,19,Low-confidence match (49.04) for student 44 on drive 1,Resolved
+58,candidate_match,20,Low-confidence match (39.98) for student 45 on drive 1,Open
+59,candidate_match,21,Low-confidence match (45.84) for student 46 on drive 1,Resolved
+60,candidate_match,22,Low-confidence match (42.87) for student 48 on drive 1,Open
+61,candidate_match,23,Low-confidence match (49.08) for student 49 on drive 1,Open
+62,candidate_match,24,Low-confidence match (35.11) for student 59 on drive 1,Resolved
+63,candidate_match,25,Low-confidence match (33.86) for student 62 on drive 1,Resolved
+64,candidate_match,26,Low-confidence match (39.13) for student 66 on drive 1,Open
+65,candidate_match,27,Low-confidence match (36.32) for student 71 on drive 1,Open
+66,candidate_match,28,Low-confidence match (43.7) for student 72 on drive 1,Resolved
+67,candidate_match,30,Low-confidence match (32.99) for student 79 on drive 1,Open
+68,candidate_match,31,Low-confidence match (49.56) for student 91 on drive 1,Open
+69,candidate_match,32,Low-confidence match (51.8) for student 93 on drive 1,Resolved
+70,candidate_match,33,Low-confidence match (32.24) for student 95 on drive 1,Resolved
+71,interview,93,Possible venue/time conflict for interview 93 at venue 1,Resolved
+72,interview,150,Possible venue/time conflict for interview 150 at venue 5,Resolved
+73,interview,115,Possible venue/time conflict for interview 115 at venue 2,Resolved
+74,interview,126,Possible venue/time conflict for interview 126 at venue 2,Resolved
+75,interview,146,Possible venue/time conflict for interview 146 at venue 1,Open
+76,interview,87,Possible venue/time conflict for interview 87 at venue 3,Resolved
+77,interview,95,Possible venue/time conflict for interview 95 at venue 1,Open
+78,interview,35,Possible venue/time conflict for interview 35 at venue 3,Resolved
+79,interview,101,Possible venue/time conflict for interview 101 at venue 6,Resolved
+80,interview,29,Possible venue/time conflict for interview 29 at venue 2,Resolved

@@ -11,14 +11,14 @@
   --outline: #dadce0;
   --outline-variant: #cfc4c5;
   --error: #ba1a1a;
-  
+
   --font-heading: 'Plus Jakarta Sans', sans-serif;
   --font-body: 'Inter', sans-serif;
-  
+
   --radius-card: 16px;
   --radius-pill: 9999px;
   --radius-sm: 8px;
-  
+
   --spacing-xs: 4px;
   --spacing-sm: 8px;
   --spacing-md: 16px;
@@ -42,6 +42,7 @@ body {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
   vertical-align: middle;
 }
+
 .material-symbols-outlined.filled {
   font-variation-settings: 'FILL' 1;
 }
@@ -96,18 +97,21 @@ h1 {
   letter-spacing: -0.02em;
   margin: 0 0 var(--spacing-xs) 0;
 }
+
 h2 {
   font-family: var(--font-heading);
   font-size: 24px;
   font-weight: 600;
   margin: 0 0 var(--spacing-md) 0;
 }
+
 h3 {
   font-family: var(--font-heading);
   font-size: 18px;
   font-weight: 600;
   margin: 0;
 }
+
 .subtitle {
   color: var(--secondary);
   font-size: 18px;
@@ -124,6 +128,7 @@ h3 {
   flex-direction: column;
   gap: var(--spacing-md);
 }
+
 .card-header {
   display: flex;
   justify-content: space-between;
@@ -145,22 +150,27 @@ h3 {
   border: none;
   transition: opacity 0.2s, background-color 0.2s;
 }
+
 .btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
 .btn-primary {
   background-color: var(--primary);
   color: white;
 }
+
 .btn-primary:hover:not(:disabled) {
   opacity: 0.9;
 }
+
 .btn-secondary {
   background-color: var(--surface);
   color: var(--primary);
   border: 1px solid var(--outline);
 }
+
 .btn-secondary:hover:not(:disabled) {
   background-color: var(--background);
 }
@@ -172,11 +182,13 @@ h3 {
   border-radius: var(--radius-card);
   overflow: hidden;
 }
+
 table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
 }
+
 th {
   background-color: var(--surface-container-low);
   padding: var(--spacing-md);
@@ -187,14 +199,17 @@ th {
   font-weight: 600;
   border-bottom: 1px solid var(--outline);
 }
+
 td {
   padding: var(--spacing-md);
   border-bottom: 1px solid var(--outline-variant);
   font-size: 14px;
 }
+
 tr:last-child td {
   border-bottom: none;
 }
+
 tr:hover {
   background-color: var(--background);
 }
@@ -208,6 +223,7 @@ tr:hover {
   font-size: 12px;
   font-weight: 600;
 }
+
 .badge.active {
   background-color: var(--primary);
   color: white;
@@ -223,6 +239,7 @@ textarea {
   font-size: 14px;
   resize: vertical;
 }
+
 textarea:focus {
   outline: none;
   border-color: var(--primary);
@@ -237,6 +254,7 @@ textarea:focus {
   overflow: hidden;
   margin-top: var(--spacing-xs);
 }
+
 .progress-fill {
   height: 100%;
   background-color: var(--primary);
@@ -249,6 +267,7 @@ textarea:focus {
   border-radius: var(--radius-sm);
   margin-top: var(--spacing-sm);
 }
+
 .exceptions-list button {
   background: white;
   color: var(--error);
@@ -271,19 +290,66 @@ textarea:focus {
 }
 
 /* Utility */
-.d-flex { display: flex; }
-.flex-col { flex-direction: column; }
-.gap-xs { gap: var(--spacing-xs); }
-.gap-sm { gap: var(--spacing-sm); }
-.gap-md { gap: var(--spacing-md); }
-.gap-lg { gap: var(--spacing-lg); }
-.gap-xl { gap: var(--spacing-xl); }
-.justify-between { justify-content: space-between; }
-.items-center { align-items: center; }
-.mt-sm { margin-top: var(--spacing-sm); }
-.mt-md { margin-top: var(--spacing-md); }
-.mt-lg { margin-top: var(--spacing-lg); }
-.mb-xs { margin-bottom: var(--spacing-xs); }
-.w-full { width: 100%; }
-.text-secondary { color: var(--secondary); }
-.text-sm { font-size: 14px; }
+.d-flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.gap-xs {
+  gap: var(--spacing-xs);
+}
+
+.gap-sm {
+  gap: var(--spacing-sm);
+}
+
+.gap-md {
+  gap: var(--spacing-md);
+}
+
+.gap-lg {
+  gap: var(--spacing-lg);
+}
+
+.gap-xl {
+  gap: var(--spacing-xl);
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.mt-sm {
+  margin-top: var(--spacing-sm);
+}
+
+.mt-md {
+  margin-top: var(--spacing-md);
+}
+
+.mt-lg {
+  margin-top: var(--spacing-lg);
+}
+
+.mb-xs {
+  margin-bottom: var(--spacing-xs);
+}
+
+.w-full {
+  width: 100%;
+}
+
+.text-secondary {
+  color: var(--secondary);
+}
+
+.text-sm {
+  font-size: 14px;
+}

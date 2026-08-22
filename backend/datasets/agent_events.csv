@@ -1,0 +1,91 @@
+id,agent,event_type,message,details,timestamp,related_entity,status
+1,JDIntakeAgent,escalated,JDIntakeAgent processed drive 1 (Data Analyst @ company 3),"{""drive_id"": 1, ""role"": ""Data Analyst""}",2026-08-05T20:58:27.457415,job_drive:1,success
+2,EligibilityAgent,flagged,EligibilityAgent processed drive 1 (Data Analyst @ company 3),"{""drive_id"": 1, ""role"": ""Data Analyst""}",2026-08-17T03:58:27.457431,job_drive:1,success
+3,MatchingAgent,flagged,MatchingAgent processed drive 1 (Data Analyst @ company 3),"{""drive_id"": 1, ""role"": ""Data Analyst""}",2026-08-08T08:58:27.457442,job_drive:1,success
+4,SchedulingAgent,flagged,SchedulingAgent processed drive 1 (Data Analyst @ company 3),"{""drive_id"": 1, ""role"": ""Data Analyst""}",2026-08-07T02:58:27.457449,job_drive:1,success
+5,CoordinationAgent,completed,CoordinationAgent processed drive 1 (Data Analyst @ company 3),"{""drive_id"": 1, ""role"": ""Data Analyst""}",2026-08-05T16:58:27.457456,job_drive:1,success
+6,NotificationAgent,flagged,NotificationAgent processed drive 1 (Data Analyst @ company 3),"{""drive_id"": 1, ""role"": ""Data Analyst""}",2026-08-08T11:58:27.457463,job_drive:1,success
+7,AnalyticsAgent,completed,AnalyticsAgent processed drive 1 (Data Analyst @ company 3),"{""drive_id"": 1, ""role"": ""Data Analyst""}",2026-08-11T02:58:27.457471,job_drive:1,success
+8,ReportingAgent,escalated,ReportingAgent processed drive 1 (Data Analyst @ company 3),"{""drive_id"": 1, ""role"": ""Data Analyst""}",2026-08-16T12:58:27.457477,job_drive:1,success
+9,ExceptionAgent,completed,ExceptionAgent processed drive 1 (Data Analyst @ company 3),"{""drive_id"": 1, ""role"": ""Data Analyst""}",2026-08-10T20:58:27.457483,job_drive:1,success
+10,JDIntakeAgent,completed,JDIntakeAgent processed drive 2 (Data Analyst @ company 7),"{""drive_id"": 2, ""role"": ""Data Analyst""}",2026-08-17T07:58:27.457489,job_drive:2,success
+11,EligibilityAgent,escalated,EligibilityAgent processed drive 2 (Data Analyst @ company 7),"{""drive_id"": 2, ""role"": ""Data Analyst""}",2026-08-19T00:58:27.457496,job_drive:2,success
+12,MatchingAgent,started,MatchingAgent processed drive 2 (Data Analyst @ company 7),"{""drive_id"": 2, ""role"": ""Data Analyst""}",2026-08-17T19:58:27.457502,job_drive:2,success
+13,SchedulingAgent,completed,SchedulingAgent processed drive 2 (Data Analyst @ company 7),"{""drive_id"": 2, ""role"": ""Data Analyst""}",2026-08-13T16:58:27.457510,job_drive:2,success
+14,CoordinationAgent,flagged,CoordinationAgent processed drive 2 (Data Analyst @ company 7),"{""drive_id"": 2, ""role"": ""Data Analyst""}",2026-08-06T10:58:27.457516,job_drive:2,success
+15,NotificationAgent,flagged,NotificationAgent processed drive 2 (Data Analyst @ company 7),"{""drive_id"": 2, ""role"": ""Data Analyst""}",2026-08-08T21:58:27.457522,job_drive:2,success
+16,AnalyticsAgent,escalated,AnalyticsAgent processed drive 2 (Data Analyst @ company 7),"{""drive_id"": 2, ""role"": ""Data Analyst""}",2026-08-13T19:58:27.457529,job_drive:2,success
+17,ReportingAgent,escalated,ReportingAgent processed drive 2 (Data Analyst @ company 7),"{""drive_id"": 2, ""role"": ""Data Analyst""}",2026-08-18T06:58:27.457535,job_drive:2,success
+18,ExceptionAgent,escalated,ExceptionAgent processed drive 2 (Data Analyst @ company 7),"{""drive_id"": 2, ""role"": ""Data Analyst""}",2026-08-16T15:58:27.457543,job_drive:2,success
+19,JDIntakeAgent,completed,JDIntakeAgent processed drive 3 (ML Engineer @ company 10),"{""drive_id"": 3, ""role"": ""ML Engineer""}",2026-08-20T21:58:27.457550,job_drive:3,success
+20,EligibilityAgent,escalated,EligibilityAgent processed drive 3 (ML Engineer @ company 10),"{""drive_id"": 3, ""role"": ""ML Engineer""}",2026-08-17T11:58:27.457556,job_drive:3,success
+21,MatchingAgent,flagged,MatchingAgent processed drive 3 (ML Engineer @ company 10),"{""drive_id"": 3, ""role"": ""ML Engineer""}",2026-08-14T01:58:27.457563,job_drive:3,success
+22,SchedulingAgent,completed,SchedulingAgent processed drive 3 (ML Engineer @ company 10),"{""drive_id"": 3, ""role"": ""ML Engineer""}",2026-08-18T07:58:27.457569,job_drive:3,success
+23,CoordinationAgent,started,CoordinationAgent processed drive 3 (ML Engineer @ company 10),"{""drive_id"": 3, ""role"": ""ML Engineer""}",2026-08-12T10:58:27.457574,job_drive:3,success
+24,NotificationAgent,started,NotificationAgent processed drive 3 (ML Engineer @ company 10),"{""drive_id"": 3, ""role"": ""ML Engineer""}",2026-08-19T05:58:27.457580,job_drive:3,success
+25,AnalyticsAgent,started,AnalyticsAgent processed drive 3 (ML Engineer @ company 10),"{""drive_id"": 3, ""role"": ""ML Engineer""}",2026-08-08T02:58:27.457586,job_drive:3,success
+26,ReportingAgent,started,ReportingAgent processed drive 3 (ML Engineer @ company 10),"{""drive_id"": 3, ""role"": ""ML Engineer""}",2026-08-12T03:58:27.457594,job_drive:3,success
+27,ExceptionAgent,completed,ExceptionAgent processed drive 3 (ML Engineer @ company 10),"{""drive_id"": 3, ""role"": ""ML Engineer""}",2026-08-12T00:58:27.457601,job_drive:3,success
+28,JDIntakeAgent,escalated,JDIntakeAgent processed drive 4 (QA Engineer @ company 3),"{""drive_id"": 4, ""role"": ""QA Engineer""}",2026-08-19T16:58:27.457607,job_drive:4,success
+29,EligibilityAgent,started,EligibilityAgent processed drive 4 (QA Engineer @ company 3),"{""drive_id"": 4, ""role"": ""QA Engineer""}",2026-08-06T03:58:27.457613,job_drive:4,success
+30,MatchingAgent,flagged,MatchingAgent processed drive 4 (QA Engineer @ company 3),"{""drive_id"": 4, ""role"": ""QA Engineer""}",2026-08-06T01:58:27.457619,job_drive:4,success
+31,SchedulingAgent,started,SchedulingAgent processed drive 4 (QA Engineer @ company 3),"{""drive_id"": 4, ""role"": ""QA Engineer""}",2026-08-07T15:58:27.457625,job_drive:4,success
+32,CoordinationAgent,flagged,CoordinationAgent processed drive 4 (QA Engineer @ company 3),"{""drive_id"": 4, ""role"": ""QA Engineer""}",2026-08-06T13:58:27.457631,job_drive:4,success
+33,NotificationAgent,escalated,NotificationAgent processed drive 4 (QA Engineer @ company 3),"{""drive_id"": 4, ""role"": ""QA Engineer""}",2026-08-18T22:58:27.457638,job_drive:4,success
+34,AnalyticsAgent,started,AnalyticsAgent processed drive 4 (QA Engineer @ company 3),"{""drive_id"": 4, ""role"": ""QA Engineer""}",2026-08-19T06:58:27.457645,job_drive:4,success
+35,ReportingAgent,started,ReportingAgent processed drive 4 (QA Engineer @ company 3),"{""drive_id"": 4, ""role"": ""QA Engineer""}",2026-08-07T01:58:27.457652,job_drive:4,success
+36,ExceptionAgent,completed,ExceptionAgent processed drive 4 (QA Engineer @ company 3),"{""drive_id"": 4, ""role"": ""QA Engineer""}",2026-08-06T12:58:27.457659,job_drive:4,success
+37,JDIntakeAgent,escalated,JDIntakeAgent processed drive 5 (ML Engineer @ company 3),"{""drive_id"": 5, ""role"": ""ML Engineer""}",2026-08-14T18:58:27.457666,job_drive:5,success
+38,EligibilityAgent,started,EligibilityAgent processed drive 5 (ML Engineer @ company 3),"{""drive_id"": 5, ""role"": ""ML Engineer""}",2026-08-16T19:58:27.457673,job_drive:5,success
+39,MatchingAgent,started,MatchingAgent processed drive 5 (ML Engineer @ company 3),"{""drive_id"": 5, ""role"": ""ML Engineer""}",2026-08-07T11:58:27.457679,job_drive:5,success
+40,SchedulingAgent,escalated,SchedulingAgent processed drive 5 (ML Engineer @ company 3),"{""drive_id"": 5, ""role"": ""ML Engineer""}",2026-08-12T15:58:27.457687,job_drive:5,success
+41,CoordinationAgent,started,CoordinationAgent processed drive 5 (ML Engineer @ company 3),"{""drive_id"": 5, ""role"": ""ML Engineer""}",2026-08-12T19:58:27.457694,job_drive:5,success
+42,NotificationAgent,escalated,NotificationAgent processed drive 5 (ML Engineer @ company 3),"{""drive_id"": 5, ""role"": ""ML Engineer""}",2026-08-15T23:58:27.457701,job_drive:5,success
+43,AnalyticsAgent,completed,AnalyticsAgent processed drive 5 (ML Engineer @ company 3),"{""drive_id"": 5, ""role"": ""ML Engineer""}",2026-08-20T04:58:27.457708,job_drive:5,success
+44,ReportingAgent,escalated,ReportingAgent processed drive 5 (ML Engineer @ company 3),"{""drive_id"": 5, ""role"": ""ML Engineer""}",2026-08-17T16:58:27.457715,job_drive:5,success
+45,ExceptionAgent,started,ExceptionAgent processed drive 5 (ML Engineer @ company 3),"{""drive_id"": 5, ""role"": ""ML Engineer""}",2026-08-14T22:58:27.457723,job_drive:5,success
+46,JDIntakeAgent,started,JDIntakeAgent processed drive 6 (SDE-1 @ company 2),"{""drive_id"": 6, ""role"": ""SDE-1""}",2026-08-08T14:58:27.457732,job_drive:6,success
+47,EligibilityAgent,completed,EligibilityAgent processed drive 6 (SDE-1 @ company 2),"{""drive_id"": 6, ""role"": ""SDE-1""}",2026-08-09T12:58:27.457740,job_drive:6,success
+48,MatchingAgent,completed,MatchingAgent processed drive 6 (SDE-1 @ company 2),"{""drive_id"": 6, ""role"": ""SDE-1""}",2026-08-10T16:58:27.457746,job_drive:6,success
+49,SchedulingAgent,escalated,SchedulingAgent processed drive 6 (SDE-1 @ company 2),"{""drive_id"": 6, ""role"": ""SDE-1""}",2026-08-13T15:58:27.457754,job_drive:6,success
+50,CoordinationAgent,started,CoordinationAgent processed drive 6 (SDE-1 @ company 2),"{""drive_id"": 6, ""role"": ""SDE-1""}",2026-08-18T08:58:27.457760,job_drive:6,success
+51,NotificationAgent,started,NotificationAgent processed drive 6 (SDE-1 @ company 2),"{""drive_id"": 6, ""role"": ""SDE-1""}",2026-08-06T22:58:27.457767,job_drive:6,success
+52,AnalyticsAgent,escalated,AnalyticsAgent processed drive 6 (SDE-1 @ company 2),"{""drive_id"": 6, ""role"": ""SDE-1""}",2026-08-20T15:58:27.457773,job_drive:6,success
+53,ReportingAgent,flagged,ReportingAgent processed drive 6 (SDE-1 @ company 2),"{""drive_id"": 6, ""role"": ""SDE-1""}",2026-08-18T00:58:27.457780,job_drive:6,success
+54,ExceptionAgent,flagged,ExceptionAgent processed drive 6 (SDE-1 @ company 2),"{""drive_id"": 6, ""role"": ""SDE-1""}",2026-08-07T20:58:27.457787,job_drive:6,success
+55,JDIntakeAgent,started,JDIntakeAgent processed drive 7 (Frontend Developer @ company 2),"{""drive_id"": 7, ""role"": ""Frontend Developer""}",2026-08-19T11:58:27.457793,job_drive:7,success
+56,EligibilityAgent,flagged,EligibilityAgent processed drive 7 (Frontend Developer @ company 2),"{""drive_id"": 7, ""role"": ""Frontend Developer""}",2026-08-06T01:58:27.457799,job_drive:7,success
+57,MatchingAgent,completed,MatchingAgent processed drive 7 (Frontend Developer @ company 2),"{""drive_id"": 7, ""role"": ""Frontend Developer""}",2026-08-17T10:58:27.457806,job_drive:7,success
+58,SchedulingAgent,started,SchedulingAgent processed drive 7 (Frontend Developer @ company 2),"{""drive_id"": 7, ""role"": ""Frontend Developer""}",2026-08-15T16:58:27.457814,job_drive:7,success
+59,CoordinationAgent,flagged,CoordinationAgent processed drive 7 (Frontend Developer @ company 2),"{""drive_id"": 7, ""role"": ""Frontend Developer""}",2026-08-12T22:58:27.457822,job_drive:7,success
+60,NotificationAgent,completed,NotificationAgent processed drive 7 (Frontend Developer @ company 2),"{""drive_id"": 7, ""role"": ""Frontend Developer""}",2026-08-08T10:58:27.457830,job_drive:7,success
+61,AnalyticsAgent,completed,AnalyticsAgent processed drive 7 (Frontend Developer @ company 2),"{""drive_id"": 7, ""role"": ""Frontend Developer""}",2026-08-15T09:58:27.457837,job_drive:7,success
+62,ReportingAgent,escalated,ReportingAgent processed drive 7 (Frontend Developer @ company 2),"{""drive_id"": 7, ""role"": ""Frontend Developer""}",2026-08-21T02:58:27.457844,job_drive:7,success
+63,ExceptionAgent,started,ExceptionAgent processed drive 7 (Frontend Developer @ company 2),"{""drive_id"": 7, ""role"": ""Frontend Developer""}",2026-08-17T21:58:27.457851,job_drive:7,success
+64,JDIntakeAgent,started,JDIntakeAgent processed drive 8 (Product Analyst @ company 10),"{""drive_id"": 8, ""role"": ""Product Analyst""}",2026-08-12T09:58:27.457858,job_drive:8,success
+65,EligibilityAgent,completed,EligibilityAgent processed drive 8 (Product Analyst @ company 10),"{""drive_id"": 8, ""role"": ""Product Analyst""}",2026-08-06T07:58:27.457866,job_drive:8,success
+66,MatchingAgent,escalated,MatchingAgent processed drive 8 (Product Analyst @ company 10),"{""drive_id"": 8, ""role"": ""Product Analyst""}",2026-08-05T22:58:27.457876,job_drive:8,success
+67,SchedulingAgent,completed,SchedulingAgent processed drive 8 (Product Analyst @ company 10),"{""drive_id"": 8, ""role"": ""Product Analyst""}",2026-08-08T20:58:27.457884,job_drive:8,success
+68,CoordinationAgent,started,CoordinationAgent processed drive 8 (Product Analyst @ company 10),"{""drive_id"": 8, ""role"": ""Product Analyst""}",2026-08-16T16:58:27.457892,job_drive:8,success
+69,NotificationAgent,completed,NotificationAgent processed drive 8 (Product Analyst @ company 10),"{""drive_id"": 8, ""role"": ""Product Analyst""}",2026-08-18T22:58:27.457898,job_drive:8,success
+70,AnalyticsAgent,started,AnalyticsAgent processed drive 8 (Product Analyst @ company 10),"{""drive_id"": 8, ""role"": ""Product Analyst""}",2026-08-16T06:58:27.457905,job_drive:8,success
+71,ReportingAgent,escalated,ReportingAgent processed drive 8 (Product Analyst @ company 10),"{""drive_id"": 8, ""role"": ""Product Analyst""}",2026-08-10T06:58:27.457911,job_drive:8,success
+72,ExceptionAgent,escalated,ExceptionAgent processed drive 8 (Product Analyst @ company 10),"{""drive_id"": 8, ""role"": ""Product Analyst""}",2026-08-20T00:58:27.457918,job_drive:8,success
+73,JDIntakeAgent,flagged,JDIntakeAgent processed drive 9 (ML Engineer @ company 2),"{""drive_id"": 9, ""role"": ""ML Engineer""}",2026-08-09T13:58:27.457925,job_drive:9,success
+74,EligibilityAgent,flagged,EligibilityAgent processed drive 9 (ML Engineer @ company 2),"{""drive_id"": 9, ""role"": ""ML Engineer""}",2026-08-08T23:58:27.457932,job_drive:9,success
+75,MatchingAgent,completed,MatchingAgent processed drive 9 (ML Engineer @ company 2),"{""drive_id"": 9, ""role"": ""ML Engineer""}",2026-08-16T22:58:27.457939,job_drive:9,success
+76,SchedulingAgent,escalated,SchedulingAgent processed drive 9 (ML Engineer @ company 2),"{""drive_id"": 9, ""role"": ""ML Engineer""}",2026-08-16T06:58:27.457946,job_drive:9,success
+77,CoordinationAgent,flagged,CoordinationAgent processed drive 9 (ML Engineer @ company 2),"{""drive_id"": 9, ""role"": ""ML Engineer""}",2026-08-06T11:58:27.457954,job_drive:9,success
+78,NotificationAgent,started,NotificationAgent processed drive 9 (ML Engineer @ company 2),"{""drive_id"": 9, ""role"": ""ML Engineer""}",2026-08-08T11:58:27.457961,job_drive:9,success
+79,AnalyticsAgent,completed,AnalyticsAgent processed drive 9 (ML Engineer @ company 2),"{""drive_id"": 9, ""role"": ""ML Engineer""}",2026-08-20T02:58:27.457969,job_drive:9,success
+80,ReportingAgent,flagged,ReportingAgent processed drive 9 (ML Engineer @ company 2),"{""drive_id"": 9, ""role"": ""ML Engineer""}",2026-08-06T17:58:27.457976,job_drive:9,success
+81,ExceptionAgent,flagged,ExceptionAgent processed drive 9 (ML Engineer @ company 2),"{""drive_id"": 9, ""role"": ""ML Engineer""}",2026-08-11T20:58:27.457984,job_drive:9,success
+82,JDIntakeAgent,flagged,JDIntakeAgent processed drive 10 (Frontend Developer @ company 4),"{""drive_id"": 10, ""role"": ""Frontend Developer""}",2026-08-05T21:58:27.458107,job_drive:10,success
+83,EligibilityAgent,completed,EligibilityAgent processed drive 10 (Frontend Developer @ company 4),"{""drive_id"": 10, ""role"": ""Frontend Developer""}",2026-08-06T03:58:27.458127,job_drive:10,success
+84,MatchingAgent,escalated,MatchingAgent processed drive 10 (Frontend Developer @ company 4),"{""drive_id"": 10, ""role"": ""Frontend Developer""}",2026-08-10T20:58:27.458138,job_drive:10,success
+85,SchedulingAgent,started,SchedulingAgent processed drive 10 (Frontend Developer @ company 4),"{""drive_id"": 10, ""role"": ""Frontend Developer""}",2026-08-12T17:58:27.458154,job_drive:10,success
+86,CoordinationAgent,flagged,CoordinationAgent processed drive 10 (Frontend Developer @ company 4),"{""drive_id"": 10, ""role"": ""Frontend Developer""}",2026-08-11T18:58:27.458166,job_drive:10,success
+87,NotificationAgent,flagged,NotificationAgent processed drive 10 (Frontend Developer @ company 4),"{""drive_id"": 10, ""role"": ""Frontend Developer""}",2026-08-11T06:58:27.458178,job_drive:10,success
+88,AnalyticsAgent,flagged,AnalyticsAgent processed drive 10 (Frontend Developer @ company 4),"{""drive_id"": 10, ""role"": ""Frontend Developer""}",2026-08-12T07:58:27.458190,job_drive:10,success
+89,ReportingAgent,escalated,ReportingAgent processed drive 10 (Frontend Developer @ company 4),"{""drive_id"": 10, ""role"": ""Frontend Developer""}",2026-08-13T05:58:27.458291,job_drive:10,success
+90,ExceptionAgent,completed,ExceptionAgent processed drive 10 (Frontend Developer @ company 4),"{""drive_id"": 10, ""role"": ""Frontend Developer""}",2026-08-16T15:58:27.458313,job_drive:10,success

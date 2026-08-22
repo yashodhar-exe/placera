@@ -49,8 +49,10 @@ class MatchingAgent:
                 try:
                     structured = json.loads(resume.structured_data)
                     for s in structured.get("skills", []):
-                        if s.get("name"):
+                        if isinstance(s, dict) and s.get("name"):
                             skill_evidence_map[s["name"].lower()] = " ".join(s.get("evidence", []))
+                        elif isinstance(s, str):
+                            skill_evidence_map[s.lower()] = "Mentioned in resume."
                 except json.JSONDecodeError:
                     pass
 

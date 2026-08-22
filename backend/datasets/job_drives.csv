@@ -1,0 +1,11 @@
+id,company_id,role,description,cgpa_cutoff,allowed_branches,max_backlogs,allow_prior_offers,status
+1,3,Data Analyst,Error dignissimos eos. Officiis quis aspernatur. Quod voluptatibus ipsum fugit culpa ipsam et.,7.01,"MECH,IT,EEE,CSE",1,False,Published
+2,7,Data Analyst,Eius provident iste cum consectetur vero commodi. Mollitia fuga et quam mollitia occaecati.,8.11,"MECH,IT,ECE,CSE",0,True,Published
+3,10,ML Engineer,Debitis nostrum quis officia eum quidem. Sunt animi quaerat. Libero unde consequuntur aut.,6.38,"CIVIL,MECH,CSE,ECE,IT,EEE",2,False,Draft
+4,3,QA Engineer,At facere explicabo aspernatur exercitationem. Laudantium molestias minima odit.,6.6,"ECE,IT,MECH",1,False,Published
+5,3,ML Engineer,Molestias at dignissimos culpa. Dolorem animi placeat ad officia. Laboriosam aliquam quis veniam veritatis.,7.57,"CSE,CIVIL,EEE,ECE,MECH,IT",1,True,Published
+6,2,SDE-1,Eum harum odio id magni enim ad. Mollitia aliquam nihil distinctio nesciunt ab.,7.24,"IT,EEE,CSE,CIVIL",2,True,Closed
+7,2,Frontend Developer,Sunt magni repudiandae id corrupti ab occaecati numquam. Nam magni cum dicta non.,6.53,"EEE,ECE,CIVIL,CSE,MECH",0,False,Published
+8,10,Product Analyst,Eveniet ea blanditiis eligendi adipisci. Voluptas perferendis quo dignissimos beatae harum autem ut. Dicta necessitatibus quibusdam rerum perferendis.,8.14,"ECE,CIVIL",0,True,Draft
+9,2,ML Engineer,Facere amet numquam necessitatibus sunt. Dolor ad accusamus repudiandae similique. Libero quam quam itaque hic. Ullam laboriosam nisi recusandae.,6.48,"MECH,CSE",1,False,Published
+10,4,Frontend Developer,Nulla sunt sequi nulla. Veniam ut esse.,6.07,"IT,CSE,CIVIL",1,False,Closed

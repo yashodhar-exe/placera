@@ -90,15 +90,6 @@ class ResumeIntelligenceAgent:
         return resume
 
     def _extract_structured_data(self, text: str) -> dict:
-        if not self.client:
-            # Fallback mock for testing without API key
-            return {
-                "skills": [{"name": "Python", "evidence": "Used in project"}, {"name": "React", "evidence": "Frontend dev"}],
-                "projects": [],
-                "cgpa": 8.5,
-                "branch": "CSE"
-            }
-
         prompt = f"""
         You are an expert technical recruiter and resume parser.
         Extract the following structured information from the provided resume text.
@@ -145,4 +136,4 @@ class ResumeIntelligenceAgent:
             return json.loads(content)
         except Exception as e:
             print(f"Gemini Extraction Error: {e}")
-            return {"skills": [], "projects": []}
+            raise e
