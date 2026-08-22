@@ -3,34 +3,99 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
+  color-scheme: light dark;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  font-family: 'Inter', system-ui, sans-serif;
-  background-color: #080B12;
-  color: #F1F5F9;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #FFFFFF;
+  color: #0F172A;
   overflow-x: hidden;
 }
 
-/* Custom Scrollbars */
+/* Custom Scrollbars - Light Theme */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #0D1322;
+  background: #F8FAFC;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1E293B;
+  background: #CBD5E1;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #94A3B8;
 }
 
-/* Glassmorphism Classes */
+/* Dot Grid Backgrounds for Clean Minimal Feel */
+.bg-dot-grid-subtle {
+  background-image: radial-gradient(#E2E8F0 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.bg-dot-grid-dense {
+  background-image: radial-gradient(#CBD5E1 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+.bg-grid-lines {
+  background-image: 
+    linear-gradient(to right, rgba(226, 232, 240, 0.6) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(226, 232, 240, 0.6) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Clean White Card System */
+.card-clean {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.02);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-clean:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+}
+
+.card-elevated {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 12px 32px -4px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+}
+
+.card-interactive {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  transition: all 0.2s ease;
+}
+
+.card-interactive:hover {
+  border-color: #93C5FD;
+  box-shadow: 0 8px 24px -4px rgba(37, 99, 235, 0.08);
+  transform: translateY(-1px);
+}
+
+/* Subtle Shimmer for Highlighting */
+@keyframes subtle-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer-badge {
+  background: linear-gradient(90deg, #F1F5F9 0%, #E2E8F0 50%, #F1F5F9 100%);
+  background-size: 200% 100%;
+  animation: subtle-shimmer 4s infinite linear;
+}
+
+/* Glassmorphism Classes for Dark Console Mode */
 .glass-panel {
   background: rgba(18, 24, 39, 0.75);
   backdrop-filter: blur(12px);
@@ -86,3 +151,4 @@ body {
 .glow-active {
   animation: pulse-emerald 3s infinite;
 }
+

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
-import ContextRouterDrawer from './components/ContextRouterDrawer';
 
 // Views
+import LandingPageView from './views/LandingPageView';
+import AuthView from './views/AuthView';
 import CommandCenterOverview from './views/CommandCenterOverview';
 import JDIntakeView from './views/JDIntakeView';
 import EligibilityView from './views/EligibilityView';
@@ -18,7 +19,16 @@ import AuditTrailView from './views/AuditTrailView';
 import { apiClient } from './api/client';
 
 export default function App() {
-  const [currentView, setCurrentView] = useState('overview');
+  const [currentUser, setCurrentUser] = useState(() => {
+    try {
+      const saved = localStorage.getItem('campus_command_user');
+      return saved ? JSON.parse(saved) : { name: 'TPO Lead', role: 'tpo', email: 'tpo@university.edu' };
+    } catch {
+      return { name: 'TPO Lead', role: 'tpo', email: 'tpo@university.edu' };
+    }
+  });
+
+  const [currentView, setCurrentView] = useState('landing');
   const [drives, setDrives] = useState([]);
   const [selectedDriveId, setSelectedDriveId] = useState(null);
   const [openExceptionsCount, setOpenExceptionsCount] = useState(0);
@@ -31,17 +41,37 @@ export default function App() {
   const loadDrivesAndTelemetry = async () => {
     try {
       const [drivesData, exceptionsData] = await Promise.all([
-        apiClient.getDrives(),
-        apiClient.getExceptions('OPEN')
+        apiClient.getDrives().catch(() => []),
+        apiClient.getExceptions('OPEN').catch(() => [])
       ]);
-      setDrives(drivesData);
-      setOpenExceptionsCount(exceptionsData.length);
-      if (drivesData.length > 0 && !selectedDriveId) {
+      setDrives(drivesData || []);
+      setOpenExceptionsCount(exceptionsData ? exceptionsData.length : 0);
+      if (drivesData && drivesData.length > 0 && !selectedDriveId) {
         setSelectedDriveId(drivesData[0].id);
       }
     } catch (err) {
       console.error('Failed to load system telemetry', err);
     }
+  };
+
+  const handleAuthenticate = (userData) => {
+    setCurrentUser(userData);
+    try {
+      localStorage.setItem('campus_command_user', JSON.stringify(userData));
+    } catch (e) {
+      console.error(e);
+    }
+    setCurrentView('overview');
+  };
+
+  const handleSignOut = () => {
+    setCurrentUser(null);
+    try {
+      localStorage.removeItem('campus_command_user');
+    } catch (e) {
+      console.error(e);
+    }
+    setCurrentView('login');
   };
 
   const handleDriveCreatedOrUpdated = (newDriveId) => {
@@ -53,21 +83,54 @@ export default function App() {
     setRefreshTrigger(prev => prev + 1);
   };
 
+  // 1. Landing Page View (Separated experience)
+  if (currentView === 'landing') {
+    return (
+      <LandingPageView
+        onSignIn={() => setCurrentView('login')}
+        onGetStarted={() => setCurrentView('signup')}
+      />
+    );
+  }
+
+  // 2. Authentication Login Page View (Separated experience)
+  if (currentView === 'login') {
+    return (
+      <AuthView
+        initialMode="login"
+        onAuthenticate={handleAuthenticate}
+        onBackToLanding={() => setCurrentView('landing')}
+      />
+    );
+  }
+
+  // 3. Authentication Sign Up Page View (Separated experience)
+  if (currentView === 'signup') {
+    return (
+      <AuthView
+        initialMode="signup"
+        onAuthenticate={handleAuthenticate}
+        onBackToLanding={() => setCurrentView('landing')}
+      />
+    );
+  }
+
+  // 4. Main Authenticated Placement Dashboard (Strictly operational, NO social login buttons)
   return (
-    <div className="min-h-screen bg-[#080B12] text-slate-100 flex flex-col font-sans">
-      {/* Top Command Center Header */}
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans antialiased">
+      {/* Minimal Top Header */}
       <Header
-        drives={drives}
-        selectedDriveId={selectedDriveId}
-        onSelectDrive={setSelectedDriveId}
+        currentUser={currentUser}
         openExceptionsCount={openExceptionsCount}
-        onRefresh={handleManualRefresh}
         onOpenExceptions={() => setCurrentView('exceptions')}
+        onSearch={(query) => console.log('Searching:', query)}
+        onSignOut={handleSignOut}
+        onSelectView={setCurrentView}
       />
 
       {/* Main Layout Body */}
       <div className="flex flex-1">
-        {/* Left Sidebar Navigation */}
+        {/* Sleek Minimal Sidebar */}
         <Sidebar
           currentView={currentView}
           onSelectView={setCurrentView}
@@ -75,7 +138,7 @@ export default function App() {
         />
 
         {/* Dynamic Center View Container */}
-        <main className="flex-1 p-6 lg:p-8 overflow-y-auto bg-[#080B12] min-h-[calc(100vh-57px)]">
+        <main className="flex-1 overflow-y-auto min-h-[calc(100vh-56px)] p-6 lg:p-8 bg-slate-50/50">
           {currentView === 'overview' && (
             <CommandCenterOverview
               onSelectView={setCurrentView}
@@ -151,9 +214,6 @@ export default function App() {
           )}
         </main>
       </div>
-
-      {/* Floating Context Router Live Event Drawer */}
-      <ContextRouterDrawer />
     </div>
   );
 }
