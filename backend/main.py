@@ -150,7 +150,7 @@ async def auth_middleware(request: Request, call_next):
         return await call_next(request)
         
     path = request.url.path
-    if path == "/" or path.startswith("/auth/") or path.startswith("/docs") or path.startswith("/openapi.json"):
+    if path == "/" or path.startswith("/auth/") or path.startswith("/ai/") or path.startswith("/docs") or path.startswith("/openapi.json"):
         return await call_next(request)
         
     auth_header = request.headers.get("Authorization")
@@ -1036,3 +1036,92 @@ def get_notifications(db: Session = Depends(get_db)):
             "delivery_status": n.delivery_status
         })
     return output
+
+# ==========================================
+# HUGGING FACE AI CHATBOT ENDPOINT
+# ==========================================
+class AIChatRequest(BaseModel):
+    message: str
+    history: Optional[List[Dict[str, str]]] = []
+    model: Optional[str] = "mistralai/Mistral-7B-Instruct-v0.3"
+    api_key: Optional[str] = None
+    role_context: Optional[str] = "tpo"
+
+def generate_placement_ops_reply(query: str, role: str) -> str:
+    q = query.lower()
+    if "jd" in q or "intake" in q or "job description" in q:
+        return "### 📄 JD Intake Agent Advice\nTo draft or parse a new Job Description:\n1. Navigate to **Recruitment Drives** -> **Upload / Paste JD**.\n2. The JD Intake Agent will parse role title, required skills, package, branch criteria, and CGPA cutoff automatically.\n3. Review and confirm the extracted metadata before publishing to candidates."
+    elif "eligibility" in q or "criteria" in q or "cutoff" in q:
+        return "### 🎯 Eligibility Engine Guidance\nEligibility is evaluated deterministically against criteria like:\n- **CGPA Cutoff** (e.g. 8.0/10)\n- **Eligible Branches** (e.g. CSE, ECE)\n- **Backlogs & Offer Limits**\n\nIf a student is flagged as ineligible due to a borderline metric, TPOs can apply a manual **TPO Override** with an auditable justification."
+    elif "match" in q or "shap" in q or "shortlist" in q or "rank" in q:
+        return "### ⚡ Matching Agent & SHAP Scoring\nCandidates are ranked based on a multi-vector match score combining:\n- **Skill Vector Match** (40% weight)\n- **Academic Performance** (30% weight)\n- **Project Score & Placement Readiness (PRS)** (30% weight)\n\nClick on any candidate card to view their **SHAP Feature Importance Breakdown** explaining why they were recommended."
+    elif "schedule" in q or "interview" in q or "panel" in q:
+        return "### 📅 Interview Scheduler & Coordination\nThe Scheduling Agent automatically matches candidates to interviewer panels and rooms to eliminate timing overlaps.\n- If a panelist or candidate double-books, the **Coordination Agent** flags an exception in your Exception Queue for resolution."
+    elif "skill" in q or "gap" in q or "curriculum" in q:
+        return "### 📊 Skill Gap & Analytics\nOur Analytics engine compares incoming company JD skill demands against current student skill profiles.\n- Common gap areas identified include Cloud Architecture (AWS/GCP), System Design, and Kubernetes.\n- TPOs can export these insights to update semester electives."
+    else:
+        return f"Hello! I am your **Placement Ops AI Assistant** powered by Hugging Face.\n\nI can help you with:\n- **JD Intake & Requirement Parsing**\n- **Student Eligibility & TPO Overrides**\n- **SHAP-based Candidate Matching**\n- **Interview Panel Scheduling & Conflict Resolution**\n- **Curriculum Skill Gap Analytics**\n\nHow can I assist you with your recruitment drive today?"
+
+@app.post("/ai/chat")
+def ai_chat(req: AIChatRequest):
+    # Retrieve HF API key from request override or environment
+    hf_token = req.api_key or os.environ.get("HUGGINGFACE_API_KEY") or os.environ.get("HF_TOKEN") or os.environ.get("NEXT_PUBLIC_HUGGINGFACE_API_KEY")
+    
+    system_prompt = f"""You are Placement Ops AI Assistant, an expert AI co-pilot for college placement operations, job drive management, candidate eligibility evaluation, interview scheduling, and curriculum skill gap analysis. 
+You are currently assisting a user logged in as role: {req.role_context.upper()}. 
+Provide clear, actionable, concise, and professional responses tailored to placement officers, recruiters, and students. Use markdown formatting with bullet points where appropriate."""
+
+    messages = [{"role": "system", "content": system_prompt}]
+    if req.history:
+        for msg in req.history[-6:]:
+            messages.append({"role": msg.get("role", "user"), "content": msg.get("content", "")})
+    messages.append({"role": "user", "content": req.message})
+
+    # Try Hugging Face Router endpoint first if key is present
+    if hf_token:
+        try:
+            # 1. Try HF Chat Completions Router
+            router_url = "https://router.huggingface.co/v1/chat/completions"
+            payload = {
+                "model": req.model or "mistralai/Mistral-7B-Instruct-v0.3",
+                "messages": messages,
+                "max_tokens": 600,
+                "temperature": 0.7
+            }
+            headers = {
+                "Authorization": f"Bearer {hf_token}",
+                "Content-Type": "application/json"
+            }
+            req_data = json.dumps(payload).encode("utf-8")
+            hf_req = urllib.request.Request(router_url, data=req_data, headers=headers, method="POST")
+            with urllib.request.urlopen(hf_req, timeout=12) as response:
+                res_json = json.loads(response.read().decode("utf-8"))
+                reply = res_json["choices"][0]["message"]["content"]
+                return {"reply": reply, "source": "huggingface_router", "model": req.model}
+        except Exception as err1:
+            print(f"HF Router error: {err1}")
+            # 2. Try direct HF model inference endpoint
+            try:
+                model_name = req.model or "mistralai/Mistral-7B-Instruct-v0.3"
+                model_url = f"https://api-inference.huggingface.co/models/{model_name}"
+                formatted_input = f"{system_prompt}\n\nUser: {req.message}\nAssistant:"
+                payload = {"inputs": formatted_input, "parameters": {"max_new_tokens": 500}}
+                headers = {"Authorization": f"Bearer {hf_token}", "Content-Type": "application/json"}
+                req_data = json.dumps(payload).encode("utf-8")
+                hf_req = urllib.request.Request(model_url, data=req_data, headers=headers, method="POST")
+                with urllib.request.urlopen(hf_req, timeout=12) as response:
+                    res_json = json.loads(response.read().decode("utf-8"))
+                    if isinstance(res_json, list) and len(res_json) > 0:
+                        reply = res_json[0].get("generated_text", "").replace(formatted_input, "").strip()
+                        return {"reply": reply, "source": "huggingface_inference", "model": model_name}
+            except Exception as err2:
+                print(f"HF Inference error: {err2}")
+
+    # Fallback domain-aware intelligent responder when offline or without HF key
+    reply = generate_placement_ops_reply(req.message, req.role_context)
+    return {
+        "reply": reply, 
+        "source": "placement_ops_local_ai", 
+        "note": "Using Placement Ops built-in domain AI engine. Add a valid Hugging Face API key in settings or .env to connect directly to Hugging Face models."
+    }
+

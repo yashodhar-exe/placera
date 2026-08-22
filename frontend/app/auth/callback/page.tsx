@@ -1,94 +1,58 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { Loader2, ShieldAlert, CheckCircle2 } from 'lucide-react'
-
-const BACKEND_URL = 'http://localhost:8000';
+import { supabase } from '@/lib/supabase'
+import { ensureProfile, type Role } from '@/lib/auth'
 
 export default function AuthCallback() {
   const router = useRouter()
-  const searchParams = useSearchParams()
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading')
   const [message, setMessage] = useState('Verifying authentication credentials...')
   const [errorDetails, setErrorDetails] = useState('')
 
   useEffect(() => {
-    const code = searchParams.get('code')
-    const state = searchParams.get('state')
-    
-    // We can infer the provider from URL or saved state, but Google/GitHub/LinkedIn might return different parameters, or we can get it from state.
-    // Let's retrieve the saved OAuth state and role from localStorage
-    const savedState = localStorage.getItem('placement_ops_oauth_state')
-    const savedProvider = localStorage.getItem('placement_ops_oauth_provider') || 'google'
-    const savedRole = localStorage.getItem('placement_ops_oauth_role') || 'student'
-
-    if (!code) {
-      setStatus('error')
-      setMessage('Authentication failed')
-      setErrorDetails('Missing authorization code from provider.')
-      return
-    }
-
-    // Verify state to protect against CSRF
-    if (savedState && state !== savedState) {
-      setStatus('error')
-      setMessage('Security verification failed')
-      setErrorDetails('OAuth state mismatch. The request might have been intercepted.')
-      return
-    }
-
-    const performCallbackExchange = async () => {
+    const run = async () => {
       try {
-        const res = await fetch(`${BACKEND_URL}/auth/oauth-callback`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            provider: savedProvider,
-            code,
-            state: state || '',
-            role: savedRole,
-            redirect_uri: `${window.location.origin}/auth/callback`
-          })
-        })
+        let authUser: any = null
 
-        if (res.ok) {
-          const data = await res.json()
-          
-          // Store authentication details in localStorage
-          localStorage.setItem('placement_ops_token', data.token)
-          localStorage.setItem('placement_ops_user', JSON.stringify({
-            role: data.role,
-            user: data.user
-          }))
-
-          // Clear temporary OAuth state
-          localStorage.removeItem('placement_ops_oauth_state')
-          localStorage.removeItem('placement_ops_oauth_provider')
-          localStorage.removeItem('placement_ops_oauth_role')
-
-          setStatus('success')
-          setMessage('Authentication successful!')
-          
-          // Redirect to home page
-          setTimeout(() => {
-            router.push('/')
-          }, 1000)
+        // Completes PKCE flow started by supabase.auth.signInWithOAuth(...)
+        const { data, error } = await supabase.auth.exchangeCodeForSession(window.location.href)
+        if (data?.session?.user) {
+          authUser = data.session.user
         } else {
-          const errData = await res.json()
-          setStatus('error')
-          setMessage('Login failed')
-          setErrorDetails(errData.detail || 'The authentication server rejected the request.')
+          // Fallback if session was already detected via detectSessionInUrl
+          const { data: sessionData } = await supabase.auth.getSession()
+          if (sessionData?.session?.user) {
+            authUser = sessionData.session.user
+          } else if (error) {
+            throw error
+          }
         }
+
+        if (!authUser) throw new Error('No user returned from the identity provider.')
+
+        // Attach the role picked before the redirect (defaults to "student").
+        const role = (localStorage.getItem('placement_ops_oauth_role') as Role | null) || 'student'
+        const displayName =
+          authUser.user_metadata?.full_name || authUser.user_metadata?.name || authUser.email || 'New user'
+
+        await ensureProfile(authUser.id, authUser.email ?? null, displayName, role)
+        localStorage.removeItem('placement_ops_oauth_role')
+
+        setStatus('success')
+        setMessage('Authentication successful!')
+        setTimeout(() => router.push('/'), 900)
       } catch (err: any) {
         setStatus('error')
-        setMessage('Network error')
-        setErrorDetails('Unable to connect to the backend server. Please verify the backend is running.')
+        setMessage('Login failed')
+        setErrorDetails(err?.message || 'Unable to complete sign-in with the identity provider.')
       }
     }
 
-    performCallbackExchange()
-  }, [searchParams, router])
+    run()
+  }, [router])
 
   return (
     <div className="min-h-screen bg-[#07090e] text-white flex flex-col items-center justify-center p-6 font-sans">

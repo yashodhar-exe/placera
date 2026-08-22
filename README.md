@@ -455,3 +455,44 @@ cd frontend
 npm run dev
 ```
 * Dashboard URL: [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 17. Authentication (Supabase)
+
+Sign up / sign in / OAuth is now handled directly by **Supabase Auth** on the frontend (no custom JWT auth needed for login). This replaces the earlier mock/localStorage login.
+
+### 17.1 One-time Supabase project setup
+1. Create a project at [supabase.com](https://supabase.com).
+2. Open **SQL Editor → New query**, paste the contents of `frontend/supabase/schema.sql`, and run it. This creates a `profiles` table (role: `student` / `recruiter` / `tpo`, plus name, branch, cgpa, and readiness scores), enables Row Level Security, and adds a trigger that auto-creates a profile the moment a new auth user is created.
+3. (Optional, for social login) In **Authentication → Providers**, enable **Google**, **GitHub**, and/or **LinkedIn (OIDC)**, and fill in each provider's client ID/secret.
+4. In **Authentication → URL Configuration**, set:
+   - **Site URL**: `http://localhost:3000` (or your deployed URL)
+   - **Redirect URLs**: `http://localhost:3000/auth/callback`
+5. Copy your **Project URL** and **anon public key** from **Project Settings → API**.
+
+### 17.2 Wire up the frontend
+```bash
+cd frontend
+cp .env.local.example .env.local
+```
+Edit `.env.local`:
+```
+NEXT_PUBLIC_SUPABASE_URL=https://YOUR-PROJECT.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR-ANON-KEY
+```
+Restart `npm run dev`. The login screen will show **Sign In / Sign Up**, three role cards (Student / Recruiter / TPO), Google/LinkedIn/GitHub buttons, and an email+password form — all backed by real Supabase accounts and sessions (`supabase.auth`), with the resulting role/profile stored in the `profiles` table.
+
+If `.env.local` is left unset, the app falls back to **Quick Demo Login** (sample data, no real account) so the UI stays explorable without a Supabase project.
+
+### 17.3 What changed
+- `frontend/lib/supabase.ts` — Supabase client configured for the PKCE OAuth flow.
+- `frontend/lib/auth.ts` — `signUpWithEmail`, `signInWithEmail`, `signInWithOAuth`, `signOut`, `getProfile`, `ensureProfile`.
+- `frontend/app/page.tsx` — `Page` now restores/observes the Supabase session (`onAuthStateChange`) instead of reading a custom token from `localStorage`; `LoginGate` now calls Supabase directly instead of the FastAPI `/auth/*` endpoints.
+- `frontend/app/auth/callback/page.tsx` — completes the OAuth redirect with `supabase.auth.exchangeCodeForSession(...)` and provisions the `profiles` row.
+- `frontend/supabase/schema.sql` — the `profiles` table, RLS policies, and auto-provisioning trigger.
+
+> Note: the FastAPI backend's `/auth/*` routes and custom JWT are unchanged and still available if you want to keep the backend as the source of truth for placement data (drives, eligibility, matching, etc.) — only sign-up/sign-in now goes through Supabase.
+
+## 18. UI Polish
+Added micro-interactions across the dashboard: staggered card/row reveal on every screen change, hover-lift on panels/metric cards/agent cards, button press feedback, focus glow on form inputs, and a shake animation on auth errors — all respecting `prefers-reduced-motion`.
