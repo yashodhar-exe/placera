@@ -1,6 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from app.models import Interview, InterviewPanel, SystemException
+from app.models import Interview, InterviewPanel, SystemException, AgentEvent
+import json
 
 class ExceptionAgent:
     async def detect_and_handle_conflicts(self, db: AsyncSession):
@@ -20,6 +21,15 @@ class ExceptionAgent:
         
         exceptions_created = 0
         for interview, panel in conflicts:
+            existing = await db.execute(
+                select(SystemException)
+                .where(SystemException.entity_type == "INTERVIEW")
+                .where(SystemException.entity_id == interview.id)
+                .where(SystemException.status == "OPEN")
+            )
+            if existing.scalars().first():
+                continue
+
             # Mark interview as conflict
             interview.status = "EXCEPTION"
             
@@ -31,6 +41,15 @@ class ExceptionAgent:
             )
             db.add(exc)
             exceptions_created += 1
+
+        if exceptions_created:
+            db.add(AgentEvent(
+                agent="ExceptionAgent",
+                event_type="CONFLICT_DETECTED",
+                message=f"Detected {exceptions_created} interview conflicts.",
+                details=json.dumps({"conflicts_created": exceptions_created}),
+                status="WARNING"
+            ))
             
         await db.commit()
         return exceptions_created
@@ -50,7 +69,16 @@ class ExceptionAgent:
         options = []
         
         # Option 1: Find an available panel
-        result = await db.execute(select(InterviewPanel).where(InterviewPanel.status == "AVAILABLE").limit(2))
+        db.add(AgentEvent(
+            agent="NegotiationAgent",
+            event_type="NEGOTIATION_STARTED",
+            message=f"Agents are evaluating alternatives for exception {exception_id}.",
+            details=json.dumps({"exception_id": exception_id, "interview_id": interview.id}),
+            related_entity=f"exception:{exception_id}",
+            status="INFO"
+        ))
+
+        result = await db.execute(select(InterviewPanel).where(InterviewPanel.status.in_(["AVAILABLE", "Active"])).limit(2))
         panels = result.scalars().all()
         
         if panels:
@@ -77,6 +105,15 @@ class ExceptionAgent:
             "is_recommended": False
         })
 
+        db.add(AgentEvent(
+            agent="NegotiationAgent",
+            event_type="RESOLUTION_PROPOSED",
+            message=f"Generated {len(options)} resolution options for exception {exception_id}.",
+            details=json.dumps({"exception_id": exception_id, "options": options}),
+            related_entity=f"exception:{exception_id}",
+            status="SUCCESS"
+        ))
+        await db.commit()
         return {"options": options, "recommendation": options[0]["id"] if options else None}
 
     async def apply_resolution(self, db: AsyncSession, exception_id: int, resolution_id: str):
@@ -97,5 +134,21 @@ class ExceptionAgent:
             
         interview.status = "SCHEDULED"
         exc.status = "RESOLVED"
+        db.add(AgentEvent(
+            agent="TPO",
+            event_type="TPO_APPROVED",
+            message=f"Approved resolution {resolution_id} for exception {exception_id}.",
+            details=json.dumps({"exception_id": exception_id, "resolution_id": resolution_id}),
+            related_entity=f"exception:{exception_id}",
+            status="SUCCESS"
+        ))
+        db.add(AgentEvent(
+            agent="CoordinationAgent",
+            event_type="SCHEDULE_UPDATED",
+            message=f"Applied approved resolution for interview {interview.id}.",
+            details=json.dumps({"interview_id": interview.id, "resolution_id": resolution_id}),
+            related_entity=f"interview:{interview.id}",
+            status="SUCCESS"
+        ))
         await db.commit()
         return True

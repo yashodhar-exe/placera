@@ -1,6 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from app.models import Interview, Venue, InterviewPanel
+from app.models import Interview, Venue, InterviewPanel, AgentEvent
+import json
 
 class CoordinationAgent:
     async def allocate_resources(self, db: AsyncSession, drive_id: int):
@@ -17,7 +18,7 @@ class CoordinationAgent:
         
         # Get all venues and panels
         venues = (await db.execute(select(Venue))).scalars().all()
-        panels = (await db.execute(select(InterviewPanel).where(InterviewPanel.status == "AVAILABLE"))).scalars().all()
+        panels = (await db.execute(select(InterviewPanel).where(InterviewPanel.status.in_(["AVAILABLE", "Active"])))).scalars().all()
         
         if not venues or not panels:
             return 0
@@ -34,6 +35,15 @@ class CoordinationAgent:
             v_idx = (v_idx + 1) % len(venues)
             p_idx = (p_idx + 1) % len(panels)
             allocated += 1
+
+        db.add(AgentEvent(
+            agent="CoordinationAgent",
+            event_type="RESOURCES_ALLOCATED",
+            message=f"Allocated panels and venues for {allocated} interviews on drive {drive_id}.",
+            details=json.dumps({"drive_id": drive_id, "allocated": allocated}),
+            related_entity=f"job_drive:{drive_id}",
+            status="SUCCESS"
+        ))
             
         await db.commit()
         return allocated

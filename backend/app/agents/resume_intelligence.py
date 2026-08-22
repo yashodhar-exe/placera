@@ -1,7 +1,11 @@
 import os
 import json
+import re
 from google import genai
-from pypdf import PdfReader
+try:
+    from pypdf import PdfReader
+except Exception:  # pragma: no cover - keeps the API importable if pypdf is absent.
+    PdfReader = None
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from app.models import Student, Skill, StudentSkill, Resume, AgentEvent
@@ -18,6 +22,8 @@ class ResumeIntelligenceAgent:
         # 1. Extract text from PDF
         extracted_text = ""
         try:
+            if PdfReader is None:
+                raise ValueError("PDF parser dependency is unavailable.")
             reader = PdfReader(file_path)
             for page in reader.pages:
                 text = page.extract_text()
@@ -90,6 +96,9 @@ class ResumeIntelligenceAgent:
         return resume
 
     def _extract_structured_data(self, text: str) -> dict:
+        if not self.client:
+            return self._local_extract_structured_data(text)
+
         prompt = f"""
         You are an expert technical recruiter and resume parser.
         Extract the following structured information from the provided resume text.
@@ -136,4 +145,39 @@ class ResumeIntelligenceAgent:
             return json.loads(content)
         except Exception as e:
             print(f"Gemini Extraction Error: {e}")
-            raise e
+            return self._local_extract_structured_data(text)
+
+    def _local_extract_structured_data(self, text: str) -> dict:
+        known_skills = [
+            "Python", "Java", "C++", "SQL", "React", "Node.js", "TypeScript",
+            "JavaScript", "Django", "Flask", "Spring Boot", "AWS", "Docker",
+            "Kubernetes", "TensorFlow", "Machine Learning", "PostgreSQL",
+            "REST APIs", "Git", "HTML/CSS", "Data Structures"
+        ]
+        lowered = text.lower()
+        cgpa_match = re.search(r"cgpa\s*[:\-]?\s*(\d+(?:\.\d+)?)", text, re.IGNORECASE)
+        branch_match = re.search(r"\b(CSE|ECE|IT|EEE|MECH|CIVIL)\b", text, re.IGNORECASE)
+        skills = [
+            {
+                "name": skill,
+                "proficiency": "intermediate",
+                "evidence": ["Mentioned in uploaded resume"]
+            }
+            for skill in known_skills
+            if skill.lower() in lowered
+        ]
+        project_lines = [
+            line.strip(" -•")
+            for line in text.splitlines()
+            if "project" in line.lower() and len(line.strip()) > 8
+        ][:5]
+        return {
+            "cgpa": float(cgpa_match.group(1)) if cgpa_match else None,
+            "branch": branch_match.group(1).upper() if branch_match else None,
+            "skills": skills,
+            "projects": [{"title": line[:80], "description": line} for line in project_lines],
+            "certifications": [],
+            "education": [],
+            "experience": [],
+            "achievements": []
+        }

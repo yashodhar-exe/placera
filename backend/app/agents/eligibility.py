@@ -1,5 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
+from sqlalchemy import delete
 from app.models import Student, EligibilityResult, JobDrive
 
 class EligibilityAgent:
@@ -19,6 +20,8 @@ class EligibilityAgent:
         # Get all students
         result = await db.execute(select(Student))
         students = result.scalars().all()
+
+        await db.execute(delete(EligibilityResult).where(EligibilityResult.drive_id == drive_id))
         
         eligible_count = 0
         
@@ -55,7 +58,7 @@ class EligibilityAgent:
                 student_id=student.id,
                 is_eligible=is_eligible,
                 reason=reason_str,
-                status="PENDING_APPROVAL" if is_eligible else "REJECTED_BY_AI"
+                status="PENDING_APPROVAL" if is_eligible else "AI_RECOMMENDATION"
             )
             db.add(elig_result)
             

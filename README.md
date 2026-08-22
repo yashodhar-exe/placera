@@ -1,43 +1,101 @@
 # AI Campus Placement Operations & Interview Coordination Agent
 
-This is a Hackathon MVP that automates campus placement operations while keeping humans in the loop.
+Hackathon MVP for an AI-assisted campus placement operations platform. The app keeps the TPO in control while agents handle JD extraction, deterministic eligibility, explainable matching, scheduling, conflict negotiation, mock notifications, resume intelligence, offers, rematching, readiness coaching, analytics, and audit history.
+
+## Stack
+
+- Backend: FastAPI, SQLAlchemy async, SQLite local demo database
+- Frontend: React + Vite
+- AI: Google Gemini when `GEMINI_API_KEY` is present, deterministic/local fallbacks in demo mode
+- Notifications: mock provider by default
+
+The design document calls for PostgreSQL/pgvector in production. This local MVP intentionally uses SQLite so judges can run it quickly without external database setup.
 
 ## Architecture
-- **Backend:** FastAPI (Python) using Google ADK concepts for agents.
-- **Frontend:** React + Vite.
-- **Database:** SQLite (local MVP).
-- **AI Models:** Google Gemini for JD parsing and matching explanations.
 
-## Setup Instructions
-
-### 1. Environment Setup
-Create a `.env` file in the `backend/` directory:
+```text
+React TPO Dashboard / Student Portal
+              |
+        FastAPI REST API
+              |
+ PlacementManagerAgent
+      | JDIntakeAgent
+      | EligibilityAgent
+      | MatchingAgent
+      | SchedulingAgent
+      | CoordinationAgent
+      | Exception / Negotiation Agent
+      | NotificationAgent
+      | ResumeIntelligenceAgent
+      | ReadinessCoachAgent
+              |
+        SQLAlchemy Data Layer
 ```
-GEMINI_API_KEY=your_gemini_api_key
-DATABASE_URL=sqlite+aiosqlite:///./placement.db
-EMAIL_PROVIDER_API_KEY=mock_key
+
+## Setup
+
+```powershell
+cd "C:\Users\imman\Downloads\Agentic AI Hackathon"
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r backend\requirements.txt
+Copy-Item backend\.env.example backend\.env
+cd backend
+..\.venv\Scripts\python.exe seed.py
+..\.venv\Scripts\python.exe -m uvicorn main:app --reload --port 8000
 ```
 
-### 2. Backend Setup
-1. Navigate to the backend directory: `cd backend`
-2. Create virtual environment: `python -m venv venv`
-3. Activate it: `venv\Scripts\activate` (Windows) or `source venv/bin/activate` (Mac/Linux)
-4. Install dependencies: `pip install fastapi uvicorn sqlalchemy aiosqlite pydantic google-genai python-dotenv`
-5. Seed database: `python seed.py`
-6. Run the server: `uvicorn main:app --reload`
+In another terminal:
 
-### 3. Frontend Setup
-1. Navigate to the frontend directory: `cd frontend`
-2. Install dependencies: `npm install`
-3. Start the dev server: `npm run dev`
+```powershell
+cd "C:\Users\imman\Downloads\Agentic AI Hackathon\frontend"
+npm install
+npm run dev
+```
 
-## Demo Flow
-1. Open the React Dashboard.
-2. Click **Create New Placement Drive**.
-3. Upload JD text and click **Extract Requirements**. The `JDIntakeAgent` uses Gemini to extract structured requirements.
-4. **Confirm & Publish** the requirements.
-5. Click **Run Eligibility Filter**. The `EligibilityAgent` filters the 100 seeded students deterministically based on CGPA, branch, etc.
-6. Click **Run Match & Rank**. The `MatchingAgent` calculates a hybrid score for each eligible candidate and uses Gemini to generate a natural language explanation.
-7. Click **Approve Shortlist** to simulate TPO approval.
-8. Click **Generate Interview Schedule**. The `SchedulingAgent` and `CoordinationAgent` create time slots and assign rooms/panels.
-9. **Exception Handling Demo**: Simulate an outage by changing a Panel's status to `UNAVAILABLE` in the database, then click **Detect Conflicts**. The `ExceptionAgent` will flag affected interviews. Click **Resolve** to have the agent replan and assign a new panel.
+Demo accounts after seeding:
+
+- TPO: `tpo@example.com` / `password123`
+- Student: `isaac.bakshi1@example.com` / `password123`
+
+## Main API
+
+- `POST /api/drives`
+- `POST /api/drives/{id}/parse-jd`
+- `POST /api/drives/{id}/jd`
+- `GET /api/drives/{id}/eligibility`
+- `POST /api/drives/{id}/matches`
+- `GET /api/matching/{driveId}/{studentId}/evidence`
+- `POST /api/drives/{id}/shortlist/approve`
+- `POST /api/drives/{id}/schedule/generate`
+- `POST /api/demo/simulate-panel-conflict`
+- `POST /api/exceptions/check`
+- `POST /api/exceptions/{id}/negotiate`
+- `POST /api/exceptions/{id}/resolve`
+- `POST /api/students/{id}/resume`
+- `POST /api/offers`, `PATCH /api/offers/{id}/accept`
+- `POST /api/readiness/generate`
+- `GET /api/dashboard/summary`, `GET /api/agent-events`, `GET /api/audit-log`
+
+## Verification
+
+```powershell
+cd backend
+..\.venv\Scripts\python.exe -m pytest
+cd ..\frontend
+npm run build
+```
+
+Core demo path:
+
+1. TPO creates a drive.
+2. JDIntakeAgent extracts requirements.
+3. TPO confirms JD requirements.
+4. EligibilityAgent filters students deterministically.
+5. MatchingAgent ranks candidates with evidence and explanations.
+6. TPO approves a shortlist.
+7. SchedulingAgent and CoordinationAgent create interviews.
+8. TPO simulates a panel conflict.
+9. Exception/Negotiation agents propose alternatives.
+10. TPO approves a resolution.
+11. NotificationAgent sends mock updates.
+12. Student portal shows resume intelligence, matches, readiness plans, and offer status.

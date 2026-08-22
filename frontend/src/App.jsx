@@ -17,7 +17,10 @@ function TPODashboard({ user, logout }) {
   const [schedule, setSchedule] = useState([])
   const [exceptions, setExceptions] = useState([])
   const [agentEvents, setAgentEvents] = useState([])
+  const [summary, setSummary] = useState(null)
+  const [auditLog, setAuditLog] = useState([])
   const [negotiation, setNegotiation] = useState(null)
+  const [selectedEvidence, setSelectedEvidence] = useState(null)
   const [loading, setLoading] = useState(false)
   const [currentView, setCurrentView] = useState('dashboard') // 'dashboard' or 'drives'
   
@@ -25,6 +28,9 @@ function TPODashboard({ user, logout }) {
   const currentDrive = drives.find(d => d.id === driveId)
 
   useEffect(() => {
+    fetchSummary()
+    fetchEvents()
+    fetchAuditLog()
     if (!driveId) {
       fetch(`${API_BASE}/drives`)
         .then(res => res.json())
@@ -58,6 +64,16 @@ function TPODashboard({ user, logout }) {
     setAgentEvents(data)
   }
 
+  const fetchSummary = async () => {
+    const res = await fetch(`${API_BASE}/dashboard/summary`)
+    if (res.ok) setSummary(await res.json())
+  }
+
+  const fetchAuditLog = async () => {
+    const res = await fetch(`${API_BASE}/audit-log`)
+    if (res.ok) setAuditLog(await res.json())
+  }
+
   const createDrive = async () => {
     setLoading(true)
     try {
@@ -66,6 +82,7 @@ function TPODashboard({ user, logout }) {
       setDriveId(data.id)
       setStep(1)
       fetchEvents()
+      fetchSummary()
       fetch(`${API_BASE}/drives`).then(res => res.json()).then(setDrives)
     } finally {
       setLoading(false)
@@ -100,6 +117,8 @@ function TPODashboard({ user, logout }) {
         body: JSON.stringify(parsedJd)
       })
       setStep(3)
+      fetchEvents()
+      fetchSummary()
       fetch(`${API_BASE}/drives`).then(res => res.json()).then(setDrives)
     } finally {
       setLoading(false)
@@ -114,6 +133,7 @@ function TPODashboard({ user, logout }) {
       const data = await res.json()
       setEligibility(data)
       setStep(4)
+      fetchSummary()
     } catch (e) {
       alert("Error filtering eligibility: " + e.message)
     } finally {
@@ -130,6 +150,7 @@ function TPODashboard({ user, logout }) {
     setMatches(data)
     setStep(5)
     fetchEvents()
+    fetchSummary()
   }
 
   const approveShortlist = async () => {
@@ -140,6 +161,9 @@ function TPODashboard({ user, logout }) {
       body: JSON.stringify(studentIds)
     })
     setStep(6)
+    fetchEvents()
+    fetchSummary()
+    fetchAuditLog()
   }
 
   const generateSchedule = async () => {
@@ -149,6 +173,7 @@ function TPODashboard({ user, logout }) {
     setSchedule(data)
     setStep(7)
     fetchEvents()
+    fetchSummary()
   }
 
   const detectExceptions = async () => {
@@ -157,6 +182,22 @@ function TPODashboard({ user, logout }) {
     const data = await res.json()
     setExceptions(data)
     fetchEvents()
+    fetchSummary()
+  }
+
+  const simulateConflict = async () => {
+    await fetch(`${API_BASE}/demo/simulate-panel-conflict${driveId ? `?drive_id=${driveId}` : ''}`, { method: 'POST' })
+    await detectExceptions()
+  }
+
+  const sendNotifications = async () => {
+    await fetch(`${API_BASE}/drives/${driveId}/notifications/send`, { method: 'POST' })
+    fetchEvents()
+  }
+
+  const showEvidence = async (match) => {
+    const res = await fetch(`${API_BASE}/matching/${match.drive_id}/${match.student_id}/evidence`)
+    if (res.ok) setSelectedEvidence(await res.json())
   }
 
   const startNegotiation = async (excId) => {
@@ -173,6 +214,7 @@ function TPODashboard({ user, logout }) {
     })
     setNegotiation(null)
     detectExceptions()
+    fetchAuditLog()
   }
 
   return (
@@ -203,8 +245,56 @@ function TPODashboard({ user, logout }) {
           {currentView === 'dashboard' ? (
             <section className="d-flex flex-col gap-md">
               <h2>Overview</h2>
-              <div className="card">
-                <p className="text-secondary text-center py-xl">Welcome to Placera. Switch to the Drives tab to manage placement workflows.</p>
+              <div className="kpi-grid">
+                {[
+                  ['Active Drives', summary?.active_drives ?? 0, 'work'],
+                  ['Eligible Students', summary?.eligible_students ?? 0, 'groups'],
+                  ['Shortlisted', summary?.shortlisted_students ?? 0, 'how_to_reg'],
+                  ['Interviews', summary?.interviews ?? 0, 'calendar_month'],
+                  ['Pending Actions', summary?.pending_tpo_actions ?? 0, 'pending_actions'],
+                  ['Active Conflicts', summary?.active_conflicts ?? 0, 'warning'],
+                  ['Offers Accepted', summary?.offers_accepted ?? 0, 'verified'],
+                ].map(([label, value, icon]) => (
+                  <div className="kpi-card" key={label}>
+                    <span className="material-symbols-outlined">{icon}</span>
+                    <strong>{value}</strong>
+                    <span>{label}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="control-grid">
+                <div className="card">
+                  <h3>Live Agent Activity</h3>
+                  <div className="activity-feed">
+                    {agentEvents.slice(0, 7).map(evt => (
+                      <div className="activity-item" key={evt.id}>
+                        <span className={`status-dot ${evt.status?.toLowerCase()}`}></span>
+                        <div>
+                          <strong>{evt.agent}</strong>
+                          <p>{evt.message}</p>
+                        </div>
+                        <time>{new Date(evt.timestamp).toLocaleTimeString()}</time>
+                      </div>
+                    ))}
+                    {agentEvents.length === 0 && <p className="text-secondary text-sm">No activity recorded yet.</p>}
+                  </div>
+                </div>
+                <div className="card">
+                  <h3>Audit Trail</h3>
+                  <div className="activity-feed">
+                    {auditLog.slice(0, 6).map(item => (
+                      <div className="activity-item" key={item.id}>
+                        <span className="material-symbols-outlined text-secondary">history</span>
+                        <div>
+                          <strong>{item.action}</strong>
+                          <p>{item.entity} #{item.entity_id}</p>
+                        </div>
+                        <time>{new Date(item.timestamp).toLocaleTimeString()}</time>
+                      </div>
+                    ))}
+                    {auditLog.length === 0 && <p className="text-secondary text-sm">No approvals recorded yet.</p>}
+                  </div>
+                </div>
               </div>
             </section>
           ) : currentView === 'activity' ? (
@@ -389,12 +479,40 @@ function TPODashboard({ user, logout }) {
                           <tr key={m.id}>
                             <td style={{ fontWeight: 600 }}>Student #{m.student_id}</td>
                             <td><span className="badge active">{m.match_score.toFixed(1)}%</span></td>
-                            <td className="text-secondary text-sm">{m.explanation}</td>
+                            <td className="text-secondary text-sm">
+                              {m.explanation}
+                              <button className="link-button" onClick={() => showEvidence(m)}>Why this student?</button>
+                            </td>
                           </tr>
                         ))}
                       </tbody>
                     </table>
                   </div>
+                  {selectedEvidence && (
+                    <div className="card evidence-card">
+                      <div className="card-header">
+                        <div>
+                          <h3>Evidence Graph: Student #{selectedEvidence.student_id}</h3>
+                          <p className="text-secondary text-sm">{selectedEvidence.explanation}</p>
+                        </div>
+                        <span className="badge active">{selectedEvidence.match_score.toFixed(1)}%</span>
+                      </div>
+                      <div className="skill-graph">
+                        <div className="graph-root">Job Requirements</div>
+                        {[...selectedEvidence.matched_skills, ...selectedEvidence.missing_skills].map(skill => {
+                          const matched = selectedEvidence.matched_skills.includes(skill)
+                          const evidence = selectedEvidence.skill_evidence?.[skill] || []
+                          return (
+                            <div className={`graph-node ${matched ? 'matched' : 'missing'}`} key={skill}>
+                              <strong>{skill}</strong>
+                              <span>{matched ? 'Matched' : 'Skill gap'}</span>
+                              <small>{matched ? (Array.isArray(evidence) ? evidence.join(', ') : evidence) : 'No supporting evidence found.'}</small>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  )}
                 </section>
               )}
 
@@ -430,6 +548,14 @@ function TPODashboard({ user, logout }) {
                     ) : (
                       <p className="text-sm mt-sm" style={{ color: 'green' }}>No conflicts detected.</p>
                     )}
+                    <div className="d-flex gap-sm mt-md" style={{ flexWrap: 'wrap' }}>
+                      <button className="btn btn-secondary" onClick={simulateConflict}>
+                        <span className="material-symbols-outlined">report</span> Simulate Panel Conflict
+                      </button>
+                      <button className="btn btn-primary" onClick={sendNotifications}>
+                        <span className="material-symbols-outlined">outgoing_mail</span> Send Mock Notifications
+                      </button>
+                    </div>
                   </div>
                 </section>
               )}
@@ -475,6 +601,13 @@ function TPODashboard({ user, logout }) {
               <span className="material-symbols-outlined">warning</span> Detect Exceptions
             </button>
 
+            <button
+              className="btn btn-secondary mt-sm"
+              onClick={fetchSummary}
+            >
+              <span className="material-symbols-outlined">monitoring</span> Refresh KPIs
+            </button>
+
             {/* System Status Removed */}
           </div>
         </div>
@@ -489,13 +622,34 @@ function StudentDashboard({ user, logout }) {
   const [uploadSuccess, setUploadSuccess] = useState(false)
   const [parsedData, setParsedData] = useState(null)
   const [drives, setDrives] = useState([])
+  const [matches, setMatches] = useState([])
+  const [offers, setOffers] = useState([])
+  const [readinessPlans, setReadinessPlans] = useState([])
 
   useEffect(() => {
     fetch(`${API_BASE}/drives`)
       .then(res => res.json())
       .then(data => setDrives(data))
       .catch(err => console.error("Error fetching drives:", err))
+    refreshStudentData()
   }, [])
+
+  const refreshStudentData = async () => {
+    if (!user.student_id) return
+    const [resumeRes, matchesRes, offersRes, readinessRes] = await Promise.all([
+      fetch(`${API_BASE}/students/${user.student_id}/resume`),
+      fetch(`${API_BASE}/students/${user.student_id}/matches`),
+      fetch(`${API_BASE}/students/${user.student_id}/offers`),
+      fetch(`${API_BASE}/readiness/${user.student_id}`),
+    ])
+    if (resumeRes.ok) {
+      const resume = await resumeRes.json()
+      setParsedData(resume.structured_data)
+    }
+    if (matchesRes.ok) setMatches(await matchesRes.json())
+    if (offersRes.ok) setOffers(await offersRes.json())
+    if (readinessRes.ok) setReadinessPlans(await readinessRes.json())
+  }
 
   const handleResumeUpload = async () => {
     if (!resumeFile) return
@@ -514,10 +668,25 @@ function StudentDashboard({ user, logout }) {
       }
       setUploading(false)
       setUploadSuccess(true)
+      refreshStudentData()
     } catch (err) {
       setUploading(false)
       alert("Failed to upload/parse resume: " + err.message)
     }
+  }
+
+  const generateReadiness = async (match) => {
+    await fetch(`${API_BASE}/readiness/generate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ student_id: user.student_id, drive_id: match.drive_id })
+    })
+    refreshStudentData()
+  }
+
+  const acceptOffer = async (offerId) => {
+    await fetch(`${API_BASE}/offers/${offerId}/accept`, { method: 'PATCH' })
+    refreshStudentData()
   }
 
   return (
@@ -568,6 +737,67 @@ function StudentDashboard({ user, logout }) {
               )}
             </div>
           </section>
+
+          <section className="d-flex flex-col gap-md">
+            <h2>My Match Explanations</h2>
+            <div className="d-flex flex-col gap-md">
+              {matches.slice(0, 5).map(match => (
+                <div key={match.id} className="card">
+                  <div className="card-header">
+                    <div>
+                      <h3>Drive #{match.drive_id}</h3>
+                      <p className="text-secondary text-sm">{match.explanation}</p>
+                    </div>
+                    <span className="badge active">{match.match_score.toFixed(1)}%</span>
+                  </div>
+                  <div className="d-flex gap-xs" style={{ flexWrap: 'wrap' }}>
+                    {(match.matched_skills || '').split(',').filter(Boolean).map(skill => <span key={skill} className="badge success">{skill}</span>)}
+                    {(match.missing_skills || '').split(',').filter(Boolean).map(skill => <span key={skill} className="badge warning">{skill}</span>)}
+                  </div>
+                  <button className="btn btn-secondary" style={{ alignSelf: 'flex-start' }} onClick={() => generateReadiness(match)}>
+                    <span className="material-symbols-outlined">psychology</span> Generate Readiness Plan
+                  </button>
+                </div>
+              ))}
+              {matches.length === 0 && <p className="text-secondary text-sm">No match recommendations available yet.</p>}
+            </div>
+          </section>
+
+          <section className="d-flex flex-col gap-md">
+            <h2>Readiness Coach</h2>
+            <div className="card">
+              {readinessPlans.length > 0 ? readinessPlans.slice(0, 2).map(plan => (
+                <div key={plan.id} className="readiness-plan">
+                  <div className="card-header">
+                    <strong>Drive #{plan.drive_id}</strong>
+                    <span className="badge active">{plan.readiness_score.toFixed(1)}%</span>
+                  </div>
+                  <p className="text-secondary text-sm">Skill gaps: {plan.skill_gaps || 'None'}</p>
+                  <pre>{plan.plan}</pre>
+                </div>
+              )) : <p className="text-secondary text-sm">Generate a plan from one of your match explanations.</p>}
+            </div>
+          </section>
+
+          <section className="d-flex flex-col gap-md">
+            <h2>Offers</h2>
+            <div className="card">
+              {offers.map(offer => (
+                <div key={offer.id} className="offer-row">
+                  <div>
+                    <strong>Drive #{offer.drive_id}</strong>
+                    <p className="text-secondary text-sm">Status: {offer.status}</p>
+                  </div>
+                  {offer.status === 'PENDING' && (
+                    <button className="btn btn-primary" onClick={() => acceptOffer(offer.id)}>
+                      Accept Offer
+                    </button>
+                  )}
+                </div>
+              ))}
+              {offers.length === 0 && <p className="text-secondary text-sm">No offers recorded yet.</p>}
+            </div>
+          </section>
         </div>
 
         {/* Sidebar */}
@@ -577,7 +807,7 @@ function StudentDashboard({ user, logout }) {
             <div className="d-flex items-start justify-between">
               <div>
                 <h3>My Profile</h3>
-                <p className="text-secondary text-sm mt-xs">Computer Science & Engineering</p>
+                <p className="text-secondary text-sm mt-xs">{parsedData?.branch || 'Profile pending resume extraction'}</p>
               </div>
               <span className="material-symbols-outlined text-secondary">person</span>
             </div>
@@ -586,24 +816,25 @@ function StudentDashboard({ user, logout }) {
               <div style={{ width: 64, height: 64, borderRadius: '50%', backgroundColor: 'var(--surface-container-high)', border: '1px solid var(--outline)', overflow: 'hidden' }}>
               </div>
               <div>
-                <p className="text-secondary text-sm font-bold" style={{ textTransform: 'uppercase', letterSpacing: '0.05em' }}>Current CGPA</p>
-                <p style={{ fontSize: '32px', fontWeight: 600, margin: 0 }}>8.5</p>
+                <p className="text-secondary text-sm font-bold" style={{ textTransform: 'uppercase', letterSpacing: 0 }}>Current CGPA</p>
+                <p style={{ fontSize: '32px', fontWeight: 600, margin: 0 }}>{parsedData?.cgpa || '—'}</p>
               </div>
             </div>
 
             <div className="mt-md">
-              <p className="text-secondary text-sm font-bold mb-sm" style={{ textTransform: 'uppercase', letterSpacing: '0.05em' }}>Key Skills</p>
+              <p className="text-secondary text-sm font-bold mb-sm" style={{ textTransform: 'uppercase', letterSpacing: 0 }}>Key Skills</p>
               <div className="d-flex gap-xs" style={{ flexWrap: 'wrap' }}>
-                <span className="badge" style={{ border: '1px solid var(--outline)' }}>Python</span>
-                <span className="badge" style={{ border: '1px solid var(--outline)' }}>React</span>
-                <span className="badge" style={{ border: '1px solid var(--outline)' }}>TypeScript</span>
+                {(parsedData?.skills || []).slice(0, 8).map((skill, index) => (
+                  <span key={index} className="badge" style={{ border: '1px solid var(--outline)' }}>{skill.name || skill}</span>
+                ))}
+                {(!parsedData?.skills || parsedData.skills.length === 0) && <span className="text-secondary text-sm">Upload a resume to extract skills.</span>}
               </div>
             </div>
           </div>
 
           {/* Quick Actions & Resume */}
           <div className="card">
-            <h4 className="text-secondary text-sm font-bold mb-md" style={{ textTransform: 'uppercase', letterSpacing: '0.05em', margin: '0 0 16px 0' }}>Resume Intelligence</h4>
+            <h4 className="text-secondary text-sm font-bold mb-md" style={{ textTransform: 'uppercase', letterSpacing: 0, margin: '0 0 16px 0' }}>Resume Intelligence</h4>
             <div className="d-flex flex-col gap-sm">
               <input type="file" accept="application/pdf" onChange={e => setResumeFile(e.target.files[0])} style={{ fontSize: '12px' }} />
               <button className="btn btn-primary justify-between" style={{ width: '100%' }} onClick={handleResumeUpload} disabled={uploading || !resumeFile}>
@@ -623,7 +854,7 @@ function StudentDashboard({ user, logout }) {
               )}
             </div>
 
-            <h4 className="text-secondary text-sm font-bold mt-md mb-md" style={{ textTransform: 'uppercase', letterSpacing: '0.05em', margin: '16px 0' }}>Quick Actions</h4>
+            <h4 className="text-secondary text-sm font-bold mt-md mb-md" style={{ textTransform: 'uppercase', letterSpacing: 0, margin: '16px 0' }}>Quick Actions</h4>
             <div className="d-flex flex-col gap-sm">
               <button className="btn btn-secondary justify-between" style={{ width: '100%' }}>
                 Mock Interview <span className="material-symbols-outlined text-sm">video_camera_front</span>

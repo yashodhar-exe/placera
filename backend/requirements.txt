@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+sqlalchemy
+aiosqlite
+pydantic
+google-genai
+python-dotenv
+pypdf
+python-multipart
+PyJWT
+passlib
+bcrypt<4.1
+pytest
+httpx
