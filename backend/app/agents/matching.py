@@ -51,6 +51,7 @@ class MatchingAgent:
         )
         eligible_results = result.scalars().all()
         
+        self._temp_overloaded = False
         for er in eligible_results:
             student = er.student
 
@@ -168,7 +169,7 @@ class MatchingAgent:
         return len(eligible_results)
 
     def _generate_explanations(self, name, role, score, matched, missing, evidence_map):
-        if not self.client:
+        if not self.client or getattr(self, "_temp_overloaded", False):
             return (
                 f"Candidate {name} has a match score of {score:.1f}% for {role}.",
                 f"Missing: {', '.join(missing) or 'None'}"
@@ -199,7 +200,9 @@ class MatchingAgent:
             
             data = json.loads(content)
             return data.get("explanation", ""), data.get("missing_explanation", "")
-        except Exception:
+        except Exception as e:
+            if "429" in str(e) or "Too Many Requests" in str(e):
+                self._temp_overloaded = True
             return (
                 f"{name} is a {score:.1f}% match. Matched: {','.join(matched)}.",
                 f"Missing: {','.join(missing)}."

@@ -224,3 +224,12 @@ class ReadinessPlan(Base):
     skill_gaps = Column(Text) # Comma separated
     plan = Column(Text) # Detailed plan text/markdown
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+class StudentApplication(Base):
+    __tablename__ = "student_applications"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    student_id = Column(Integer, ForeignKey("students.id"))
+    drive_id = Column(Integer, ForeignKey("job_drives.id"))
+    status = Column(String, default="PENDING") # PENDING, APPROVED, REJECTED
+    timestamp = Column(DateTime, default=lambda: datetime.now(timezone.utc))

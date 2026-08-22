@@ -12,7 +12,7 @@ import contextlib
 import logging
 
 from app.database import get_db, engine, Base
-from app.models import JobDrive, EligibilityResult, CandidateMatch, Interview, SystemException, Resume, AgentEvent, Offer, ReadinessPlan, User, Student, JobSkill, AuditLog, InterviewPanel
+from app.models import JobDrive, EligibilityResult, CandidateMatch, Interview, SystemException, Resume, AgentEvent, Offer, ReadinessPlan, User, Student, JobSkill, AuditLog, InterviewPanel, Company, StudentApplication, Venue, TimeSlot
 from app.agents.manager import PlacementManagerAgent
 from app.auth import get_password_hash, verify_password, create_access_token
 
@@ -91,6 +91,12 @@ async def record_audit(
     payload = details if isinstance(details, str) else json.dumps(details or {})
     db.add(AuditLog(action=action, entity=entity, entity_id=entity_id, details=payload))
 
+@app.get("/api/companies")
+async def get_companies(db: AsyncSession = Depends(get_db)):
+    result = await db.execute(select(Company).order_by(Company.name))
+    companies = result.scalars().all()
+    return [{"id": c.id, "name": c.name} for c in companies]
+
 @app.get("/api/drives")
 async def get_drives(db: AsyncSession = Depends(get_db)):
     result = await db.execute(
@@ -146,6 +152,57 @@ async def confirm_jd(drive_id: int, request: JDConfirmRequest, db: AsyncSession 
     
     await db.commit()
     return {"status": "success", "drive": drive}
+
+class ApplicationRequest(BaseModel):
+    student_id: int
+    drive_id: int
+
+@app.post("/api/applications")
+async def create_application(req: ApplicationRequest, db: AsyncSession = Depends(get_db)):
+    app_entry = StudentApplication(student_id=req.student_id, drive_id=req.drive_id)
+    db.add(app_entry)
+    await record_event(db, "System", "APPLICATION_SUBMITTED", f"Student {req.student_id} applied for Drive {req.drive_id}.", {"student_id": req.student_id, "drive_id": req.drive_id}, f"student:{req.student_id}")
+    await db.commit()
+    return {"status": "success"}
+
+@app.get("/api/applications")
+async def get_applications(db: AsyncSession = Depends(get_db)):
+    result = await db.execute(
+        select(StudentApplication, Student.name.label("student_name"), JobDrive.company_name.label("company_name"), JobDrive.role.label("role"))
+        .outerjoin(Student, StudentApplication.student_id == Student.id)
+        .outerjoin(JobDrive, StudentApplication.drive_id == JobDrive.id)
+        .order_by(StudentApplication.timestamp.desc())
+    )
+    rows = result.all()
+    out = []
+    for app, s_name, c_name, role in rows:
+        out.append({
+            "id": app.id,
+            "student_id": app.student_id,
+            "student_name": s_name,
+            "drive_id": app.drive_id,
+            "company_name": c_name,
+            "role": role,
+            "status": app.status,
+            "timestamp": app.timestamp.isoformat() if app.timestamp else None
+        })
+    return out
+
+@app.patch("/api/applications/{app_id}/{action}")
+async def review_application(app_id: int, action: str, db: AsyncSession = Depends(get_db)):
+    if action not in ["approve", "reject"]:
+        raise HTTPException(status_code=400, detail="Invalid action")
+    
+    app_entry = await db.get(StudentApplication, app_id)
+    if not app_entry:
+        raise HTTPException(status_code=404, detail="Application not found")
+        
+    app_entry.status = "APPROVED" if action == "approve" else "REJECTED"
+    await record_event(db, "System", "APPLICATION_REVIEWED", f"Application {app_id} {app_entry.status.lower()}.", {"app_id": app_id}, f"student:{app_entry.student_id}")
+    await db.commit()
+    return {"status": "success"}
+
+
 
 @app.get("/api/drives/{drive_id}/eligibility")
 async def get_eligibility(drive_id: int, db: AsyncSession = Depends(get_db)):
@@ -204,8 +261,37 @@ async def generate_schedule(drive_id: int, db: AsyncSession = Depends(get_db)):
 
 @app.get("/api/drives/{drive_id}/schedule")
 async def get_schedule(drive_id: int, db: AsyncSession = Depends(get_db)):
-    result = await db.execute(select(Interview).where(Interview.drive_id == drive_id))
-    return result.scalars().all()
+    result = await db.execute(
+        select(
+            Interview, 
+            Student.name.label("student_name"), 
+            InterviewPanel.name.label("panel_name"), 
+            Venue.name.label("venue_name"),
+            TimeSlot.start_time,
+            TimeSlot.end_time
+        )
+        .outerjoin(Student, Interview.student_id == Student.id)
+        .outerjoin(InterviewPanel, Interview.panel_id == InterviewPanel.id)
+        .outerjoin(Venue, Interview.venue_id == Venue.id)
+        .outerjoin(TimeSlot, Interview.time_slot_id == TimeSlot.id)
+        .where(Interview.drive_id == drive_id)
+    )
+    rows = result.all()
+    out = []
+    for interview, s_name, p_name, v_name, stime, etime in rows:
+        out.append({
+            "id": interview.id,
+            "student_id": interview.student_id,
+            "student_name": s_name,
+            "panel_id": interview.panel_id,
+            "panel_name": p_name,
+            "venue_id": interview.venue_id,
+            "venue_name": v_name,
+            "status": interview.status,
+            "start_time": stime.isoformat() if stime else None,
+            "end_time": etime.isoformat() if etime else None
+        })
+    return out
 
 @app.post("/api/exceptions/check")
 async def check_exceptions(db: AsyncSession = Depends(get_db)):
@@ -403,7 +489,7 @@ async def negotiate_exception(exception_id: int, db: AsyncSession = Depends(get_
 
 @app.get("/api/students/{student_id}/readiness")
 async def get_readiness_plan(student_id: int, db: AsyncSession = Depends(get_db)):
-    result = await db.execute(select(ReadinessPlan).where(ReadinessPlan.student_id == student_id))
+    result = await db.execute(select(ReadinessPlan).where(ReadinessPlan.student_id == student_id).order_by(ReadinessPlan.created_at.desc()))
     return result.scalars().all()
 
 @app.post("/api/readiness/generate")

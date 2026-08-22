@@ -178,12 +178,19 @@ h3 {
   background-color: var(--background);
 }
 
+.btn-quick-action {
+  justify-content: flex-start;
+  padding-left: 25%;
+  gap: var(--spacing-md);
+}
+
 /* Table */
 .table-container {
   background-color: var(--surface);
   border: 1px solid var(--outline);
   border-radius: var(--radius-card);
-  overflow: hidden;
+  overflow-y: auto;
+  max-height: 500px;
 }
 
 table {
@@ -201,12 +208,14 @@ th {
   letter-spacing: 0;
   font-weight: 600;
   border-bottom: 1px solid var(--outline);
+  text-align: left;
 }
 
 td {
   padding: var(--spacing-md);
   border-bottom: 1px solid var(--outline-variant);
   font-size: 14px;
+  text-align: left;
 }
 
 tr:last-child td {
@@ -373,8 +382,8 @@ tr:hover {
   color: var(--secondary);
 }
 
-.readiness-plan + .readiness-plan,
-.offer-row + .offer-row {
+.readiness-plan+.readiness-plan,
+.offer-row+.offer-row {
   border-top: 1px solid var(--outline-variant);
   padding-top: var(--spacing-md);
 }
