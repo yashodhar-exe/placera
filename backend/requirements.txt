@@ -12,3 +12,4 @@ passlib
 bcrypt<4.1
 pytest
 httpx
+asyncpg
