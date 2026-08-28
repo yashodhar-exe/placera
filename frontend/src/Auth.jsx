@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { supabase } from './supabaseClient'
 
-const API_BASE = "http://localhost:8000/api"
+const API_BASE = "http://localhost:8001/api"
 
 export default function Auth({ onAuthSuccess }) {
   const [isLogin, setIsLogin] = useState(true)
@@ -10,6 +11,58 @@ export default function Auth({ onAuthSuccess }) {
   const [name, setName] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+
+  useEffect(() => {
+    const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'SIGNED_IN' && session) {
+        setLoading(true);
+        try {
+          const user = session.user;
+          const userEmail = user.email;
+          const userName = user.user_metadata?.full_name || user.user_metadata?.name || userEmail.split('@')[0];
+          
+          const res = await fetch(`${API_BASE}/auth/oauth`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: userEmail, name: userName })
+          });
+          
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.detail || 'OAuth Authentication failed');
+          
+          onAuthSuccess({
+            token: data.token,
+            role: data.role,
+            student_id: data.student_id,
+            name: data.name
+          });
+        } catch (err) {
+          setError(err.message);
+        } finally {
+          setLoading(false);
+        }
+      }
+    });
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, [onAuthSuccess]);
+
+  const handleOAuthLogin = async (provider) => {
+    setLoading(true);
+    setError('');
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: window.location.origin,
+      }
+    });
+    if (error) {
+      setError(error.message);
+      setLoading(false);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -132,6 +185,34 @@ export default function Auth({ onAuthSuccess }) {
             {loading ? 'Please wait...' : isLogin ? 'Sign In' : 'Create Account'}
           </button>
         </form>
+
+        <div style={{ display: 'flex', alignItems: 'center', margin: '24px 0' }}>
+          <div style={{ flex: 1, height: '1px', background: 'var(--outline-variant)' }}></div>
+          <span style={{ padding: '0 12px', color: 'var(--secondary)', fontSize: '14px' }}>OR</span>
+          <div style={{ flex: 1, height: '1px', background: 'var(--outline-variant)' }}></div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <button 
+            type="button" 
+            onClick={() => handleOAuthLogin('google')}
+            disabled={loading}
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '12px', borderRadius: '8px', border: '1px solid var(--outline-variant)', background: 'var(--surface)', cursor: 'pointer', fontWeight: 'bold' }}
+          >
+            <img src="https://www.google.com/favicon.ico" width="16" height="16" alt="Google" />
+            Continue with Google
+          </button>
+          
+          <button 
+            type="button" 
+            onClick={() => handleOAuthLogin('github')}
+            disabled={loading}
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '12px', borderRadius: '8px', border: '1px solid var(--outline-variant)', background: 'var(--surface)', cursor: 'pointer', fontWeight: 'bold' }}
+          >
+            <img src="https://github.com/favicon.ico" width="16" height="16" alt="GitHub" />
+            Continue with GitHub
+          </button>
+        </div>
 
         <div style={{ textAlign: 'center', marginTop: '24px' }}>
           <p className="text-sm text-secondary">

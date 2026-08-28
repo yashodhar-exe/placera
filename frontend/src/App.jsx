@@ -5,7 +5,7 @@ import { dotPulse } from 'ldrs'
 
 dotPulse.register()
 
-const API_BASE = "http://localhost:8000/api"
+const API_BASE = "http://localhost:8001/api"
 
 function TPODashboard({ user, logout }) {
   const [driveId, setDriveId] = useState(null)
@@ -37,7 +37,7 @@ function TPODashboard({ user, logout }) {
     fetchSummary()
     fetchEvents()
     fetchAuditLog()
-    
+
     fetch(`${API_BASE}/companies`)
       .then(res => res.json())
       .then(data => setCompanies(data))
@@ -268,8 +268,8 @@ function TPODashboard({ user, logout }) {
         </div>
         <div className="d-flex gap-md items-center">
           <div style={{ position: 'relative' }}>
-            <span 
-              className="material-symbols-outlined" 
+            <span
+              className="material-symbols-outlined"
               style={{ cursor: 'pointer' }}
               onClick={() => setShowNotifications(!showNotifications)}
             >notifications</span>
@@ -303,7 +303,7 @@ function TPODashboard({ user, logout }) {
         </div>
       </header>
 
-      <main className="main-content" style={currentView === 'activity' ? { gridTemplateColumns: '1fr' } : {}}>
+      <main className="main-content" style={currentView !== 'dashboard' ? { gridTemplateColumns: '1fr' } : {}}>
         <div className="d-flex flex-col gap-xl">
           <div className="d-flex flex-col gap-xs">
             <h1>{currentView === 'dashboard' ? "Placement Hub" : currentView === 'activity' ? "System Activity Logs" : "Drives Management"}</h1>
@@ -329,40 +329,6 @@ function TPODashboard({ user, logout }) {
                     <span>{label}</span>
                   </div>
                 ))}
-              </div>
-              <div className="control-grid">
-                <div className="card">
-                  <h3>Live Agent Activity</h3>
-                  <div className="activity-feed">
-                    {agentEvents.slice(0, 7).map(evt => (
-                      <div className="activity-item" key={evt.id}>
-                        <span className={`status-dot ${evt.status?.toLowerCase()}`}></span>
-                        <div>
-                          <strong>{evt.agent}</strong>
-                          <p>{evt.message}</p>
-                        </div>
-                        <time>{new Date(evt.timestamp).toLocaleTimeString()}</time>
-                      </div>
-                    ))}
-                    {agentEvents.length === 0 && <p className="text-secondary text-sm">No activity recorded yet.</p>}
-                  </div>
-                </div>
-                <div className="card">
-                  <h3>Audit Trail</h3>
-                  <div className="activity-feed">
-                    {auditLog.slice(0, 6).map(item => (
-                      <div className="activity-item" key={item.id}>
-                        <span className="material-symbols-outlined text-secondary">history</span>
-                        <div>
-                          <strong>{item.action}</strong>
-                          <p>{item.entity} #{item.entity_id}</p>
-                        </div>
-                        <time>{new Date(item.timestamp).toLocaleTimeString()}</time>
-                      </div>
-                    ))}
-                    {auditLog.length === 0 && <p className="text-secondary text-sm">No approvals recorded yet.</p>}
-                  </div>
-                </div>
               </div>
             </section>
           ) : currentView === 'activity' ? (
@@ -417,8 +383,8 @@ function TPODashboard({ user, logout }) {
                             <h3 style={{ marginTop: 0 }}>Create New Placement Drive</h3>
                             <div className="d-flex flex-col gap-sm mt-md">
                               <label className="text-secondary text-sm">Select Company</label>
-                              <select 
-                                value={selectedCompanyId} 
+                              <select
+                                value={selectedCompanyId}
                                 onChange={e => setSelectedCompanyId(e.target.value)}
                                 style={{ padding: '8px', borderRadius: '4px', border: '1px solid var(--outline)', background: 'var(--surface-container-low)', color: 'var(--on-surface)' }}
                               >
@@ -531,9 +497,9 @@ function TPODashboard({ user, logout }) {
                     <table>
                       <thead>
                         <tr>
-                          <th>Student ID</th>
-                          <th>Match Score</th>
-                          <th>Match Logic</th>
+                          <th style={{ width: '15%' }}>Student ID</th>
+                          <th style={{ width: '15%' }}>Match Score</th>
+                          <th style={{ textAlign: 'left', width: '70%' }}>Match Logic</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -565,7 +531,7 @@ function TPODashboard({ user, logout }) {
                                     {s.is_eligible ? 'Eligible' : 'Rejected'}
                                   </span>
                                 </td>
-                                <td style={{ color: 'var(--on-surface-variant)' }}>{s.reason}</td>
+                                <td style={{ width: '33%', color: 'var(--on-surface-variant)', textAlign: 'left' }}>{s.reason}</td>
                               </tr>
                             ))}
                           </>
@@ -574,7 +540,7 @@ function TPODashboard({ user, logout }) {
                           <tr key={m.id}>
                             <td style={{ fontWeight: 600 }}>Student #{m.student_id}</td>
                             <td><span className="badge active">{m.match_score.toFixed(1)}%</span></td>
-                            <td className="text-secondary text-sm">
+                            <td className="text-secondary text-sm" style={{ textAlign: 'left' }}>
                               {m.explanation}
                               <button className="link-button" onClick={() => showEvidence(m)}>Why this student?</button>
                             </td>
@@ -634,7 +600,7 @@ function TPODashboard({ user, logout }) {
                               <td>{s.panel_name}</td>
                               <td>{s.venue_name}</td>
                               <td className="text-sm">
-                                {new Date(s.start_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} - {new Date(s.end_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                                {new Date(s.start_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - {new Date(s.end_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                               </td>
                               <td>
                                 <span style={{
@@ -695,50 +661,50 @@ function TPODashboard({ user, logout }) {
 
         {/* Sidebar */}
         <div className="d-flex flex-col gap-md">
-          {currentView !== 'activity' && (
+          {currentView === 'dashboard' && (
             <div className="card" style={{ position: 'sticky', top: '24px' }}>
               <h3 style={{ borderBottom: '1px solid var(--outline-variant)', paddingBottom: '16px' }}>Quick Actions</h3>
 
-            <button
-              className="btn btn-secondary btn-quick-action mt-md"
-              onClick={runEligibility}
-              disabled={step !== 3 || loading}
-            >
-              {(loading && step === 3) ? <l-dot-pulse size="24" speed="1.3" color="black"></l-dot-pulse> : <><span className="material-symbols-outlined">filter_alt</span> Filter Eligibility</>}
-            </button>
+              <button
+                className="btn btn-secondary btn-quick-action mt-md"
+                onClick={runEligibility}
+                disabled={step !== 3 || loading}
+              >
+                {(loading && step === 3) ? <l-dot-pulse size="24" speed="1.3" color="black"></l-dot-pulse> : <><span className="material-symbols-outlined">filter_alt</span> Filter Eligibility</>}
+              </button>
 
-            <button
-              className="btn btn-secondary btn-quick-action mt-sm"
-              onClick={approveShortlist}
-              disabled={step !== 5}
-            >
-              <span className="material-symbols-outlined">check_circle</span> Approve Shortlist
-            </button>
+              <button
+                className="btn btn-secondary btn-quick-action mt-sm"
+                onClick={approveShortlist}
+                disabled={step !== 5}
+              >
+                <span className="material-symbols-outlined">check_circle</span> Approve Shortlist
+              </button>
 
-            <button
-              className="btn btn-secondary btn-quick-action mt-sm"
-              onClick={generateSchedule}
-              disabled={step !== 6 || loading}
-            >
-              {(loading && step === 6) ? <l-dot-pulse size="24" speed="1.3" color="black"></l-dot-pulse> : <><span className="material-symbols-outlined">calendar_month</span> Generate Schedule</>}
-            </button>
+              <button
+                className="btn btn-secondary btn-quick-action mt-sm"
+                onClick={generateSchedule}
+                disabled={step !== 6 || loading}
+              >
+                {(loading && step === 6) ? <l-dot-pulse size="24" speed="1.3" color="black"></l-dot-pulse> : <><span className="material-symbols-outlined">calendar_month</span> Generate Schedule</>}
+              </button>
 
-            <button
-              className="btn btn-secondary btn-quick-action mt-sm"
-              onClick={detectExceptions}
-              disabled={step < 7}
-            >
-              <span className="material-symbols-outlined">warning</span> Detect Exceptions
-            </button>
+              <button
+                className="btn btn-secondary btn-quick-action mt-sm"
+                onClick={detectExceptions}
+                disabled={step < 7}
+              >
+                <span className="material-symbols-outlined">warning</span> Detect Exceptions
+              </button>
 
-            <button
-              className="btn btn-secondary btn-quick-action mt-sm"
-              onClick={fetchSummary}
-            >
-              <span className="material-symbols-outlined">monitoring</span> Refresh KPIs
-            </button>
+              <button
+                className="btn btn-secondary btn-quick-action mt-sm"
+                onClick={fetchSummary}
+              >
+                <span className="material-symbols-outlined">monitoring</span> Refresh KPIs
+              </button>
 
-            {/* System Status Removed */}
+              {/* System Status Removed */}
             </div>
           )}
         </div>
@@ -883,8 +849,8 @@ function StudentDashboard({ user, logout }) {
                       </div>
                     </div>
                     <div className="d-flex items-center gap-md">
-                      <button 
-                        className="btn btn-primary" 
+                      <button
+                        className="btn btn-primary"
                         onClick={() => handleApply(drive.id)}
                         disabled={appliedDrives.includes(drive.id)}
                       >
@@ -993,24 +959,31 @@ function StudentDashboard({ user, logout }) {
 
           {/* Quick Actions & Resume */}
           <div className="card">
-            <h4 className="text-secondary text-sm font-bold mb-md" style={{ textTransform: 'uppercase', letterSpacing: 0, margin: '0 0 16px 0' }}>Resume Intelligence</h4>
-            <div className="d-flex flex-col gap-sm">
-              <input type="file" accept="application/pdf" onChange={e => setResumeFile(e.target.files[0])} style={{ fontSize: '12px' }} />
+            <h4 className="text-secondary text-sm font-bold" style={{ textTransform: 'uppercase', letterSpacing: 0, margin: '0 0 5px 0' }}>Resume Intelligence</h4>
+            <div className="d-flex flex-col gap-md">
+              <label style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                padding: '12px', border: '1px dashed var(--outline)', borderRadius: '8px',
+                cursor: 'pointer', background: 'var(--surface-container-low)',
+                color: 'var(--secondary)', fontSize: '14px', fontWeight: 'bold',
+                width: '100%', boxSizing: 'border-box'
+              }}>
+                <span className="material-symbols-outlined text-sm">upload_file</span>
+                {resumeFile ? resumeFile.name : "Choose PDF Resume"}
+                <input
+                  type="file"
+                  accept="application/pdf"
+                  onChange={e => {
+                    setResumeFile(e.target.files[0]);
+                    setUploadSuccess(false); // Reset success state when new file is chosen
+                  }}
+                  style={{ display: 'none' }}
+                />
+              </label>
               <button className="btn btn-primary justify-between" style={{ width: '100%' }} onClick={handleResumeUpload} disabled={uploading || !resumeFile}>
                 {uploading ? "Parsing with AI..." : uploadSuccess ? "Profile Updated!" : "Extract Profile"} <span className="material-symbols-outlined text-sm">auto_awesome</span>
               </button>
-              {parsedData && (
-                <div className="mt-sm p-sm" style={{ background: 'var(--surface-container-low)', borderRadius: '8px', fontSize: '12px', border: '1px solid var(--outline-variant)' }}>
-                  <p className="font-bold mb-xs" style={{ color: 'var(--primary)' }}>Extracted with Gemini AI:</p>
-                  <div className="d-flex gap-sm" style={{ flexWrap: 'wrap', marginBottom: '8px' }}>
-                    {parsedData.skills?.map((s, i) => (
-                      <span key={i} className="badge" style={{ background: 'var(--primary-container)', color: 'var(--on-primary-container)', padding: '2px 6px', fontSize: '10px' }}>{s.name}</span>
-                    ))}
-                  </div>
-                  {parsedData.cgpa && <p style={{ margin: '2px 0' }}><strong>CGPA:</strong> {parsedData.cgpa}</p>}
-                  {parsedData.projects?.length > 0 && <p style={{ margin: '2px 0' }}><strong>Projects:</strong> {parsedData.projects.length} found</p>}
-                </div>
-              )}
+
             </div>
 
             <h4 className="text-secondary text-sm font-bold mt-md mb-md" style={{ textTransform: 'uppercase', letterSpacing: 0, margin: '16px 0' }}>Quick Actions</h4>

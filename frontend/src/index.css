@@ -193,10 +193,27 @@ h3 {
   max-height: 500px;
 }
 
+/* Custom Scrollbar for Table */
+.table-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.table-container::-webkit-scrollbar-track {
+  background: var(--surface-container-low);
+  border-radius: var(--radius-pill);
+}
+.table-container::-webkit-scrollbar-thumb {
+  background: var(--outline-variant);
+  border-radius: var(--radius-pill);
+}
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
-  text-align: left;
+  text-align: center;
 }
 
 th {
@@ -208,14 +225,14 @@ th {
   letter-spacing: 0;
   font-weight: 600;
   border-bottom: 1px solid var(--outline);
-  text-align: left;
+  text-align: center;
 }
 
 td {
   padding: var(--spacing-md);
   border-bottom: 1px solid var(--outline-variant);
   font-size: 14px;
-  text-align: left;
+  text-align: center;
 }
 
 tr:last-child td {

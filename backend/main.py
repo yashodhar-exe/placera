@@ -55,6 +55,10 @@ class LoginRequest(BaseModel):
     email: str
     password: str
 
+class OAuthLoginRequest(BaseModel):
+    email: str
+    name: str | None = None
+
 class OfferRequest(BaseModel):
     student_id: int
     drive_id: int
@@ -395,6 +399,46 @@ async def login(req: LoginRequest, db: AsyncSession = Depends(get_db)):
             name = student.name
             
     return {"token": token, "role": user.role, "student_id": user.student_id, "name": name}
+
+@app.post("/api/auth/oauth")
+async def oauth_login(req: OAuthLoginRequest, db: AsyncSession = Depends(get_db)):
+    result = await db.execute(select(User).where(User.email == req.email))
+    user = result.scalars().first()
+    
+    if user:
+        # Existing user, just log them in
+        token = create_access_token({"sub": user.email, "role": user.role, "student_id": user.student_id})
+        name = user.email
+        if user.role == "student" and user.student_id:
+            student_res = await db.execute(select(Student).where(Student.id == user.student_id))
+            student = student_res.scalars().first()
+            if student:
+                name = student.name
+        return {"token": token, "role": user.role, "student_id": user.student_id, "name": name}
+    else:
+        # New user via OAuth, register as student by default
+        existing_student = await db.execute(select(Student).where(Student.email == req.email))
+        student = existing_student.scalars().first()
+        student_id = None
+        if student:
+            student_id = student.id
+        else:
+            new_student = Student(name=req.name or "OAuth Student", email=req.email)
+            db.add(new_student)
+            await db.flush()
+            student_id = new_student.id
+            
+        new_user = User(
+            email=req.email,
+            password_hash=get_password_hash("OAUTH_USER"),
+            role="student",
+            student_id=student_id
+        )
+        db.add(new_user)
+        await db.commit()
+        
+        token = create_access_token({"sub": req.email, "role": "student", "student_id": student_id})
+        return {"token": token, "role": "student", "student_id": student_id, "name": req.name or req.email}
 
 # --- V1 Mock Endpoints ---
 
