@@ -179,7 +179,7 @@ class AuditLog(Base):
     entity = Column(String)
     entity_id = Column(Integer)
     details = Column(Text)
-    timestamp = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    timestamp = Column(DateTime, default=lambda: datetime.utcnow())
 
 class Resume(Base):
     __tablename__ = "resumes"
@@ -189,7 +189,7 @@ class Resume(Base):
     file_path = Column(String)
     extracted_text = Column(Text)
     structured_data = Column(Text) # JSON string
-    uploaded_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    uploaded_at = Column(DateTime, default=lambda: datetime.utcnow())
     
     student = relationship("Student")
 
@@ -201,7 +201,7 @@ class AgentEvent(Base):
     event_type = Column(String)
     message = Column(Text)
     details = Column(Text, nullable=True) # JSON string
-    timestamp = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    timestamp = Column(DateTime, default=lambda: datetime.utcnow())
     related_entity = Column(String, nullable=True)
     status = Column(String, default="INFO") # INFO, SUCCESS, WARNING, ERROR
 
@@ -212,7 +212,7 @@ class Offer(Base):
     student_id = Column(Integer, ForeignKey("students.id"))
     drive_id = Column(Integer, ForeignKey("job_drives.id"))
     status = Column(String, default="PENDING") # PENDING, ACCEPTED, DECLINED
-    offer_date = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    offer_date = Column(DateTime, default=lambda: datetime.utcnow())
 
 class ReadinessPlan(Base):
     __tablename__ = "readiness_plans"
@@ -223,7 +223,7 @@ class ReadinessPlan(Base):
     readiness_score = Column(Float)
     skill_gaps = Column(Text) # Comma separated
     plan = Column(Text) # Detailed plan text/markdown
-    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    created_at = Column(DateTime, default=lambda: datetime.utcnow())
 
 class StudentApplication(Base):
     __tablename__ = "student_applications"
@@ -232,4 +232,4 @@ class StudentApplication(Base):
     student_id = Column(Integer, ForeignKey("students.id"))
     drive_id = Column(Integer, ForeignKey("job_drives.id"))
     status = Column(String, default="PENDING") # PENDING, APPROVED, REJECTED
-    timestamp = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    timestamp = Column(DateTime, default=lambda: datetime.utcnow())
