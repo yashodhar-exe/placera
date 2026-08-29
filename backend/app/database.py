@@ -15,7 +15,7 @@ if DATABASE_URL.startswith("postgresql"):
         "prepared_statement_cache_size": 0,
     }
 
-engine = create_async_engine(DATABASE_URL, echo=False, connect_args=connect_args)
+engine = create_async_engine(DATABASE_URL, echo=False, connect_args=connect_args, pool_pre_ping=True, pool_recycle=300)
 AsyncSessionLocal = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
 Base = declarative_base()
