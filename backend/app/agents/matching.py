@@ -52,6 +52,10 @@ class MatchingAgent:
         eligible_results = result.scalars().all()
         
         self._temp_overloaded = False
+        
+        processed_students = []
+
+        # Step 1: Compute scores for all eligible students
         for er in eligible_results:
             student = er.student
 
@@ -144,25 +148,56 @@ class MatchingAgent:
             if experience_evidence:
                 evidence_json["_experience"] = experience_evidence[:2]
             
-            # Generate explanation using Gemini
-            explanation, missing_exp = self._generate_explanations(student.name, drive.role, match_score, matched, missing, skill_evidence_map)
+            processed_students.append({
+                "student": student,
+                "match_score": match_score,
+                "skill_score": skill_score,
+                "academic_score": academic_score,
+                "project_score": project_score,
+                "readiness_score": readiness_score,
+                "matched": matched,
+                "missing": missing,
+                "skill_evidence_map": skill_evidence_map,
+                "evidence_json": evidence_json
+            })
+            
+        # Step 2: Sort by match score descending
+        processed_students.sort(key=lambda x: x["match_score"], reverse=True)
+        
+        # Step 3: Generate AI Explanations and Save
+        for i, item in enumerate(processed_students):
+            student = item["student"]
+            
+            # Only use AI for top 10 candidates to save API quota and prevent timeouts
+            if i < 10:
+                explanation, missing_exp = self._generate_explanations(
+                    student.name, drive.role, item["match_score"], item["matched"], item["missing"], item["skill_evidence_map"]
+                )
+            else:
+                # Fallback for remaining candidates
+                explanation = f"Candidate {student.name} has a match score of {item['match_score']:.1f}% for {drive.role}."
+                missing_exp = f"Missing: {', '.join(item['missing']) or 'None'}"
             
             match = CandidateMatch(
                 drive_id=drive_id,
                 student_id=student.id,
-                match_score=round(match_score, 2),
-                skill_score=round(skill_score, 2),
-                academic_score=round(academic_score, 2),
-                project_score=round(project_score, 2),
-                readiness_score=round(readiness_score, 2),
-                matched_skills=",".join(matched),
-                missing_skills=",".join(missing),
+                match_score=round(item["match_score"], 2),
+                skill_score=round(item["skill_score"], 2),
+                academic_score=round(item["academic_score"], 2),
+                project_score=round(item["project_score"], 2),
+                readiness_score=round(item["readiness_score"], 2),
+                matched_skills=",".join(item["matched"]),
+                missing_skills=",".join(item["missing"]),
                 explanation=explanation,
-                skill_evidence=json.dumps(evidence_json),
+                skill_evidence=json.dumps(item["evidence_json"]),
                 missing_skills_explanation=missing_exp,
                 status="AI_RECOMMENDATION"
             )
             db.add(match)
+            
+            # Commit frequently to avoid Supabase transaction timeout
+            if len(db.new) >= 10:
+                await db.commit()
             
         drive.status = "MATCHING_DONE"
         await db.commit()

@@ -30,9 +30,10 @@ class EligibilityAgent:
             reasons = []
             
             # CGPA Check
-            if drive.cgpa_cutoff is not None and student.cgpa < drive.cgpa_cutoff:
-                is_eligible = False
-                reasons.append(f"CGPA {student.cgpa} below cutoff {drive.cgpa_cutoff}")
+            if drive.cgpa_cutoff is not None:
+                if student.cgpa is None or student.cgpa < drive.cgpa_cutoff:
+                    is_eligible = False
+                    reasons.append(f"CGPA {student.cgpa} below cutoff {drive.cgpa_cutoff}")
                 
             # Branch Check
             if allowed_branches and student.branch not in allowed_branches:
